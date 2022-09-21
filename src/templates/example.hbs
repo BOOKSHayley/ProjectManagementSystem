@@ -1,5 +1,14 @@
 <div class="page-content-wrapper">
     <div class="container-fluid">
         <button type="button" class="btn btn-primary" id="clickButton">Click!</button>
+
+        <!-- The curly brackets indicates Handlebars being used. There is a variable in the model called counter that is being referenced here -->
+        <p id="counter">Counter: {{counter}}</p> 
+
+
+        <!-- Example of using a handlebarHelper -->
+        {{#ifvalue 1 equals= counter}}
+            <p>Counter is 1!</p>
+        {{/ifvalue}}
     </div>
 </div>
