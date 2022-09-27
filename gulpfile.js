@@ -69,6 +69,13 @@ gulp.task('less-css', function(){
         .pipe(gulp.dest('./www/'));
 });
 
+gulp.task('img', function() {
+    return gulp.src([
+        './src/img/*',
+    ])
+        .pipe(gulp.dest('./www/img'));
+});
+
 
 
 // 2 main gulp commands (build and server)
@@ -77,6 +84,7 @@ gulp.task('build', gulp.series(
     'js-libs',
     'bootstrap-css',
     'less-css',
+    'img',
     'bootstrap-js',
     'html',
     'templates'
