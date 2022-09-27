@@ -5,6 +5,7 @@ var version = require('gulp-version-number');
 var handlebars = require('gulp-handlebars');
 var wrap = require('gulp-wrap');
 var declare = require('gulp-declare');
+var less = require('gulp-less');
 
 // Helper gulp commands (called by build)
 gulp.task('html', function() {
@@ -75,6 +76,7 @@ gulp.task('build', gulp.series(
     'js-all',
     'js-libs',
     'bootstrap-css',
+    'less-css',
     'bootstrap-js',
     'html',
     'templates'
