@@ -7,6 +7,15 @@ var ModelExample = Backbone.Model.extend({
         
     }
 });
+var ModelLogin = Backbone.Model.extend({
+    defaults: {
+        
+    },
+
+    initialize: function(){
+        
+    }
+});
 var ViewExample = Backbone.View.extend({
     events: {
         //Events include: click, keyup, change, etc
@@ -45,8 +54,33 @@ var ViewExample = Backbone.View.extend({
         
     },
 });
+var ViewLogin = Backbone.View.extend({
+    events: {
+        //Events include: click, keyup, change, etc
+        'click #clickButton': 'clickButtonFunction'
+    },
+
+    initialize: function(){
+
+    },
+
+    render: function(){
+        console.log(Handlebars.templates.login);
+        this.$el.html(Handlebars.templates.login(this.model.toJSON()));
+
+        //Can add functions to be run on rendering can go here
+
+        $.when(fade).done(function(){
+            $('#content').fadeIn();
+        })
+
+        this.delegateEvents();
+        return this;
+    }
+});
 var RouterExample = Backbone.Router.extend({
     routes: {
+        // These are urls that will trigger this example page to appear
         "": 'showExample',
         "/": 'showExample',
         "#": 'showExample'
@@ -54,6 +88,8 @@ var RouterExample = Backbone.Router.extend({
 
     showExample: function(){
         var fade = $.Deferred();
+
+        // window.location.href = '#login';
 
         //Set all the defaults to the model
         exampleViewPage.model.clear().set(exampleViewPage.model.defaults);
@@ -76,6 +112,38 @@ exampleViewPage = new ViewExample({
 });
 
 exampleRouter = new RouterExample();
+var RouterLogin = Backbone.Router.extend({
+    routes: {
+        // These are urls that will trigger this login page to appear
+        "login": 'showLogin'
+    },
+
+    showLogin: function(){
+        var fade = $.Deferred();
+
+        console.log('here');
+
+        //Set all the defaults to the model
+        loginViewPage.model.clear().set(loginViewPage.model.defaults);
+
+        $('#content').fadeOut(function(){
+            fade.resolve();
+            $('#content').html(loginViewPage.render().el);
+        })
+    }
+});
+
+var loginViewPage = null;
+var loginModelPage = null;
+var loginRouter = null;
+
+loginModelPage = new ModelLogin();
+loginViewPage = new ViewLogin({
+    model: loginModelPage,
+    tagName: 'div'
+});
+
+loginRouter = new RouterLogin();
 var AppRouter = Backbone.Router.extend({
     routes: {},
 });

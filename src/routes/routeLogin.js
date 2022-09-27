@@ -1,11 +1,13 @@
 var RouterLogin = Backbone.Router.extend({
     routes: {
         // These are urls that will trigger this login page to appear
-        "/#login": 'showLogin'
+        "login": 'showLogin'
     },
 
     showLogin: function(){
         var fade = $.Deferred();
+
+        console.log('here');
 
         //Set all the defaults to the model
         loginViewPage.model.clear().set(loginViewPage.model.defaults);

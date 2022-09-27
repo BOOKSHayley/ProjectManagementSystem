@@ -9,13 +9,15 @@ var RouterExample = Backbone.Router.extend({
     showExample: function(){
         var fade = $.Deferred();
 
-        //Set all the defaults to the model
-        exampleViewPage.model.clear().set(exampleViewPage.model.defaults);
+        window.location.href = '#login';
 
-        $('#content').fadeOut(function(){
-            fade.resolve();
-            $('#content').html(exampleViewPage.render().el);
-        })
+        //Set all the defaults to the model
+        // exampleViewPage.model.clear().set(exampleViewPage.model.defaults);
+
+        // $('#content').fadeOut(function(){
+        //     fade.resolve();
+        //     $('#content').html(exampleViewPage.render().el);
+        // })
     }
 });
 
