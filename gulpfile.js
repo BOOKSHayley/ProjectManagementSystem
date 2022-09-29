@@ -33,6 +33,21 @@ gulp.task('templates', function(){
         .pipe(gulp.dest('./www/'));
 });
 
+gulp.task('partials', function() {
+    // Assume all partials start with an underscore
+    return gulp.src('src/templates/partial/**/_*.hbs')
+        .pipe(handlebars())
+        .pipe(wrap('Handlebars.registerPartial(<%= processPartialName(file.relative) %>, Handlebars.templates(<%= contents %>));', {}, {
+            imports: {
+                processPartialName: function(fileName) {
+                    return JSON.stringify(path.basename(fileName, '.js').substr(1));
+                }
+            }
+        }))
+        .pipe(concat('partial.js'))
+        .pipe(gulp.dest('./www/'));
+});
+
  gulp.task('js-all', function() {
     return gulp.src([
         './src/models/*.js',
@@ -87,7 +102,8 @@ gulp.task('build', gulp.series(
     'img',
     'bootstrap-js',
     'html',
-    'templates'
+    'templates',
+    'partials'
 ));
 
 

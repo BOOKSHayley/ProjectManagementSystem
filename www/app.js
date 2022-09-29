@@ -65,7 +65,6 @@ var ViewLogin = Backbone.View.extend({
     },
 
     render: function(){
-        console.log(Handlebars.templates.login);
         this.$el.html(Handlebars.templates.login(this.model.toJSON()));
 
         //Can add functions to be run on rendering can go here
@@ -89,15 +88,15 @@ var RouterExample = Backbone.Router.extend({
     showExample: function(){
         var fade = $.Deferred();
 
-        // window.location.href = '#login';
+        window.location.href = '#login';
 
         //Set all the defaults to the model
-        exampleViewPage.model.clear().set(exampleViewPage.model.defaults);
+        // exampleViewPage.model.clear().set(exampleViewPage.model.defaults);
 
-        $('#content').fadeOut(function(){
-            fade.resolve();
-            $('#content').html(exampleViewPage.render().el);
-        })
+        // $('#content').fadeOut(function(){
+        //     fade.resolve();
+        //     $('#content').html(exampleViewPage.render().el);
+        // })
     }
 });
 
