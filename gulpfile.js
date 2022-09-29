@@ -45,7 +45,7 @@ gulp.task('partials', function() {
                 }
             }
         }))
-        .pipe(concat('partial.js'))
+        .pipe(concat('partials.js'))
         .pipe(gulp.dest('./www/'));
 });
 
