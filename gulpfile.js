@@ -6,6 +6,7 @@ var handlebars = require('gulp-handlebars');
 var wrap = require('gulp-wrap');
 var declare = require('gulp-declare');
 var less = require('gulp-less');
+var path = require('path');
 
 // Helper gulp commands (called by build)
 gulp.task('html', function() {
@@ -35,9 +36,9 @@ gulp.task('templates', function(){
 
 gulp.task('partials', function() {
     // Assume all partials start with an underscore
-    return gulp.src('src/templates/partial/**/_*.hbs')
+    return gulp.src('./src/templates/partial/**/_*.hbs')
         .pipe(handlebars())
-        .pipe(wrap('Handlebars.registerPartial(<%= processPartialName(file.relative) %>, Handlebars.templates(<%= contents %>));', {}, {
+        .pipe(wrap('Handlebars.registerPartial(<%= processPartialName(file.relative) %>, Handlebars.template(<%= contents %>));', {}, {
             imports: {
                 processPartialName: function(fileName) {
                     return JSON.stringify(path.basename(fileName, '.js').substr(1));
