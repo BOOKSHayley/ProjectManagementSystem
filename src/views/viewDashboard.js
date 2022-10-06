@@ -1,7 +1,7 @@
-var ViewLogin = Backbone.View.extend({
+var ViewDashboard = Backbone.View.extend({
     events: {
         //Events include: click, keyup, change, etc
-        'click .try-login': 'tryLogin'
+        'click #clickButton': 'clickButtonFunction'
     },
 
     initialize: function(){
@@ -9,7 +9,7 @@ var ViewLogin = Backbone.View.extend({
     },
 
     render: function(){
-        this.$el.html(Handlebars.templates.login(this.model.toJSON()));
+        this.$el.html(Handlebars.templates.dashboard(this.model.toJSON()));
 
         //Can add functions to be run on rendering can go here
 
@@ -20,10 +20,4 @@ var ViewLogin = Backbone.View.extend({
         this.delegateEvents();
         return this;
     },
-
-    tryLogin: function(){
-        if($('#loginEmail').val() == 'email' && $('#loginPw').val() == 'password') {
-            window.location.href = '#dashboard';
-        }
-    }
 });

@@ -1,3 +1,12 @@
+var ModelDashboard = Backbone.Model.extend({
+    defaults: {
+        counter: 0
+    },
+
+    initialize: function(){
+        
+    }
+});
 var ModelExample = Backbone.Model.extend({
     defaults: {
         counter: 0
@@ -15,6 +24,29 @@ var ModelLogin = Backbone.Model.extend({
     initialize: function(){
         
     }
+});
+var ViewDashboard = Backbone.View.extend({
+    events: {
+        //Events include: click, keyup, change, etc
+        'click #clickButton': 'clickButtonFunction'
+    },
+
+    initialize: function(){
+
+    },
+
+    render: function(){
+        this.$el.html(Handlebars.templates.dashboard(this.model.toJSON()));
+
+        //Can add functions to be run on rendering can go here
+
+        $.when(fade).done(function(){
+            $('#content').fadeIn();
+        })
+
+        this.delegateEvents();
+        return this;
+    },
 });
 var ViewExample = Backbone.View.extend({
     events: {
@@ -57,7 +89,7 @@ var ViewExample = Backbone.View.extend({
 var ViewLogin = Backbone.View.extend({
     events: {
         //Events include: click, keyup, change, etc
-        'click #clickButton': 'clickButtonFunction'
+        'click .try-login': 'tryLogin'
     },
 
     initialize: function(){
@@ -75,8 +107,46 @@ var ViewLogin = Backbone.View.extend({
 
         this.delegateEvents();
         return this;
+    },
+
+    tryLogin: function(){
+        if($('#loginEmail').val() == 'email' && $('#loginPw').val() == 'password') {
+            window.location.href = '#dashboard';
+        }
     }
 });
+var RouterDashboard = Backbone.Router.extend({
+    routes: {
+        // These are urls that will trigger this dashboard page to appear
+        "dashboard": 'showDashboard'
+    },
+
+    showDashboard: function(){
+        var fade = $.Deferred();
+
+        console.log('here');
+
+        //Set all the defaults to the model
+        dashboardViewPage.model.clear().set(dashboardViewPage.model.defaults);
+
+        $('#content').fadeOut(function(){
+            fade.resolve();
+            $('#content').html(dashboardViewPage.render().el);
+        })
+    }
+});
+
+var dashboardViewPage = null;
+var dashboardModelPage = null;
+var dashboardRouter = null;
+
+dashboardModelPage = new ModelDashboard();
+dashboardViewPage = new ViewDashboard({
+    model: dashboardModelPage,
+    tagName: 'div'
+});
+
+dashboardRouter = new RouterDashboard();
 var RouterExample = Backbone.Router.extend({
     routes: {
         // These are urls that will trigger this example page to appear
