@@ -45,32 +45,34 @@
 
 }
 
-.btn-alpha {
-    border-color: #09b0ef;
-    color: #09b0ef;
+.btn-primary {
+    border-color: @primary;
+    color: black;
+    background-color: @primary;
 }
 
-.btn-alpha:hover {
-    background-color: #0479a3;
-    border-color: #0479a3;
+.btn-primary:hover {
+    background-color: @secondary !important;
+    color: black !important;
+    border-color: @secondary !important;
 }
 
-.btn-alpha:focus {
-    background-color: #0479a3;
-    box-shadow: 0 0 0 0.2rem #09b0ef;
+.btn-primary:focus {
+    background-color: @secondary;
+    box-shadow: 0 0 0 0.2rem #71cced;
 }
 
-.btn-alpha:active {
-    background-color: #0479a3 !important;
+.btn-primary:active {
+    background-color: @secondary !important;
 }
 
-.btn-alpha.active {
-    background-color: #0479a3 !important;
-    border-color: #0479a3 !important;
+.btn-primary.active {
+    background-color: @secondary !important;
+    border-color: #71cced !important;
 }
 
-.btn-alpha:not(:disabled):not(.disabled).active:focus, .btn-alpha:not(:disabled):not(.disabled):active:focus, .show>.btn-alpha.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.2rem #0479a3;
+.btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem #71cced;
 }
 
 
