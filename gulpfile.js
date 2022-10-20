@@ -54,6 +54,7 @@ gulp.task('partials', function() {
         './src/models/*.js',
         './src/views/*.js',
         './src/routes/*.js',
+        './src/components/*.js',
     ]).pipe(concat('app.js'))
         .pipe(gulp.dest('./www/'));
 });
