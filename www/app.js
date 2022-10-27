@@ -28,8 +28,7 @@ var ModelLogin = Backbone.Model.extend({
 var ViewDashboard = Backbone.View.extend({
     events: {
         //Events include: click, keyup, change, etc
-        'click #clickButton': 'clickButtonFunction',
-        'click #clockIn': 'clockIn'
+        'click #clickButton': 'clickButtonFunction'
     },
 
     initialize: function(){
@@ -48,10 +47,6 @@ var ViewDashboard = Backbone.View.extend({
         this.delegateEvents();
         return this;
     },
-
-    clockIn: function(){
-        clockInModal.open(this.model);
-    }
 });
 var ViewExample = Backbone.View.extend({
     events: {
@@ -248,7 +243,6 @@ var clockInModal = {
 
             $('#clockInModal').on('hidden.bs.modal', function(){
                 $('#clockInModalDiv').remove();
-                console.log('promise resolved');
                 promise.resolve();
             });
 
