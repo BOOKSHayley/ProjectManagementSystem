@@ -1,9 +1,9 @@
-<div class="modal fade" id="clockInModal">
+<div class="modal fade" id="clockOutModal">
   <div class="modal-dialog modal-lg">
       <div class="modal-content">
 
         <div class="modal-header">
-          <h4 class="modal-title">Good Morning!</h4>
+          <h4 class="modal-title">Goodbye!</h4>
           <button type="button" class="btn-close" data-dismiss="modal"></button>
         </div>
 
@@ -13,28 +13,38 @@
             <div class="row">
               <div class="col-12">
                 <p><strong>Time:</strong> {{currentTimeFormat 'h:mm A'}}</p>
-                <h6>What tasks would you like to start time tracking today?</h6>
+                <h6>Clock out of the following active tasks:</h6>
               </div>
               
-              <button class="btn btn-outline-primary clockin-card col-4" data-taskid="1">
+              <button class="btn btn-outline-primary clockout-card col-4" data-taskid="1">
                 
                 <div style="display: flex;">
                   <div class="col-6">
                     <p><strong>Task Name</strong></p>
+
+                    <div style="display: flex">
+                      <div class="col-3">
+                        <label>Progress: </label>
+                      </div>
+                      <div class="col-9">
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                    
                   </div>
+                  
                   <div class="col-6">
-                    <p>3 hours logged</p>
+                    <p><strong>Time Spent:</strong></p>
                   </div>
                 </div>
+                
 
-                <p>Last Accessed: {{timeFormat '10-19-2022' 'M-D-YYYY'}}</p>
-
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                </div>
               </button>
 
-              <button class="btn btn-outline-primary clockin-card col-4" data-taskid="1">
+              <button class="btn btn-outline-primary clockout-card col-4" data-taskid="1">
                 
                 <div style="display: flex;">
                   <div class="col-6">
@@ -58,7 +68,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="clockInModalClockIn">Clock In</button>
+          <button type="button" class="btn btn-primary" id="clockOutModalClockOut">Clock Out</button>
         </div>
       </div>
   </div>

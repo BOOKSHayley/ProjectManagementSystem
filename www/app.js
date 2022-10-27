@@ -29,7 +29,7 @@ var ViewDashboard = Backbone.View.extend({
     events: {
         //Events include: click, keyup, change, etc
         'click #clickButton': 'clickButtonFunction',
-        'click #clockIn': 'clockIn'
+        'click #clockInButton': 'clockInButton'
     },
 
     initialize: function(){
@@ -49,9 +49,10 @@ var ViewDashboard = Backbone.View.extend({
         return this;
     },
 
-    clockIn: function(){
+    clockInButton: function(){
         clockInModal.open(this.model);
-    }
+    },
+    
 });
 var ViewExample = Backbone.View.extend({
     events: {
@@ -248,7 +249,6 @@ var clockInModal = {
 
             $('#clockInModal').on('hidden.bs.modal', function(){
                 $('#clockInModalDiv').remove();
-                console.log('promise resolved');
                 promise.resolve();
             });
 
@@ -285,4 +285,54 @@ var clockInModal = {
 
 function clockInModalOpen() {
     return $('#clockInModalDiv').length > 0;
+}
+var clockOutModal = {
+    open: function(model){
+        var promise = $.Deferred();
+
+        if($('#clockOutModalDiv').length > 0){
+            promise.resolve();
+        } else {
+
+            var div = '<div id="clockOutModalDiv"></div>';
+            $('body').append(div);
+
+            $('#clockOutModalDiv').append(Handlebars.partials.clockout_modal(model.toJSON()));
+
+            $('#clockOutModal').modal('show');
+
+            $('#clockOutModal').on('hidden.bs.modal', function(){
+                $('#clockOutModalDiv').remove();
+                promise.resolve();
+            });
+
+            $(document).on('click', '#clockOutModalClockOut', function(e){
+                //Save clock out
+                var selectedTasks = [];
+
+                $('.clockin-card.active').each(function(){
+                    selectedTasks.push($(this).attr('data-taskid'));
+                });
+
+
+                model.set('clockedOut', true);
+                model.set('clockedOutTasks', selectedTasks);
+                $('#clockOutModal').modal('hide');
+            });
+            
+        }
+
+        return promise.promise();
+    },
+
+    close: function(){
+
+        $('#clockOutModal').modal('hide');
+        $('#clockOutModalDiv').remove();
+
+    }
+}
+
+function clockOutModalOpen() {
+    return $('#clockOutModalDiv').length > 0;
 }
