@@ -254,6 +254,7 @@ var clockInModal = {
 
             $(document).on('click', '.clockin-card', function(e){
                 $(e.target).closest('button').toggleClass('active');
+                console.log($(e.currentTarget).val());
             });
 
             $(document).on('click', '#clockInModalClockIn', function(e){

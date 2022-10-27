@@ -1,8 +1,7 @@
 var ViewDashboard = Backbone.View.extend({
     events: {
         //Events include: click, keyup, change, etc
-        'click #clickButton': 'clickButtonFunction',
-        'click #clockout': 'clockout'
+        'click #clickButton': 'clickButtonFunction'
     },
 
     initialize: function(){
@@ -22,8 +21,4 @@ var ViewDashboard = Backbone.View.extend({
         return this;
     },
 
-    clockout: function(){
-        clockOutModal.open(this.model);
-    },
-    
 });
