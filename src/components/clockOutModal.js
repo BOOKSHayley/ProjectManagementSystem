@@ -19,13 +19,16 @@ var clockOutModal = {
             });
 
             $(document).on('input', '.clockout-progress-bar', function(e){
+                //Change the associated textbox when change the progress bar
                 var index = $(e.currentTarget).attr('id').split('-')[1];
                 $('#clockOutModalProgressInput-' + index).val($(e.currentTarget).val());
             });
 
             $(document).on('keyup', '.clockout-progress-input', function(e){
+                //Change the progress bar value when entering information into the associated textbox
                 var value = $(e.currentTarget).val();
 
+                //If not a number or outside of the range 0-100, error
                 if(!parseInt(value) || value < 0 || value > 100){
                     $(e.currentTarget).addClass('is-invalid');
                 } else {
@@ -43,16 +46,32 @@ var clockOutModal = {
 
             $(document).on('click', '#clockOutModalClockOut', function(e){
                 //Save clock out
-                var selectedTasks = [];
+                var endedTasks = [];
+                var valid = true;
 
-                $('.clockin-card.active').each(function(){
-                    selectedTasks.push($(this).attr('data-taskid'));
+                $('.clockout-card').each(function(){
+                    var taskID = $(this).attr('data-taskid');
+
+                    var task = {
+                        taskID: taskID,
+                        progress: $('#clockOutModalProgress-' + taskID).val(),
+                        hours: $('#clockOutModalTimeSpent-' + taskID).val()
+                    };
+
+                    if($('#clockOutModalProgressInput-' + taskID).hasClass('is-invalid')){
+                        valid = false;
+                    }
+
+                    endedTasks.push(task);
+                    
                 });
 
-
-                model.set('clockedOut', true);
-                model.set('clockedOutTasks', selectedTasks);
-                $('#clockOutModal').modal('hide');
+                if(valid){
+                    model.set('clockedOut', true);
+                    model.set('clockedOutTasks', endedTasks);
+                    $('#clockOutModal').modal('hide');
+                }
+               
             });
             
         }
