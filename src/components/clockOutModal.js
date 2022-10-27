@@ -18,6 +18,29 @@ var clockOutModal = {
                 promise.resolve();
             });
 
+            $(document).on('input', '.clockout-progress-bar', function(e){
+                var index = $(e.currentTarget).attr('id').split('-')[1];
+                $('#clockOutModalProgressInput-' + index).val($(e.currentTarget).val());
+            });
+
+            $(document).on('keyup', '.clockout-progress-input', function(e){
+                var value = $(e.currentTarget).val();
+
+                if(!parseInt(value) || value < 0 || value > 100){
+                    $(e.currentTarget).addClass('is-invalid');
+                } else {
+                    $(e.currentTarget).removeClass('is-invalid');
+                    var index = $(e.currentTarget).attr('id').split('-')[1];
+                    $('#clockOutModalProgress-' + index).val(value);
+
+                }
+                
+            });
+
+            $(document).on('focus', '.clockout-progress-input.is-invalid', function(e){
+                $(e.currentTarget).removeClass('is-invalid');
+            });
+
             $(document).on('click', '#clockOutModalClockOut', function(e){
                 //Save clock out
                 var selectedTasks = [];

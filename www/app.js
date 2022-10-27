@@ -29,7 +29,7 @@ var ViewDashboard = Backbone.View.extend({
     events: {
         //Events include: click, keyup, change, etc
         'click #clickButton': 'clickButtonFunction',
-        'click #clockInButton': 'clockInButton'
+        'click #clockout': 'clockout'
     },
 
     initialize: function(){
@@ -49,8 +49,8 @@ var ViewDashboard = Backbone.View.extend({
         return this;
     },
 
-    clockInButton: function(){
-        clockInModal.open(this.model);
+    clockout: function(){
+        clockOutModal.open(this.model);
     },
     
 });
@@ -304,6 +304,29 @@ var clockOutModal = {
             $('#clockOutModal').on('hidden.bs.modal', function(){
                 $('#clockOutModalDiv').remove();
                 promise.resolve();
+            });
+
+            $(document).on('input', '.clockout-progress-bar', function(e){
+                var index = $(e.currentTarget).attr('id').split('-')[1];
+                $('#clockOutModalProgressInput-' + index).val($(e.currentTarget).val());
+            });
+
+            $(document).on('keyup', '.clockout-progress-input', function(e){
+                var value = $(e.currentTarget).val();
+
+                if(!parseInt(value) || value < 0 || value > 100){
+                    $(e.currentTarget).addClass('is-invalid');
+                } else {
+                    $(e.currentTarget).removeClass('is-invalid');
+                    var index = $(e.currentTarget).attr('id').split('-')[1];
+                    $('#clockOutModalProgress-' + index).val(value);
+
+                }
+                
+            });
+
+            $(document).on('focus', '.clockout-progress-input.is-invalid', function(e){
+                $(e.currentTarget).removeClass('is-invalid');
             });
 
             $(document).on('click', '#clockOutModalClockOut', function(e){
