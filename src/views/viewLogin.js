@@ -22,8 +22,6 @@ var ViewLogin = Backbone.View.extend({
     },
 
     tryLogin: function(){
-        if($('#loginEmail').val() == 'email' && $('#loginPw').val() == 'password') {
-            window.location.href = '#dashboard';
-        }
+        window.location.href = '#dashboard';
     }
 });

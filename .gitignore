@@ -1,2 +1,5 @@
 node_modules
-www/**
+www
+www/app.js
+www/index.html
+www/template.js
