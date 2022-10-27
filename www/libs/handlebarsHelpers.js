@@ -9,3 +9,10 @@ Handlebars.registerHelper("ifvalue", function(conditional, options) {
     }
 });
 
+Handlebars.registerHelper('currentTimeFormat', function(format) {
+    return moment().format(format);
+});
+
+Handlebars.registerHelper('timeFormat', function(time, format) {
+    return moment(time).format(format);
+});
