@@ -1,0 +1,56 @@
+<div class="modal fade" id="taskModal">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <div class="container-fluid">
+            <div style="display: flex;">
+                <div class="col-6"><h4 class="modal-title">{{task.name}}</h4></div>
+                <div class="col-6" style="display: flex; align-items: center; justify-content:center">
+                  <h5 class="modal-title px-3">6 Hr.</h5>
+                  <div class="progress" style="width:50%">
+                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <button type="button" class="btn-close" data-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-6">
+                <h4>Assigned Users-</h4>
+                <h6>-User 1</h6>
+                <h6>-User 2</h6>
+                <button type="button" class="btn btn-dark" style="width: 145px;">Claim Task</button>
+                <h6 style="margin: 10px 0px 0px 0px">Projected finish date:</h6>
+                <h5>11-4-2020</h5>
+              </div>
+              <div class="col-6">
+                <h4>Problems</h4>
+                <div class="card" style="overflow-y:scroll; max-height: 200px">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Problem 1</li>
+                    <li class="list-group-item">Problem 2</li>
+                    <li class="list-group-item">Problem 3</li>
+                    <li class="list-group-item">Problem 4</li>
+                    <li class="list-group-item">Problem 5</li>
+                    <li class="list-group-item">Problem 6</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-12"> </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary">View Task Page</button>
+          <button type="button" class="btn btn-primary" id="startTask">Start Task</button>
+        </div>
+      </div>
+  </div>
+</div>
