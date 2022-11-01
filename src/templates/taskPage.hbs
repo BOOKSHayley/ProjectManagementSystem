@@ -33,7 +33,7 @@
                 <div>
                     <div style="display: flex;">
                         <h4>Assigned Users:</h4>
-                        <button type="button" class="btn"><span class="material-icons-outlined">add_circle_outline</span></button>
+                        <button type="button" class="btn" id="openAssignModal"><span class="material-icons">add_circle_outline</span></button>
                     </div>
                     <ul style="float: none !important">
                         <li>User 1</li>
@@ -51,7 +51,72 @@
 
             </div>
             <div class="col-6">
+                <div>
+                    <br>
+                    <br>
+                    <h4>Problems</h4>
+                    <div class="card" style="overflow-y:scroll; max-height: 150px">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Problem 1</li>
+                        <li class="list-group-item">Problem 2</li>
+                        <li class="list-group-item">Problem 3</li>
+                        <li class="list-group-item">Problem 4</li>
+                        <li class="list-group-item">Problem 5</li>
+                        <li class="list-group-item">Problem 6</li>
+                    </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <br>
+                    <h4>Task Comment Log</h4>
+                    <div class="card" style="overflow-y:scroll; max-height: 300px">
+                    <ul class="list-group list-group-flush" id="commentLog">
+                        {{#each messages}}
+                            <li class="list-group-item">{{user}}: {{comment}}</li>
+                        {{/each}}
+                    </ul>
+                    </div>
+                    <form>
+                        <div class="form-group" style="display: flex">
+                            <input class="form-control" type="text" placeholder="Send Comment..." id="comment"></textarea>
+                            <button type="button" class="btn" id="sendComment"><span class="material-icons">send</span></button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>    
+    </div>
+
+    <div class="modal fade" id="assignModal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                <div class="container-fluid">
+                    <h4>Assign To Task</h4>
+                </div>
+                <button type="button" class="btn-close" data-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                <div class="container-fluid">
+                    <label>Assign Users:</label>
+                    <div class="form-group">
+                        <input type="search" list="assignUsers" id="assignUsers-selectUser">
+                        <datalist id="assignUsers">
+                            {{#each users}}
+                                <option value="{{name}}">
+                            {{/each}}
+                        </datalist>
+                    </div>
+                </div>
+                </div>
+
+                <div class="modal-footer">
+                
+                </div>
+            </div>
+        </div>
     </div>
 </div>

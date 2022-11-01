@@ -21,10 +21,13 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-6">
-                <h4>Assigned Users-</h4>
-                <h6>-User 1</h6>
-                <h6>-User 2</h6>
-                <button type="button" class="btn btn-dark" style="width: 145px;">Claim Task</button>
+                <div id="userList">
+                  <h4>Assigned Users-</h4>
+                  {{#each users}}
+                    <h6>-{{this}}</h6>
+                  {{/each}}
+                </div>
+                <button type="button" class="btn btn-dark" style="width: 145px;" id="claimTask">Claim Task</button>
                 <h6 style="margin: 10px 0px 0px 0px">Projected finish date:</h6>
                 <h5>11-4-2020</h5>
               </div>
@@ -48,7 +51,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary">View Task Page</button>
+          <button id="viewTaskPage" type="button" class="btn btn-secondary">View Task Page</button>
           <button type="button" class="btn btn-primary" id="startTask">Start Task</button>
         </div>
       </div>
