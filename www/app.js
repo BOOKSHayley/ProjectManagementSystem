@@ -16,6 +16,14 @@ var ModelExample = Backbone.Model.extend({
         
     }
 });
+var ModelKanban = Backbone.Model.extend({
+    defaults: {
+    },
+
+    initialize: function(){
+        
+    }
+});
 var ModelLogin = Backbone.Model.extend({
     defaults: {
         
@@ -84,6 +92,29 @@ var ViewExample = Backbone.View.extend({
 
         self.render(); //Need to re-render so that the HBS updates
         
+    },
+});
+var ViewKanban = Backbone.View.extend({
+    events: {
+        //Events include: click, keyup, change, etc
+        'click #clickButton': 'clickButtonFunction'
+    },
+
+    initialize: function(){
+
+    },
+
+    render: function(){
+        this.$el.html(Handlebars.templates.Kanban(this.model.toJSON()));
+
+        //Can add functions to be run on rendering can go here
+
+        $.when(fade).done(function(){
+            $('#content').fadeIn();
+        })
+
+        this.delegateEvents();
+        return this;
     },
 });
 var ViewLogin = Backbone.View.extend({
@@ -181,6 +212,38 @@ exampleViewPage = new ViewExample({
 });
 
 exampleRouter = new RouterExample();
+var RouterKanban = Backbone.Router.extend({
+    routes: {
+        // These are urls that will trigger this kanban page to appear
+        "kanban": 'showKanban'
+    },
+
+    showKanban: function(){
+        var fade = $.Deferred();
+
+        console.log('here');
+
+        //Set all the defaults to the model
+        kanbanViewPage.model.clear().set(kanbanViewPage.model.defaults);
+
+        $('#content').fadeOut(function(){
+            fade.resolve();
+            $('#content').html(kanbanViewPage.render().el);
+        })
+    }
+});
+
+var kanbanViewPage = null;
+var kanbanModelPage = null;
+var kanbanRouter = null;
+
+kanbanModelPage = new ModelKanban();
+kanbanViewPage = new ViewKanban({
+    model: kanbanModelPage,
+    tagName: 'div'
+});
+
+kanbanRouter = new RouterKanban();
 var RouterLogin = Backbone.Router.extend({
     routes: {
         // These are urls that will trigger this login page to appear
