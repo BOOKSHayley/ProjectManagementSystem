@@ -1,0 +1,60 @@
+<div class="modal fade" id="editGroupModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Group</h4>
+                <button type="button" class="btn-close" data-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form class="col-6">
+                        <div class="form-group">
+                            <label for="editGroupName">Group Name:</label>
+                            <input type="text" class="form-control" id="editGroupName" placeholder="Name..." value="{{group.groupName}}">
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <label>Select User:</label>
+                            <input type="search" list="editGroup-users" id="editGroup-selectUser">
+                            <datalist id="editGroup-users">
+                                {{#each users}}
+                                    <option value="{{name}}">
+                                {{/each}}
+                            </datalist>
+
+                            <button type="button" class="btn btn-outline-primary m-2" id="editGroupAddSelectedUser">Add User</button>
+                        </div>
+
+                        <div class="selected-user-div">
+                            <p style="display: none; color: red" id="editGroup-noUserError">Please add at least one user</p>
+                            <table class="table table-hover" style="display: table; width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="selected-user-tbody">
+                                    {{#each group.users}}
+                                        <tr id="userRow-{{userID}}" class="user-row">
+                                            <td>{{name}}</td>
+                                            <td><button type="button" class="btn edit-group-delete-user"><span class="material-icons" style="color: red">delete</span></button></td>
+                                        </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </form>        
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirmEditGroup">Edit Group</button>
+                <button type="button" class="btn btn-danger close-modal" data-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
