@@ -8,6 +8,12 @@ var taskModal = {
 
             var div = '<div id="taskModalDiv"></div>';
             $('body').append(div);
+            
+            var users = [
+                "User 1",
+                "User 2"
+            ];
+            model.set("users", users);
 
             $('#taskModalDiv').append(Handlebars.partials.taskmodal(model.toJSON()));
 
@@ -18,6 +24,20 @@ var taskModal = {
                 promise.resolve();
             });
             
+
+            $(document).on("click", "#viewTaskPage", function(){
+                $('#taskModal').modal('hide');
+                window.location.href="#taskPage";
+            })
+
+            $(document).on("click", "#claimTask", function(){
+                var userClaim = '<h6>-Logan</h6>';
+                $("#userList").append(userClaim);
+                var currentUser = "Logan";
+                users.push(currentUser);
+                model.set("users", users);
+                $("#claimTask").css("display", "none");
+            })
         }
 
         return promise.promise();
