@@ -1,74 +1,80 @@
 {{> nav}}
-<div class="page-content-wrapper">
+<div class="page-content-wrapper-fluid">
     <div class="container-fluid">
         
         
-
+        
         <h2 class="dash-header">Kanban</h2>
 
 
 
-        <div class="dash-container">
-            
-            <div class="container">
-                <div class="dash-card-holder">
-                    <a href="#board" class="dash-card">
-                        <h5>Board</h5>
-                    </a>
-                </div>
-                
-                <div class="dash-card-holder">
-                    <div class="dash-card">
-                        <h5>Stuff</h5>
-                    </div>
-                </div>
+        <div class="dash-container-fluid">
+            <div class=
+                "h-100 p-3 mb-2 
+                border border-dark border-3 rounded-3" style="h-100">
+                <div style="display:flex">
 
-                <div class="dash-card-holder">
-                    <div class="dash-card">
-                        <h5>Teams</h5>
-                    </div>
-                </div>
+                    <div class="col-3">
+                        <h4 class="dash-header">Not Started</h4>
+                        {{!--                         
+                        <div class="card bg-secondary text-white">
+                            <a href="#task5" class="card-body">
+                                <h6 class="card-title-6 gx-6">Task 5</h6>
+                                <h6 class="card-title-6 gx-6">3 hrs</h6>
+                                
+                                <p class="card-text">3hrs</p>
+                                
+                            </a>
+                        </div>
+                        --}}
 
-                <div class="dash-card-holder">
-                    <div class="dash-card">
-                        <h5>Profile</h5>
+                        <div class="dash-card-holder-fluid">
+                            <a href="#task5" class="dash-card">
+                                <h7>Task 5</h7>
+                            </a>
+                        </div>
+
+                        <div class="dash-card-holder-fluid">
+                            <a href="#task6" class="dash-card">
+                                <h7>Task 6</h7>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <h4 class="dash-header">In Progress</h4>
+                        <div class="dash-card-holder-fluid">
+                            <a href="#task3" class="dash-card">
+                                <h7>Task 3</h7>
+                            </a>
+                        </div>
+                        <div class="dash-card-holder-fluid">
+                            <a href="#task4" class="dash-card">
+                                <h7>Task 4</h7>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <h4 class="dash-header">Testing</h4>
+                        <div class="dash-card-holder-fluid">
+                            <a href="#task2" class="dash-card">
+                                <h7>Task 2</h7>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <h4 class="dash-header">Done!</h4>
+                        <div class="dash-card-holder-fluid">
+                            <a href="#task1" class="dash-card">
+                                <h7>Task 1</h7>
+                            </a>
+                        </div>
                     </div>
 
                 </div>
             </div>
-
-
-            <div class="container">
-                <div class="dash-card-holder">
-                    <a href="#board" class="dash-card">
-                        <h5>Board</h5>
-                    </a>
-                </div>
-                
-                <div class="dash-card-holder">
-                    <div class="dash-card">
-                        <h5>Stuff</h5>
-                    </div>
-                </div>
-
-                <div class="dash-card-holder">
-                    <div class="dash-card">
-                        <h5>Teams</h5>
-                    </div>
-                </div>
-
-                <div class="dash-card-holder">
-                    <div class="dash-card">
-                        <h5>Profile</h5>
-                    </div>
-
-                </div>
-            </div>
-
         </div>
-
-        
-
-
     </div>
 </div>
