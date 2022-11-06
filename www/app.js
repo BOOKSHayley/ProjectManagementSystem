@@ -25,10 +25,80 @@ var ModelLogin = Backbone.Model.extend({
         
     }
 });
+var ModelProjects = Backbone.Model.extend({
+    defaults: {
+        projects: [
+            {
+                projectID: 10293,
+                name: 'Project 1',
+                starred: 1,
+                description: 'My first project',
+                groups: [18949]
+            },
+            {
+                projectID: 38893,
+                name: 'Serious Project',
+                starred: 1,
+                description: 'This is a serious project for serious people',
+                groups: [18949, 31829]
+            },
+            {
+                projectID: 41882,
+                name: 'Fun Project',
+                starred: 0,
+                description: 'Just for fun lol',
+                groups: [21943]
+            }
+        ],
+        groups: [
+            {
+                groupID: 18949,
+                name: 'My first group',
+                users: [
+                    {userID: 1, name: 'Hayley Roberts', initials: 'HR'},
+                    {userID: 2, name: 'Logan Lafauci', initials: 'LL'},
+                    {userID: 3, name: 'Zack Faulkner', initials: 'ZF'},
+                    {userID: 5, name: 'Olivia Cheung', initials: 'OC'},
+                    {userID: 6, name: 'Vaughn Ohlerking', initials: 'VO'},
+                ]
+            },
+            {
+                groupID: 31829,
+                name: 'Work group',
+                users: [
+                    {userID: 3, name: 'Zack Faulkner', initials: 'ZF'},
+                    {userID: 5, name: 'Olivia Cheung', initials: 'OC'},
+                    {userID: 6, name: 'Vaughn Ohlerking', initials: 'VO'},
+                    {userID: 4, name: 'Dean Compton', initials: 'DC'}
+                ]
+            },
+            {
+                groupID: 21943,
+                name: 'Fun group',
+                users: [
+                    {userID: 1, name: 'Hayley Roberts', initials: 'HR'},
+                    {userID: 5, name: 'Olivia Cheung', initials: 'OC'},
+                ]
+            }
+        ],
+        users: [
+            {userID:1, name: 'Hayley Roberts', initials: 'HR'},
+            {userID:2, name: 'Logan Lafauci', initials: 'LL'},
+            {userID:3, name: 'Zack Faulkner', initials: 'ZF'},
+            {userID:4, name: 'Dean Compton', initials: 'DC'},
+            {userID:5, name: 'Olivia Cheung', initials: 'OC'},
+            {userID:6, name: 'Vaughn Ohlerking', initials: 'VO'},
+        ]
+    },
+
+    initialize: function(){
+        
+    }
+});
 var ViewDashboard = Backbone.View.extend({
     events: {
         //Events include: click, keyup, change, etc
-        'click #clockout': 'clockout'
+        'click #clickButton': 'clickButtonFunction'
     },
 
     initialize: function(){
@@ -48,9 +118,6 @@ var ViewDashboard = Backbone.View.extend({
         return this;
     },
 
-    clockout: function(){
-        clockOutModal.open(this.model);
-    },
 });
 var ViewExample = Backbone.View.extend({
     events: {
@@ -115,6 +182,211 @@ var ViewLogin = Backbone.View.extend({
 
     tryLogin: function(){
         window.location.href = '#dashboard';
+    }
+});
+var ViewProjects = Backbone.View.extend({
+    events: {
+        'click #addGroup': 'addGroupModal',
+        'click #createGroupAddSelectedUser': 'createGroupAddSelectedUser',
+        'click .create-group-delete-user': 'createGroupModalRemoveUser',
+        'click #confirmCreateGroup': 'confirmAddGroup',
+        'click .edit-group': 'editGroupModal',
+        'click #editGroupAddSelectedUser': 'editGroupAddUser',
+        'click .edit-group-delete-user': 'editGroupDeleteUser',
+        'click #confirmEditGroup': 'confirmEditGroup',
+        'click .project-star': 'starProject',
+        'click .project-section': 'goToKanban',
+        'click .edit-project': 'editProject'
+    },
+
+    initialize: function(){
+
+    },
+
+    render: function(){
+        this.$el.html(Handlebars.templates.projects(this.model.toJSON()));
+
+        //Can add functions to be run on rendering can go here
+
+        $.when(fade).done(function(){
+            $('#content').fadeIn();
+        })
+
+        this.delegateEvents();
+        return this;
+    },
+
+    //Add Group
+    addGroupModal: function(){
+        $('#createGroupModal').modal('show');
+    },
+    createGroupAddSelectedUser: function(){
+        var name = $('#createGroup-selectUser').val();
+
+        var users = this.model.get('users');
+        var user = null;
+        var i;
+        for(i = 0; i < users.length; i++){
+            if(users[i]['name'] == name){
+                user = users[i];
+                break;
+            }
+        }
+
+        if(user){
+            var tr = '<tr id="userRow-' + i + '" class="user-row"><td>' + user['name'] + 
+            '</td> <td><button type="button" class="btn create-group-delete-user"><span class="material-icons" style="color: red">delete</span></button></td></tr>';
+
+            if($("#userRow-" + user['userID']).length === 0){
+                $('#selected-user-tbody').append(tr);    
+            }
+
+            //Clear the input
+            $('#createGroup-selectUser').val('');
+        }
+    },
+    createGroupModalRemoveUser: function(e){
+        $(e.currentTarget).closest('tr').remove();
+    },
+    confirmAddGroup: function(){
+        var groups = this.model.get('groups');
+        var users = this.model.get('users');
+
+        var newGroup = {
+            groupID: Math.random() * 10000,
+            name: $('#createGroupName').val(),
+            users: []
+        };
+
+        $('.user-row').each(function(){
+            newGroup.users.push(users[$(this).attr('id').split('-')[1]]);
+        });
+
+        var valid = true;
+
+        if(!newGroup.name){
+            valid = false;
+            $('#createGroupName').addClass('is-invalid');
+        }
+
+        if(newGroup.users.length === 0){
+            valid = false;
+            $('#createGroup-noUserError').css('display', 'flex');
+        }
+
+        if(valid){
+            groups.push(newGroup);
+            this.model.set('groups', groups);
+            $('#createGroupModal').modal('hide');
+            $('.modal-backdrop').remove();
+            this.render();
+        }
+    },
+
+    //Edit Group
+    editGroupModal: function(){
+        var index = $(event.target).attr('data-index');
+        var group = this.model.get('groups')[index];
+        this.model.set('selectedGroup', group);
+        this.render();
+        $('#editGroupModal').modal('show');
+    },
+    editGroupAddUser: function(){
+        var name = $('#editGroup-selectUser').val();
+
+        var users = model.get('users');
+        var user = null;
+        var i;
+        for(i = 0; i < users.length; i++){
+            if(users[i]['name'] == name){
+                user = users[i];
+                break;
+            }
+        }
+
+        if(user){
+            var tr = '<tr id="userRow-' + i + '" class="user-row"><td>' + user['name'] + 
+            '</td> <td><button type="button" class="btn edit-group-delete-user"><span class="material-icons" style="color: red">delete</span></button></td></tr>';
+
+            if($("#userRow-" + user['userID']).length === 0){
+                $('#selected-user-tbody').append(tr);    
+            }
+
+            //Clear the input
+            $('#editGroup-selectUser').val('');
+        }
+    },
+    editGroupDeleteUser: function(e){
+        $(e.currentTarget).closest('tr').remove();
+    },
+    confirmEditGroup: function(){
+        var selectedGroup = this.model.get('selectedGroup');
+        var groups = this.model.get('groups');
+        var users = this.model.get('users');
+
+        var updateGroup = {
+            groupID: selectedGroup['groupID'],
+            name: $('#editGroupName').val(),
+            users: []
+        };
+
+        $('.user-row').each(function(){
+            updateGroup.users.push(users[$(this).attr('id').split('-')[1]]);
+        });
+
+        var valid = true;
+
+        if(!updateGroup.name){
+            valid = false;
+            $('#editGroupName').addClass('is-invalid');
+        }
+
+        if(updateGroup.users.length === 0){
+            valid = false;
+            $('#editGroup-noUserError').css('display', 'flex');
+        }
+
+        if(valid){
+            var i;
+            for(i = 0; i < groups.length; i++){
+                if(updateGroup.groupID == groups[i].groupID){    
+                    break;
+                }
+            }
+
+            groups[i] = updateGroup;
+
+            this.model.set('groups', groups);
+            $('#editGroupModal').modal('hide');
+            $('.modal-backdrop').remove();
+            this.render();
+        }
+    },
+
+    //Projects functions
+    starProject: function(){
+        var index = $(event.target).attr('data-index');
+        var projects = this.model.get('projects');
+        var project = projects[index];
+
+        var starred = (parseInt(project['starred']) + 1) % 2;
+        project['starred'] = starred;
+
+        projects[index] = project;
+
+        this.model.set('projects', projects);
+        this.render();
+    },
+    goToKanban: function(){
+        if($(event.target)[0].nodeName !== 'BUTTON' && $(event.target)[0].nodeName !== 'SPAN'){
+            console.log('Go to kanban board');
+        }
+    },
+    editProject: function(){
+        var index = $(event.target).attr('data-index');
+        var project = this.model.get('projects')[index];
+        this.model.set('selectedProject', project);
+        console.log('Edit project');
     }
 });
 var RouterDashboard = Backbone.Router.extend({
@@ -215,6 +487,35 @@ loginViewPage = new ViewLogin({
 });
 
 loginRouter = new RouterLogin();
+var RouterProjects = Backbone.Router.extend({
+    routes: {
+        "projects": 'showProjects'
+    },
+
+    showProjects: function(){
+        var fade = $.Deferred();
+        
+        //Set all the defaults to the model
+        projectsViewPage.model.clear().set(projectsViewPage.model.defaults);
+
+        $('#content').fadeOut(function(){
+            fade.resolve();
+            $('#content').html(projectsViewPage.render().el);
+        })
+    }
+});
+
+var projectsViewPage = null;
+var projectsModelPage = null;
+var projectsRouter = null;
+
+projectsModelPage = new ModelProjects();
+projectsViewPage = new ViewProjects({
+    model: projectsModelPage,
+    tagName: 'div'
+});
+
+projectsRouter = new RouterProjects();
 var AppRouter = Backbone.Router.extend({
     routes: {},
 });
