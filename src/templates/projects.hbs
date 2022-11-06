@@ -1,0 +1,182 @@
+{{> nav}}
+<div class="page-content-wrapper">
+    <div class="container-fluid">
+        <div style="display: flex">
+            <!-- Teams -->
+            <div class="col-4 group-section" align="center">
+                <h4>Groups</h4>
+                <div align="left">
+                    {{#each groups}}
+                        <h6 style="margin-top: 10px">
+                            {{name}} 
+                            <span class="material-icons edit-group btn" data-index="{{@index}}">edit</span>
+                        </h6>
+                        {{#each users}}
+                            <button type="button" class="btn group-user-button">{{initials}}</button>
+                        {{/each}}
+                    {{/each}}
+                </div>
+
+                <button type="button" class="btn" id="addGroup">
+                    <span class="material-icons" style="font-size: 30px">add_circle_outline</span>
+                </button>
+                
+            </div>
+
+            <!-- Projects -->
+            <div class="col-8">
+                <button type="button" class="btn btn-primary" style="margin-left: 2em; margin-top: 2em; margin-bottom: -1em">New Project</button>
+                {{#each projects}}
+                    <div class="m-4 project-section" data-project="{{projectID}}">
+                        <div class="col-12">
+                            <div class="project-row">
+                                <h4>{{name}}</h4>
+                                <span class="btn project-star material-icons" data-index="{{@index}}">
+                                    {{#ifvalue starred equals= 1}}star{{else}}star_border{{/ifvalue}}
+                                </span>
+                            </div>
+                            
+                            <p>{{description}}</p>
+
+                            <div class="project-row">
+                                <div>
+                                    {{#each @root.groups}}
+                                        {{#each ../groups}}
+                                            {{#ifvalue ../groupID equals= @this}}
+                                                <button type="button" class="btn btn-outline-primary m-1">{{../name}}</button>
+                                            {{/ifvalue}}
+                                        {{/each}}
+                                    {{/each}}
+                                </div>
+
+                                <button type="button" class="btn btn-primary edit-project" data-index="{{@index}}">Edit</button>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Create Group -->
+    <div class="modal fade" id="createGroupModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Create Group</h4>
+                    <button type="button" class="btn-close" data-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form class="col-6">
+                            <div class="form-group">
+                                <label for="createGroupName">Group Name:</label>
+                                <input type="text" class="form-control" id="createGroupName" placeholder="Name...">
+                            </div>
+
+                            <div class="form-group mt-4">
+                                <label>Select User:</label>
+                                <input type="search" list="createGroup-users" id="createGroup-selectUser">
+                                <datalist id="createGroup-users">
+                                    {{#each users}}
+                                        <option value="{{name}}">
+                                    {{/each}}
+                                </datalist>
+
+                                <button type="button" class="btn btn-outline-primary m-2" id="createGroupAddSelectedUser">Add User</button>
+                            </div>
+
+                            <div class="selected-user-div">
+                                <p style="display: none; color: red" id="createGroup-noUserError">Please add at least one user</p>
+                                <table class="table table-hover" style="display: table; width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="selected-user-tbody">
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </form>        
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="confirmCreateGroup">Create Group</button>
+                    <button type="button" class="btn btn-danger close-modal" data-dismiss="modal">Cancel</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Group -->
+    <div class="modal fade" id="editGroupModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Group</h4>
+                    <button type="button" class="btn-close" data-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form class="col-6">
+                            <div class="form-group">
+                                <label for="editGroupName">Group Name:</label>
+                                <input type="text" class="form-control" id="editGroupName" placeholder="Name..." value="{{selectedGroup.name}}">
+                            </div>
+
+                            <div class="form-group mt-4">
+                                <label>Select User:</label>
+                                <input type="search" list="editGroup-users" id="editGroup-selectUser">
+                                <datalist id="editGroup-users">
+                                    {{#each users}}
+                                        <option value="{{name}}">
+                                    {{/each}}
+                                </datalist>
+
+                                <button type="button" class="btn btn-outline-primary m-2" id="editGroupAddSelectedUser">Add User</button>
+                            </div>
+
+                            <div class="selected-user-div">
+                                <p style="display: none; color: red" id="editGroup-noUserError">Please add at least one user</p>
+                                <table class="table table-hover" style="display: table; width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="selected-user-tbody">
+                                        {{#each selectedGroup.users}}
+                                            <tr id="userRow-{{userID}}" class="user-row">
+                                                <td>{{name}}</td>
+                                                <td><button type="button" class="btn edit-group-delete-user"><span class="material-icons" style="color: red">delete</span></button></td>
+                                            </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </form>        
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="confirmEditGroup">Edit Group</button>
+                    <button type="button" class="btn btn-danger close-modal" data-dismiss="modal">Cancel</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
