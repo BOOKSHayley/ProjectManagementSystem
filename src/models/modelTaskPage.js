@@ -16,6 +16,12 @@ var ModelTaskPage = Backbone.Model.extend({
             {name: "Olivia Cheung", ID: "4"},
             {name: "Dean Compton", ID: "5"},
             {name: "Vaughn Ohlerking ", ID: "6"}
+        ],
+
+        assigned:[
+            {name: "User 1", ID: "7"},
+            {name: "User 2", ID: "8"},
+            {name: "User 3", ID: "9"}
         ]
     },
 

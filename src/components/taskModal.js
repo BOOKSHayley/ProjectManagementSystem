@@ -31,9 +31,9 @@ var taskModal = {
             })
 
             $(document).on("click", "#claimTask", function(){
-                var userClaim = '<h6>-Logan</h6>';
+                var userClaim = '<h6>-User 3</h6>';
                 $("#userList").append(userClaim);
-                var currentUser = "Logan";
+                var currentUser = "User 3";
                 users.push(currentUser);
                 model.set("users", users);
                 $("#claimTask").css("display", "none");
