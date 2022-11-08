@@ -36,8 +36,9 @@
                         <button type="button" class="btn" id="openAssignModal"><span class="material-icons">add_circle_outline</span></button>
                     </div>
                     <ul style="float: none !important">
-                        <li>User 1</li>
-                        <li>User 2</li>
+                        {{#each assigned}}
+                            <li>{{name}}</li>
+                        {{/each}}
                     </ul>
                 </div>
                
@@ -102,19 +103,36 @@
                 <div class="modal-body">
                 <div class="container-fluid">
                     <label>Assign Users:</label>
-                    <div class="form-group">
-                        <input type="search" list="assignUsers" id="assignUsers-selectUser">
-                        <datalist id="assignUsers">
-                            {{#each users}}
-                                <option value="{{name}}">
-                            {{/each}}
-                        </datalist>
+                    <div style="display: flex;">
+                        <div class="form-group">
+                            <input type="search" list="assignUsers" id="assignUsers-selectUser">
+                            <datalist id="assignUsers">
+                                {{#each users}}
+                                    <option value="{{name}}">
+                                {{/each}}
+                            </datalist>
+                        </div>
+                        <button type="button" class="btn" id="assignUserButton"><span class="material-icons">add_circle_outline</span></button>
+                    </div>
+
+                    <div>
+                        <table class="table table-hover" style="display table; width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="newAssignedUsers">
+                                
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 </div>
 
                 <div class="modal-footer">
-                
+                    <button id="confirmUsers" type="button" class="btn btn-secondary">Add New Users</button>
                 </div>
             </div>
         </div>
