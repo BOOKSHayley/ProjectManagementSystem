@@ -1,0 +1,101 @@
+<div class="modal fade" id="clockOutModal">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Goodbye!</h4>
+          <button type="button" class="btn-close" data-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="container-fluid">
+
+            <div class="row">
+              <div class="col-12">
+                <p><strong>Time:</strong> {{currentTimeFormat 'h:mm A'}}</p>
+                <h6>Clock out of the following active tasks:</h6>
+              </div>
+              
+              <div class="clockout-card" data-taskid="1">
+                
+                <div style="display: flex;">
+                  <div class="col-6" style="border-right: 2px solid #efefef">
+                    <p><strong>Task 1</strong></p>
+
+                    <div style="display: flex">
+                      <div class="col-3">
+                        <label class="mt-1 mb-0">Progress: </label>
+                      </div>
+                      <div class="col-8">
+                        <div style="display: flex">
+                          <input type="range" class="form-range clockout-progress-bar" min="0" max="100" step="1" 
+                              id="clockOutModalProgress-1" value="25" style="margin: 5px">
+                          <input type="text" id="clockOutModalProgressInput-1" value="25" class="form-control clockout-progress-input" style="width: 60px">
+                          <p class="mt-2 mb-0"><strong>%</strong></p>
+                        </div>
+                        
+                      </div>
+                      
+                    </div>
+                    
+                  </div>
+                  
+                  <div class="col-6">
+                    <p><strong>Hours Spent Today:</strong></p>
+                    <input type="number" placeholder="Hours" id="clockOutModalTimeSpent-1" 
+                      class="form-control clockout-time-spent" style="width: 50%; margin-left: 100px" value="4">
+                  </div>
+                </div>
+                
+
+              </div>
+
+              <div class="clockout-card" data-taskid="2">
+                
+                <div style="display: flex;">
+                  <div class="col-6" style="border-right: 2px solid #efefef">
+                    <p><strong>Task 2</strong></p>
+
+                    <div style="display: flex">
+                      <div class="col-3">
+                        <label class="mt-1 mb-0">Progress: </label>
+                      </div>
+                      <div class="col-8">
+                        <div style="display: flex">
+                          <input type="range" class="form-range clockout-progress-bar" min="0" max="100" step="1" 
+                              id="clockOutModalProgress-2" value="80" style="margin: 5px">
+                          <input type="text" id="clockOutModalProgressInput-2" value="80" class="form-control clockout-progress-input" style="width: 60px">
+                          <p class="mt-2 mb-0"><strong>%</strong></p>
+                        </div>
+                        
+                      </div>
+                      
+                    </div>
+                    
+                  </div>
+                  
+                  <div class="col-6">
+                    <p><strong>Hours Spent Today:</strong></p>
+                    <input type="number" placeholder="Hours" id="clockOutModalTimeSpent-2" 
+                      class="form-control clockout-time-spent" style="width: 50%; margin-left: 100px" value="4">
+                  </div>
+                </div>
+                
+              
+              </div>
+
+              <div class="col-12">
+                <p><strong>Total hours logged today: 8</strong></p>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="clockOutModalClockOut">Clock Out</button>
+        </div>
+      </div>
+  </div>
+</div>
