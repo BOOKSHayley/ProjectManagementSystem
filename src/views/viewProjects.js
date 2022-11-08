@@ -10,7 +10,9 @@ var ViewProjects = Backbone.View.extend({
         'click #confirmEditGroup': 'confirmEditGroup',
         'click .project-star': 'starProject',
         'click .project-section': 'goToKanban',
-        'click .edit-project': 'editProject'
+        'click .edit-project': 'editProject',
+        'keyup #groupSearch': 'groupSearch',
+        'keyup #projectSearch': 'projectSearch'
     },
 
     initialize: function(){
@@ -28,6 +30,32 @@ var ViewProjects = Backbone.View.extend({
 
         this.delegateEvents();
         return this;
+    },
+
+    groupSearch: function(){
+        var searchKey = $("#groupSearch").val().toLowerCase();
+
+        $('.group-part').each(function(){
+            if($(this).attr('data-name').toLowerCase().includes(searchKey)){
+                $(this).css('display', 'initial');
+            } else {
+                $(this).css('display', 'none');
+            }
+        });
+    },
+    projectSearch: function(){
+        var searchKey = $('#projectSearch').val().toLowerCase();
+
+        $('.project-section').each(function(){
+            var projName = $(this).find('.project-name').text().toLowerCase();
+            var projDesc = $(this).find('.project-desc').text().toLowerCase();
+
+            if(projName.includes(searchKey) || projDesc.includes(searchKey)){
+                $(this).css('display', 'inherit');
+            } else {
+                $(this).css('display', 'none');
+            }
+        });
     },
 
     //Add Group
@@ -48,11 +76,11 @@ var ViewProjects = Backbone.View.extend({
         }
 
         if(user){
-            var tr = '<tr id="userRow-' + i + '" class="user-row"><td>' + user['name'] + 
+            var tr = '<tr id="createGroupUserRow-' + i + '" class="creategroup-user-row"><td style="width: 90%">' + user['name'] + 
             '</td> <td><button type="button" class="btn create-group-delete-user"><span class="material-icons" style="color: red">delete</span></button></td></tr>';
 
-            if($("#userRow-" + user['userID']).length === 0){
-                $('#selected-user-tbody').append(tr);    
+            if($("#createGroupUserRow-" + i).length === 0){
+                $('#creategroup-select-user-tbody').append(tr);    
             }
 
             //Clear the input
@@ -72,7 +100,7 @@ var ViewProjects = Backbone.View.extend({
             users: []
         };
 
-        $('.user-row').each(function(){
+        $('.creategroup-user-row').each(function(){
             newGroup.users.push(users[$(this).attr('id').split('-')[1]]);
         });
 
@@ -108,7 +136,7 @@ var ViewProjects = Backbone.View.extend({
     editGroupAddUser: function(){
         var name = $('#editGroup-selectUser').val();
 
-        var users = model.get('users');
+        var users = this.model.get('users');
         var user = null;
         var i;
         for(i = 0; i < users.length; i++){
@@ -119,11 +147,11 @@ var ViewProjects = Backbone.View.extend({
         }
 
         if(user){
-            var tr = '<tr id="userRow-' + i + '" class="user-row"><td>' + user['name'] + 
+            var tr = '<tr id="editGroupUserRow-' + users[i]['userID'] + '" class="editgroup-user-row"><td style="width: 90%">' + user['name'] + 
             '</td> <td><button type="button" class="btn edit-group-delete-user"><span class="material-icons" style="color: red">delete</span></button></td></tr>';
 
-            if($("#userRow-" + user['userID']).length === 0){
-                $('#selected-user-tbody').append(tr);    
+            if($("#editGroupUserRow-" + users[i]['userID']).length === 0){
+                $('#editgroup-selected-user-tbody').append(tr);    
             }
 
             //Clear the input
@@ -144,8 +172,15 @@ var ViewProjects = Backbone.View.extend({
             users: []
         };
 
-        $('.user-row').each(function(){
-            updateGroup.users.push(users[$(this).attr('id').split('-')[1]]);
+        $('.editgroup-user-row').each(function(){
+            var user;
+            for(var i = 0; i < users.length; i++){
+                if(users[i]['userID'] == $(this).attr('id').split('-')[1]){
+                    user = users[i];
+                    break;
+                }
+            }
+            updateGroup.users.push(user);
         });
 
         var valid = true;

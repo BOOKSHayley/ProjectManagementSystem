@@ -5,22 +5,25 @@
             <!-- Teams -->
             <div class="col-2 group-section" align="center">
                 <h4>Groups</h4>
+                <input type="text" placeholder="Search groups..." id="groupSearch" class="form-control">
                 <div align="left">
                     {{#each groups}}
-                        <h6 style="margin-top: 10px">
-                            {{name}} 
-                            <span class="material-icons edit-group btn" data-index="{{@index}}">edit</span>
-                        </h6>
-                        {{#each users}}
-                            {{#lt @index 3}}
-                                {{#ifvalue @index equals= 2}}
-                                    <button class="btn" style="font-size: 24px">...</button>
-                                {{else}}
-                                    <button type="button" class="btn group-user-button">{{initials}}</button>
-                                {{/ifvalue}}
-                            {{/lt}}
-                            
-                        {{/each}}
+                        <div class="group-part" data-name="{{name}}">
+                            <h6 style="margin-top: 10px">
+                                {{name}} 
+                                <span class="material-icons edit-group btn" data-index="{{@index}}">edit</span>
+                            </h6>
+                            {{#each users}}
+                                {{#lt @index 3}}
+                                    {{#ifvalue @index equals= 2}}
+                                        <button class="btn" style="font-size: 24px">...</button>
+                                    {{else}}
+                                        <button type="button" class="btn group-user-button">{{initials}}</button>
+                                    {{/ifvalue}}
+                                {{/lt}}
+                                
+                            {{/each}}
+                        </div>
                     {{/each}}
                 </div>
 
@@ -32,18 +35,23 @@
 
             <!-- Projects -->
             <div class="col-9">
-                <button type="button" class="btn btn-primary" style="margin-left: 2em; margin-top: 2em; margin-bottom: -1em">New Project</button>
+                
+                <div style="display: flex; margin-left: 2em; margin-top: 2em; margin-bottom: -1em;">
+                    <button type="button" class="btn btn-primary">New Project</button>
+                    <input type="text" class="form-control" id="projectSearch" placeholder="Search projects..." style="margin-left: 20px; width: 50%">
+                </div>
+                
                 {{#each projects}}
                     <div class="m-4 project-section" data-project="{{projectID}}">
                         <div class="col-12">
                             <div class="project-row">
-                                <h4>{{name}}</h4>
+                                <h4 class="project-name">{{name}}</h4>
                                 <span class="btn project-star material-icons" data-index="{{@index}}">
                                     {{#ifvalue starred equals= 1}}star{{else}}star_border{{/ifvalue}}
                                 </span>
                             </div>
                             
-                            <p>{{description}}</p>
+                            <p class="project-desc">{{description}}</p>
 
                             <div class="project-row">
                                 <div>
@@ -100,13 +108,13 @@
                             <div class="selected-user-div">
                                 <p style="display: none; color: red" id="createGroup-noUserError">Please add at least one user</p>
                                 <table class="table table-hover" style="display: table; width: 100%">
-                                    <thead>
+                                    <thead style="display: block;">
                                         <tr>
                                             <th>Name</th>
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    <tbody id="selected-user-tbody">
+                                    <tbody class="selected-user-tbody" id="creategroup-select-user-tbody">
                                     </tbody>
                                 </table>
                             </div>
@@ -156,16 +164,16 @@
                             <div class="selected-user-div">
                                 <p style="display: none; color: red" id="editGroup-noUserError">Please add at least one user</p>
                                 <table class="table table-hover" style="display: table; width: 100%">
-                                    <thead>
+                                    <thead style="display: block;">
                                         <tr>
                                             <th>Name</th>
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    <tbody id="selected-user-tbody">
+                                    <tbody class="selected-user-tbody" id="editgroup-selected-user-tbody">
                                         {{#each selectedGroup.users}}
-                                            <tr id="userRow-{{userID}}" class="user-row">
-                                                <td>{{name}}</td>
+                                            <tr id="editGroupUserRow-{{userID}}" class="editgroup-user-row">
+                                                <td style="width: 90%">{{name}}</td>
                                                 <td><button type="button" class="btn edit-group-delete-user"><span class="material-icons" style="color: red">delete</span></button></td>
                                             </tr>
                                         {{/each}}
