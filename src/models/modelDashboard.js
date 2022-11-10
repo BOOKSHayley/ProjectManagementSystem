@@ -9,7 +9,6 @@ var ModelDashboard = Backbone.Model.extend({
 timeSpent: 32, starred: 1}, {projectID: 3, projectName: "Dispark", 
 description: "An intuitive park management system for facility managers to track their parks.",
 timeSpent: 12, starred: 0}]
-
     },
 
     initialize: function(){

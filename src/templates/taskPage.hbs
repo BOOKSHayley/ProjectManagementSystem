@@ -1,0 +1,140 @@
+{{> nav}}
+<div class="page-content-wrapper">
+    <div class="container-fluid">            
+        
+        <div class="row">
+            <div class="col-6">
+                <div style="display: flex; align-items: center;">
+                    <h1>Task 1</h1>
+                    <h5 class="px-2"><span class="badge bg-warning">Inprogress</span></h5>
+                </div>
+
+                <div style="display: flex; align-items: center">
+                    <h5 style="margin-right: 5px">Progress:</h5>
+                    <div class="progress" style="width:100%">
+                        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 88%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">88%</div>
+                    </div>
+
+                </div>
+
+                <div class="card" style="width: 100%; overflow-y:scroll; max-height: 200px">
+                    <div class="card-body">
+                        <h5 class="card-title">Description</h5>
+                        <p class="card-text">Description of task 1 in detail. Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                </div>
+
+                <br>
+
+                <div>
+                    <div style="display: flex;">
+                        <h4>Assigned Users:</h4>
+                        <button type="button" class="btn" id="openAssignModal"><span class="material-icons">add_circle_outline</span></button>
+                    </div>
+                    <ul style="float: none !important">
+                        {{#each assigned}}
+                            <li>{{name}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+               
+                <br>
+                <div>
+                    <h4>Time Logged on Task:</h4>
+                    <p>21 Hours 23 Minutes</p>
+                    <h4>Projected finish date:</h4>
+                    <p>12-2-2020</p>
+                </div>
+
+            </div>
+            <div class="col-6">
+                <div>
+                    <br>
+                    <br>
+                    <h4>Problems</h4>
+                    <div class="card" style="overflow-y:scroll; max-height: 150px">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Problem 1</li>
+                        <li class="list-group-item">Problem 2</li>
+                        <li class="list-group-item">Problem 3</li>
+                        <li class="list-group-item">Problem 4</li>
+                        <li class="list-group-item">Problem 5</li>
+                        <li class="list-group-item">Problem 6</li>
+                    </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <br>
+                    <h4>Task Comment Log</h4>
+                    <div class="card" style="overflow-y:scroll; max-height: 300px">
+                    <ul class="list-group list-group-flush" id="commentLog">
+                        {{#each messages}}
+                            <li class="list-group-item">{{user}}: {{comment}}</li>
+                        {{/each}}
+                    </ul>
+                    </div>
+                    <form>
+                        <div class="form-group" style="display: flex">
+                            <input class="form-control" type="text" placeholder="Send Comment..." id="comment"></textarea>
+                            <button type="button" class="btn" id="sendComment"><span class="material-icons">send</span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>    
+    </div>
+
+    <div class="modal fade" id="assignModal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                <div class="container-fluid">
+                    <h4>Assign To Task</h4>
+                </div>
+                <button type="button" class="btn-close" data-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                <div class="container-fluid">
+                    <label>Assign Users:</label>
+                    <div style="display: flex;">
+                        <div class="form-group">
+                            <input type="search" list="assignUsers" id="assignUsers-selectUser">
+                            <datalist id="assignUsers">
+                                {{#each users}}
+                                    <option value="{{name}}">
+                                {{/each}}
+                            </datalist>
+                        </div>
+                        <button type="button" class="btn" id="assignUserButton"><span class="material-icons">add_circle_outline</span></button>
+                    </div>
+
+                    <div>
+                        <table class="table table-hover" style="display table; width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="newAssignedUsers">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="confirmUsers" type="button" class="btn btn-secondary">Add New Users</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
