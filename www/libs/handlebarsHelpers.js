@@ -9,6 +9,11 @@ Handlebars.registerHelper("ifvalue", function(conditional, options) {
     }
 });
 
+Handlebars.registerHelper('lt', function( a, b ){
+	var next =  arguments[arguments.length-1];
+	return (a < b) ? next.fn(this) : next.inverse(this);
+});
+
 Handlebars.registerHelper('currentTimeFormat', function(format) {
     return moment().format(format);
 });

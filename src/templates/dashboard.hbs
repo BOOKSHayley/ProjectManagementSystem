@@ -1,31 +1,50 @@
 {{> nav}}
 <div class="page-content-wrapper">
     <div class="container-fluid">
-        
-
         <h2 class="dash-header">Dashboard</h2>
 
         <div class="dash-container">
             <div class="dash-card-holder">
-                <a href="#board" class="dash-card">
-                    <h5>Board</h5>
+
+                <a href="#projects" class="dash-card">
+                    <h5>Projects</h5>
+                </a>
+                
+            </div>
+
+            <div class="dash-card-holder">
+
+                <a href="#calendar" class="dash-card">
+                    <h5>Calendar</h5>
                 </a>
             </div>
 
             <div class="dash-card-holder">
-                <div class="dash-card">
-                    <h5>Teams</h5>
-                </div>
+                <a href="#personalBoard" class="dash-card">
+                    <h5>Personal Board</h5>
+                </a>
             </div>
 
-            <div class="dash-card-holder">
-                <div class="dash-card">
-                    <h5>Profile</h5>
-                </div>
-
-            </div>
         </div>
 
+        <h2 class="dash-header">Projects</h2>
+
+        <div class="dash-container">
+
+            {{#each starredProjects}}
+                <div class="dash-card-holder">
+                    <a href="#project/{{projectID}}" class="dash-card project-card">
+                        <h5>{{projectName}}</h5>
+                        {{#ifvalue starred equals=1}}
+                            <span class="material-icons favorite">
+                            star
+                            </span>
+                        {{/ifvalue}}
+                        <p class="col-12 description">{{description}}</p>
+                        <p class="col-12">Time Spent: {{timeSpent}} hours</p>
+                    </a>
+                </div>
+            {{/each}}
 
     </div>
 </div>

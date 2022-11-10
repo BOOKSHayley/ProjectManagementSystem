@@ -1,0 +1,34 @@
+<div class="sticky-top project-nav-sticky">
+{{!-- Normal Nav --}}
+  {{> nav}}
+
+  {{!-- Project Nav --}}
+  <nav class="navbar navbar-expand-lg project-nav">
+    <a class="navbar-brand" href="#dashboard">
+      <span class="material-icons">timer</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContentProject" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse proj-nav-main-section" id="navbarSupportedContentProject">
+      <ul class="navbar-nav project-nav-list">
+        <li class="nav-item">
+          <a class="nav-link nav-link-proj" href="#dashboard">Project Name</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link nav-link-proj" href="#taskBoard/{{projectID}}">Task Board</a>
+        </li>
+        {{!-- <li class="nav-item">
+          <a class="nav-link" href="#">Task List</a>
+        </li> --}}
+        <li class="nav-item">
+          <a class="nav-link nav-link-proj" href="#charts/{{projectID}}">Charts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-proj" href="#documents/{{projectID}}">Documents</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

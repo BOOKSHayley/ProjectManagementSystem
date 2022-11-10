@@ -20,4 +20,5 @@ var ViewDashboard = Backbone.View.extend({
         this.delegateEvents();
         return this;
     },
+
 });
