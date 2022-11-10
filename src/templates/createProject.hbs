@@ -1,0 +1,103 @@
+{{> nav}}
+<!DOCTYPE html>
+<html>
+        <head>
+        <style>
+           <u> h1{text-align: center;} </u>
+            h3{text-align: center;}
+            div{text-align: center;}
+            p{text-align: center;}
+
+            button {
+                            display: inline-block;
+                            background-color: #bfbcc3;
+                            border-radius: 10px;
+                            color: #000000;
+                            text-align: center;
+                            font-size: 12px;
+                            padding: 5px;
+                            width: 100px;
+                            cursor: pointer;
+                            margin: 5px;
+            }
+
+            .createProject{
+                        display: inline-block;
+                            background-color: #09b0ef;
+                            border-radius: 10px;
+                            color: #000000;
+                            text-align: center;
+                            font-size: 30px;
+                            padding: 10px;
+                            width: 125px;
+                            cursor: pointer;
+                            margin: 10px;
+                
+            }
+            
+
+            
+        </style>
+        </head>
+    <div class="page-content-wrapper"></div>
+    <body>
+           
+            <h1><u>Create Project</u></h1> 
+            <h3>Project Name:</h3>
+                <form action="/action_page.php">
+                    <label for="ProjectName"></label>
+                    <input type="text" id="ProjectName" name="ProjectName"><br><br>
+                    
+                   
+                </form>
+            <h3>Description</h3>
+                <textarea cols = "50" rows = "5"></textarea>
+                <form action="/action_page.php">
+                    
+                    
+                </form>
+            <h3>Members</h3>
+            <head>
+                <p>Select your members individually or by groups</p>
+                <select name = "dropdown">
+                <option value = "Olivia">Olivia</option>
+                <option value = "Haley">Haley</option>
+                <option value = "Logan" >Logan</option>
+                <option value = "Vaughn">Vaughn</option>
+                <option value = "Dean">Dean</option>
+                <option value = "Zach">Zach</option>
+                          
+                </select>
+                <button type="button">Add Member</button>
+                </form>
+                </body>
+                    
+                <h3>Select Group</h3>
+                <select name = "dropdown">
+                    <option value = "Group 1" selected>Group 1</option>
+                    <option value = "Group 2">Group 2</option>
+                </select>
+                <button type="button">Add Group</button>
+
+                <h3>Select Technologies</h3>
+
+                    <select name = "dropdown">
+                    <option value = "HTML" selected>HTML</option>
+                    <option value = "CSC">CSC</option>
+                </select>
+                <button type="button">Add Technologies</button>
+        <div class = "container">
+                <div class="vertical-center">
+                     <button class="createProject" value="Submit">Create Project         
+                           
+                     </button>
+                     
+                </div>
+        </div>
+               
+                             
+                    </script>
+            
+                 
+                     
+                     

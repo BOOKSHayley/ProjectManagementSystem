@@ -1,3 +1,12 @@
+var ModelCreateProject = Backbone.Model.extend({
+    defaults: {
+        counter: 0
+    },
+
+    initialize: function(){
+        
+    }
+});
 var ModelDashboard = Backbone.Model.extend({
     defaults: {
         counter: 0
@@ -25,11 +34,33 @@ var ModelLogin = Backbone.Model.extend({
         
     }
 });
+var ViewCreateProject = Backbone.View.extend({
+    events: {
+        //Events include: click, keyup, change, etc
+        'click #clickButton': 'clickButtonFunction'
+    },
+
+    initialize: function(){
+
+    },
+
+    render: function(){
+        this.$el.html(Handlebars.templates.createProject(this.model.toJSON()));
+
+        //Can add functions to be run on rendering can go here
+
+        $.when(fade).done(function(){
+            $('#content').fadeIn();
+        })
+
+        this.delegateEvents();
+        return this;
+    },
+});
 var ViewDashboard = Backbone.View.extend({
     events: {
         //Events include: click, keyup, change, etc
-        'click #clickButton': 'clickButtonFunction',
-        'click #clockIn': 'clockIn'
+        'click #clickButton': 'clickButtonFunction'
     },
 
     initialize: function(){
@@ -48,10 +79,6 @@ var ViewDashboard = Backbone.View.extend({
         this.delegateEvents();
         return this;
     },
-
-    clockIn: function(){
-        clockInModal.open(this.model);
-    }
 });
 var ViewExample = Backbone.View.extend({
     events: {
@@ -120,6 +147,38 @@ var ViewLogin = Backbone.View.extend({
         }
     }
 });
+var RouterCreateProject = Backbone.Router.extend({
+    routes: {
+        // These are urls that will trigger this createProject page to appear
+        "createProject": 'showCreateProject',
+      
+    },
+
+    showCreateProject: function(){
+        var fade = $.Deferred();
+
+        
+
+       // Set all the defaults to the model
+        createProjectViewPage.model.clear().set(createProjectViewPage.model.defaults);
+
+        $('#content').fadeOut(function(){
+            fade.resolve();
+            $('#content').html(createProjectViewPage.render().el);
+        })
+    }
+});
+var createProjectViewPage = null;
+var createProjectModelPage = null;
+var createProjectRouter = null;
+
+createProjectModelPage = new ModelCreateProject();
+createProjectViewPage = new ViewCreateProject({
+    model: createProjectModelPage,
+    tagName: 'div'
+});
+
+createProjectRouter = new RouterCreateProject();
 var RouterDashboard = Backbone.Router.extend({
     routes: {
         // These are urls that will trigger this dashboard page to appear
@@ -248,7 +307,6 @@ var clockInModal = {
 
             $('#clockInModal').on('hidden.bs.modal', function(){
                 $('#clockInModalDiv').remove();
-                console.log('promise resolved');
                 promise.resolve();
             });
 
