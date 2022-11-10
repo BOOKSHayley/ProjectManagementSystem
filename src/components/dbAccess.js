@@ -11,19 +11,6 @@ function postDatabase(dir, data) {
     }
   );
 }
-function pushDatabase(dir, data) {
-  // adds user
-  fetch(
-    "https://project-i-management-default-rtdb.firebaseio.com/" + dir + ".json",
-    {
-      method: "PUSH",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-}
 function getDatabase(dir, modelDest) {
   fetch(
     "https://project-i-management-default-rtdb.firebaseio.com/" + dir + ".json"
@@ -36,22 +23,18 @@ function getDatabase(dir, modelDest) {
       console.log(Object.values(data));
     });
 }
-function delFromDatabase(dir, key) {
+function delFromDatabase(dir) {
   fetch(
     "https://project-i-management-default-rtdb.firebaseio.com/" + dir + ".json",
     {
       method: "DELETE",
-      body: JSON.stringify(key),
-      headers: {
-        "Content-Type": "application/json",
-      },
     }
   )
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      modelDest.set(dir, Object.values(data));
+      // modelDest.set(dir, Object.values(data));
       // console.log(Object.values(data));
     });
 }
