@@ -1,10 +1,9 @@
 {
   "dependencies": {
     "backbone": "^1.4.1",
-    "bootstrap": "^5.2.1",
+    "bootstrap": "^5.2.2",
     "browser-sync": "^2.27.10",
     "gulp": "^4.0.2",
-    "gulp-cli": "^2.3.0",
     "gulp-concat": "^2.6.1",
     "gulp-declare": "^0.3.0",
     "gulp-handlebars": "^5.0.2",
@@ -13,6 +12,7 @@
     "gulp-wrap": "^0.15.0",
     "handlebars": "^4.7.7",
     "jQuery": "^1.7.4",
-    "underscore": "^1.13.4"
+    "path": "^0.12.7",
+    "underscore": "^1.13.6"
   }
 }
