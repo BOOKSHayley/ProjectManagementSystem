@@ -32,6 +32,7 @@ var clockInModal = {
                 });
 
 
+                localStorage.setItem('clockedIn', JSON.stringify(true));
                 model.set('clockedIn', true);
                 model.set('clockedInTasks', selectedTasks);
                 $('#clockInModal').modal('hide');

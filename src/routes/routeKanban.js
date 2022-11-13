@@ -12,6 +12,11 @@ var RouterKanban = Backbone.Router.extend({
         //Set all the defaults to the model
         kanbanViewPage.model.clear().set(kanbanViewPage.model.defaults);
 
+        var clockedIn = localStorage.getItem('clockedIn');
+        if(clockedIn){
+            kanbanViewPage.model.set('clockedIn', JSON.parse(clockedIn));
+        }
+
         $('#content').fadeOut(function(){
             fade.resolve();
             $('#content').html(kanbanViewPage.render().el);

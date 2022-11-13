@@ -10,6 +10,11 @@ var RouterTaskPage = Backbone.Router.extend({
         //Set all the defaults to the model
          taskViewPage.model.clear().set(taskViewPage.model.defaults);
 
+         var clockedIn = localStorage.getItem('clockedIn');
+        if(clockedIn){
+            taskViewPage.model.set('clockedIn', JSON.parse(clockedIn));
+        }
+
          $('#content').fadeOut(function(){
              fade.resolve();
              $('#content').html(taskViewPage.render().el);

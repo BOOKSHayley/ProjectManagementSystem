@@ -228,7 +228,7 @@ var ViewProjects = Backbone.View.extend({
     },
     goToKanban: function(){
         if($(event.target)[0].nodeName !== 'BUTTON' && $(event.target)[0].nodeName !== 'SPAN'){
-            console.log('Go to kanban board');
+            window.location.href = '#kanban';
         }
     },
     editProject: function(){

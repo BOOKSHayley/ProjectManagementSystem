@@ -67,7 +67,8 @@ var clockOutModal = {
                 });
 
                 if(valid){
-                    model.set('clockedOut', true);
+                    localStorage.setItem('clockedIn', JSON.stringify(false));
+                    model.set('clockedIn', false);
                     model.set('clockedOutTasks', endedTasks);
                     $('#clockOutModal').modal('hide');
                 }
