@@ -3,6 +3,11 @@
     border: 2px solid #c9c9c9;
     border-radius: 5px;
     padding: 5px;
+    cursor: pointer;
+}
+
+.project-section:hover {
+    background-color: #f0f0f0;
 }
 
 .project-row{
@@ -17,7 +22,6 @@
 }
 
 .group-section{
-    margin: 1em;
     padding: 10px;
     border: 2px solid #c9c9c9;
     border-radius: 5px
@@ -27,4 +31,44 @@
     display: block;
     overflow-y: auto; 
     max-height: 150px;
+}
+
+.projects-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    float: right;
+}
+
+
+.group-button {
+    padding: 5px !important;
+    border-radius: 30px;
+    font-size: smaller;
+    border-color: black;
+    color: white;
+    background-color: black;
+}
+
+.group-button:hover {
+    padding: 5px !important;
+    border-radius: 30px;
+    font-size: smaller;
+    border-color: black;
+    color: white;
+    background-color: black;
+}
+
+.group-button:focus {
+    padding: 5px !important;
+    border-radius: 30px;
+    font-size: smaller;
+    border-color: black;
+    color: white;
+    background-color: black;
+    box-shadow: none;
+}
+
+.group-button:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: none;
 }
