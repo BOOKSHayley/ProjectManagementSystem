@@ -1,11 +1,18 @@
 var ViewCreateProject = Backbone.View.extend({
     events: {
         //Events include: click, keyup, change, etc
-        'click #clickButton': 'clickButtonFunction'
+        'click #cancel': 'cancel',
+        'click #submit': 'submit',
     },
 
     initialize: function(){
 
+    },
+    cancel: function(){
+        window.location.href = '#projects';
+    },
+    submit: function(){
+        window.location.href = '#projects';
     },
 
     render: function(){

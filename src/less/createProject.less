@@ -1,0 +1,34 @@
+.form-group {
+    margin-top: 20px;
+}
+
+h1 {
+    width: fit-content;
+    border-bottom: 2px solid @primary;
+}
+
+.btn-submit {
+    border-color: @primary;
+    color: rgb(255, 255, 255);
+    background-color: @primary;
+}
+
+.btn-submit:hover {
+    background-color: @secondary !important;
+    color: rgb(255, 255, 255) !important;
+    border-color: @secondary !important;
+}
+
+.btn-submit:focus {
+    background-color: @secondary;
+    box-shadow: 0 0 0 0.2rem #71cced;
+}
+
+.btn-submit.active {
+    background-color: @secondary !important;
+    border-color: #71cced !important;
+}
+
+.btn-submit:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem #71cced;
+}
