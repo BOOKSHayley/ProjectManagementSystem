@@ -11,6 +11,7 @@ var ModelDashboard = Backbone.Model.extend({
     defaults: {
         counter: 0,
         starredProjects: 
+<<<<<<< Updated upstream
         [{projectID: 1, projectName: "PiM", 
         description: "PiM is the group project for CSC 4243 to create a project management system. Our goal is to create an intuitive software capable of competing with other project management systems.",
     timeSpent: 54, starred: 1}, {projectID: 2, projectName: "Operation Spark", 
@@ -18,6 +19,24 @@ var ModelDashboard = Backbone.Model.extend({
 timeSpent: 32, starred: 1}, {projectID: 3, projectName: "Dispark", 
 description: "An intuitive park management system for facility managers to track their parks.",
 timeSpent: 12, starred: 0}]
+=======
+        [
+            {projectID: 1, 
+            projectName: "PiM", 
+            description: "PiM is the group project for CSC 4243 to create a project management system. Our goal is to create an intuitive software capable of competing with other project management systems.",
+            timeSpent: 54, 
+            starred: 1},
+            {projectID: 2, 
+            projectName: "Operation Spark", 
+            description: "Op Spark is a software bootcamp to create a personal portfolio.",
+            timeSpent: 32, 
+            starred: 1}, 
+            {projectID: 3, 
+            projectName: "Dispark", 
+            description: "An intuitive park management system for facility managers to track their parks.",
+            timeSpent: 12, 
+            starred: 0}]
+>>>>>>> Stashed changes
     },
 
     initialize: function(){
@@ -55,23 +74,41 @@ var ModelProjects = Backbone.Model.extend({
         projects: [
             {
                 projectID: 10293,
+<<<<<<< Updated upstream
                 name: 'Project 1',
                 starred: 1,
                 description: 'My first project',
+=======
+                name: 'PiM',
+                starred: 1,
+                description: 'PiM is the group project for CSC 4243 to create a project management system. Our goal is to create an intuitive software capable of competing with other project management systems.',
+>>>>>>> Stashed changes
                 groups: [18949]
             },
             {
                 projectID: 38893,
+<<<<<<< Updated upstream
                 name: 'Serious Project',
                 starred: 1,
                 description: 'This is a serious project for serious people',
+=======
+                name: 'Operation Spark',
+                starred: 1,
+                description: 'Op Spark is a software bootcamp to create a personal portfolio.',
+>>>>>>> Stashed changes
                 groups: [18949, 31829]
             },
             {
                 projectID: 41882,
+<<<<<<< Updated upstream
                 name: 'Fun Project',
                 starred: 0,
                 description: 'Just for fun lol',
+=======
+                name: 'Dispark',
+                starred: 0,
+                description: 'An intuitive park management system for facility managers to track their parks.',
+>>>>>>> Stashed changes
                 groups: [21943]
             }
         ],
