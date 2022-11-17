@@ -1,7 +1,8 @@
 var ViewDashboard = Backbone.View.extend({
     events: {
         //Events include: click, keyup, change, etc
-        'click #clickButton': 'clickButtonFunction'
+        'click #clickButton': 'clickButtonFunction',
+        'click #taskModalOpen': 'taskModalOpen'
     },
 
     initialize: function(){
@@ -20,5 +21,4 @@ var ViewDashboard = Backbone.View.extend({
         this.delegateEvents();
         return this;
     },
-
 });

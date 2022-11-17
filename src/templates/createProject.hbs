@@ -1,103 +1,90 @@
 {{> nav}}
-<!DOCTYPE html>
-<html>
-        <head>
-        <style>
-           <u> h1{text-align: center;} </u>
-            h3{text-align: center;}
-            div{text-align: center;}
-            p{text-align: center;}
+    <div class="page-content-wrapper">
+        <div class="col-12 px-4">
+            <h1 class="mt-4">Create Project</h1> 
+            <div class="form col-12 col-lg-6 col-md-4">
 
-            button {
-                            display: inline-block;
-                            background-color: #bfbcc3;
-                            border-radius: 10px;
-                            color: #000000;
-                            text-align: center;
-                            font-size: 12px;
-                            padding: 5px;
-                            width: 100px;
-                            cursor: pointer;
-                            margin: 5px;
-            }
-
-            .createProject{
-                        display: inline-block;
-                            background-color: #09b0ef;
-                            border-radius: 10px;
-                            color: #000000;
-                            text-align: center;
-                            font-size: 30px;
-                            padding: 10px;
-                            width: 125px;
-                            cursor: pointer;
-                            margin: 10px;
-                
-            }
-            
-
-            
-        </style>
-        </head>
-    <div class="page-content-wrapper"></div>
-    <body>
-           
-            <h1><u>Create Project</u></h1> 
-            <h3>Project Name:</h3>
-                <form action="/action_page.php">
-                    <label for="ProjectName"></label>
-                    <input type="text" id="ProjectName" name="ProjectName"><br><br>
-                    
-                   
-                </form>
-            <h3>Description</h3>
-                <textarea cols = "50" rows = "5"></textarea>
-                <form action="/action_page.php">
-                    
-                    
-                </form>
-            <h3>Members</h3>
-            <head>
-                <p>Select your members individually or by groups</p>
-                <select name = "dropdown">
-                <option value = "Olivia">Olivia</option>
-                <option value = "Haley">Haley</option>
-                <option value = "Logan" >Logan</option>
-                <option value = "Vaughn">Vaughn</option>
-                <option value = "Dean">Dean</option>
-                <option value = "Zach">Zach</option>
-                          
-                </select>
-                <button type="button">Add Member</button>
-                </form>
-                </body>
-                    
-                <h3>Select Group</h3>
-                <select name = "dropdown">
-                    <option value = "Group 1" selected>Group 1</option>
-                    <option value = "Group 2">Group 2</option>
-                </select>
-                <button type="button">Add Group</button>
-
-                <h3>Select Technologies</h3>
-
-                    <select name = "dropdown">
-                    <option value = "HTML" selected>HTML</option>
-                    <option value = "CSC">CSC</option>
-                </select>
-                <button type="button">Add Technologies</button>
-        <div class = "container">
-                <div class="vertical-center">
-                     <button class="createProject" value="Submit">Create Project         
-                           
-                     </button>
-                     
+                <div class="form-group">
+                    <label for="projectName">Name</label>
+                    <input type="text" class="form-control" id="projectName" placeholder="Enter name...">
                 </div>
-        </div>
-               
-                             
-                    </script>
+
+                <div class="form-group">
+                    <label for="projectDescription">Description</label>
+                    <textarea class="form-control" id="projectDescription" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="projectName">Email address</label>
+                    <input type="text" class="form-control" id="projectName" placeholder="Enter name...">
+                </div>
+
+                <div class="form-group">
+                    <label>Members</label>
+                    <div class="input-group col-12 col-md-4 mx-0 px-0">
+                        
+                        <select class="form-control" name="memberSelect" id="memberSelect">
+                            <option selected disabled>Choose member...</option>
+                            {{#each member}}
+                                <option value="{{reasonID}}">{{reason}}</option>
+                            {{/each}}
+                        </select>
+
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button">Add</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Groups</label>
+                    <div class="input-group col-12 col-md-4 mx-0 px-0">
+                        
+                        <select class="form-control" name="groupSelect" id="groupSelect">
+                            <option selected disabled>Choose group...</option>
+                            {{#each group}}
+                                <option value="{{groupID}}">{{group}}</option>
+                            {{/each}}
+                        </select>
+
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button">Add</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Aspects</label>
+                    <div class="input-group col-12 col-md-4 mx-0 px-0">
+                        
+                        <select class="form-control" name="aspectSelect" id="aspectSelect">
+                            <option selected disabled>Choose aspect...</option>
+                            {{#each aspect}}
+                                <option value="{{aspectID}}">{{aspect}}</option>
+                            {{/each}}
+                        </select>
+
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button">Add</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                    
+
+
+                <button class="btn btn-danger mt-4" type="button" id="cancel">Cancel</button>
+
+                <button class="btn btn-submit mt-4" type="button" id="submit">Submit</button>
+
+                
             
-                 
+            </div>
+        </div>
+    </div>
+
                      
                      
