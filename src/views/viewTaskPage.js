@@ -3,7 +3,8 @@ var ViewTaskPage = Backbone.View.extend({
         'click #sendComment': 'updateComments',
         'submit #comment-form': 'updateComments',
         'click #openAssignModal': 'openAssignModal',
-        'keyup #assignUsers-selectUser' : 'enterAssigned',
+        'submit #addUserForm': 'updateAssigned',
+        'change #addUser': 'updateAssigned',
         'click #assignUserButton': 'updateAssigned',
         'click #deleteUserButton': 'deleteUser',
         'click #confirmUsers': 'confirmNewUsers',
@@ -28,37 +29,57 @@ var ViewTaskPage = Backbone.View.extend({
 
     updateComments: function(){
         var cmt = $("#comment").val();
-        var li = '<li class="list-group-item">Logan: '+cmt+'</li>';
-        $("#commentLog").append(li);
-        var log = {user: "Logan", comment: cmt};
-        var messages = this.model.get("messages");
-        messages.push(log);
-        this.model.set("messages", messages);
-        $("#comment").val("");
+        if(cmt != ""){
+            var li = '<li class="list-group-item">Logan: '+cmt+'</li>';
+            $("#commentLog").append(li);
+            var log = {user: "Logan", comment: cmt};
+            var messages = this.model.get("messages");
+            messages.push(log);
+            this.model.set("messages", messages);
+            $("#comment").val("");
+        }
         return false;
     },
 
     updateAssigned: function(){
         var newUser = $("#assignUsers-selectUser").val();
         var users = this.model.get("users");
+        var assigned = this.model.get("assigned");
+        var alreadyAssigned = false;
         var addNewUser;
         var index;
-        
-        for(let i =0; i < users.length; i++)
-        {
-            if(newUser == users[i].name)
+
+        if(newUser != ''){
+            for(let i = 0; i < users.length; i++)
             {
-                addNewUser = users[i];
-                index = i;
-                break;
+                if(newUser == users[i].name)
+                {
+                    addNewUser = users[i];
+                    index = i;
+                    break;
+                }
             }
+
+            for(let i = 0; i < assigned.length; i++){
+                if(addNewUser.userID == assigned[i].userID){
+                    alreadyAssigned = true;
+                }
+            }
+
+            if(addNewUser && $('.assignUserRow[data-user ="'+addNewUser.userID+'"]').length === 0 && !alreadyAssigned){
+                var tableEntry = '<tr class="assignUserRow" data-index="' + index +'" data-user="'+addNewUser.userID+'"><td>'+addNewUser.name+'</td><td><button type="button" class="btn" id="deleteUserButton"><span class="material-icons" style="color: red">delete</span></button></td></tr>';
+                $("#newAssignedUsers").append(tableEntry);
+                $("#assignUsers-selectUser").val("");
+            } else if(alreadyAssigned){
+                $('#assignUserError').css('display', 'block');
+                window.setTimeout(function(){
+                    $('#assignUserError').css('display', 'none');
+                }, 2000);
+            }
+
         }
 
-        if(newUser != null){
-            var tableEntry = '<tr class="assignUserRow" data-index="'+index+'"><td>'+addNewUser.name+'</td><td><button type="button" class="btn" id="deleteUserButton"><span class="material-icons" style="color: red">delete</span></button></td></tr>';
-            $("#newAssignedUsers").append(tableEntry);
-        }
-        $("#assignUsers-selectUser").val("");
+        return false;
     },
 
     deleteUser: function(){
@@ -70,31 +91,13 @@ var ViewTaskPage = Backbone.View.extend({
         var users = this.model.get("users");
         var notAssigned = true;
         $(".assignUserRow").each(function(){
-            for(let i = 0; i < assigned.length; i++)
-            {
-                if(assigned[i] == users[tmp])
-                {
-                    notAssigned=false;
-                }
-            }
-            
-            if(notAssigned)
-            {
-                var tmp = $(this).attr("data-index");
-                assigned.push(users[tmp]);
-            }
+            var tmp = $(this).attr("data-index");
+            assigned.push(users[tmp]);
         });
         this.model.set("assigned", assigned);
         $("#assignModal").modal("hide");
         $(".modal-backdrop").remove();
         this.render();
-    },
-
-    enterAssigned: function(e){
-        if(e.keyCode == 13){
-            this.updateAssigned();
-            return false;
-        }
     },
 
     openAssignModal: function(){
