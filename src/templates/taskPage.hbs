@@ -104,16 +104,20 @@
                 <div class="container-fluid">
                     <label>Assign Users:</label>
                     <div style="display: flex;">
-                        <div class="form-group">
-                            <input type="search" list="assignUsers" id="assignUsers-selectUser">
-                            <datalist id="assignUsers">
-                                {{#each users}}
-                                    <option value="{{name}}">
-                                {{/each}}
-                            </datalist>
-                        </div>
+                        <form id="addUserForm">
+                            <div class="form-group mt-0" id="addUser">
+                                <input type="search" list="assignUsers" id="assignUsers-selectUser">
+                                <datalist id="assignUsers">
+                                    {{#each users}}
+                                        <option value="{{name}}">
+                                    {{/each}}
+                                </datalist>
+                            </div>
+                        </form>
                         <button type="button" class="btn" id="assignUserButton"><span class="material-icons">add_circle_outline</span></button>
                     </div>
+
+                    <p style="display: none; color: red" id="assignUserError">User already assigned to the task</p>
 
                     <div>
                         <table class="table table-hover" style="display table; width: 100%">

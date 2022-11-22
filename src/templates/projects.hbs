@@ -2,12 +2,8 @@
 <div class="page-content-wrapper">
     <div class="container-fluid">
         <div style="display: flex">
-            <!-- Teams -->
-            
-
-            <!-- Projects -->
             <div class="projects-container">
-                
+                <!-- Teams -->
                 <div class="col-12 mt-4 mb-4 px-4" style="display: flex; justify-content: right;">
                     <a href="#createProject" type="button" class="btn btn-primary">New Project</a>
                     <input type="text" class="form-control" id="projectSearch" placeholder="Search projects..." style="margin-left: 20px; width: 25%">
@@ -16,7 +12,10 @@
                 <div class="col-2 group-section" align="center">
                     <div style="visibility: none"></div>
                     <h4>Groups</h4>
-                    <input type="text" placeholder="Search groups..." id="groupSearch" class="form-control">
+                    <div style="display: flex">
+                        <input type="text" placeholder="Search groups..." id="groupSearch" class="form-control">
+                        <button type="button" class="btn btn-primary" id="addGroup" style="margin-left: 10px">New</button>
+                    </div>
                     <div align="left">
                         {{#each groups}}
                             <div class="group-part" data-name="{{name}}">
@@ -37,11 +36,10 @@
                             </div>
                         {{/each}}
                     </div>
-                    <button type="button" class="btn" id="addGroup">
-                        <span class="material-icons" style="font-size: 30px">add_circle_outline</span>
-                    </button>
+                    
                 </div>
                 
+                <!-- Projects -->
                 <div class="col-10 px-4">
                     {{#each projects}}
                         <div class="mb-4 project-section" data-project="{{projectID}}">
@@ -189,7 +187,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="confirmEditGroup">Edit Group</button>
+                    <button type="button" class="btn btn-primary" id="confirmEditGroup">Confirm Changes</button>
                     <button type="button" class="btn btn-danger close-modal" data-dismiss="modal">Cancel</button>
                 </div>
 
