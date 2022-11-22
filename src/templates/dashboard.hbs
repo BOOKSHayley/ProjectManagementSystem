@@ -1,9 +1,13 @@
 {{> nav}}
 <div class="page-content-wrapper">
-    <div class="container-fluid">
-        <h2 class="dash-header">Dashboard</h2>
+    <div class="container-fluid backdrop-dash">
 
-        <div class="dash-container">
+        
+
+        <div class="dash-container col-12 col-md-10">
+
+            <h2 class="dash-header p-2" style="width: 100%;">Dashboard</h2>
+
             <div class="dash-card-holder">
 
                 <a href="#projects" class="dash-card">
@@ -25,11 +29,7 @@
                 </a>
             </div>
 
-        </div>
-
-        <h2 class="dash-header">Projects</h2>
-
-        <div class="dash-container">
+            <h2 class="dash-header p-2" style="width: 100%;">Projects</h2>
 
             {{#each starredProjects}}
                 <div class="dash-card-holder">
