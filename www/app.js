@@ -11,14 +11,22 @@ var ModelDashboard = Backbone.Model.extend({
     defaults: {
         counter: 0,
         starredProjects: 
-        [{projectID: 1, projectName: "PiM", 
-        description: "PiM is the group project for CSC 4243 to create a project management system. Our goal is to create an intuitive software capable of competing with other project management systems.",
-    timeSpent: 54, starred: 1}, {projectID: 2, projectName: "Operation Spark", 
-    description: "Op Spark is a software bootcamp to create a personal portfolio.",
-timeSpent: 32, starred: 1}, {projectID: 3, projectName: "Dispark", 
-description: "An intuitive park management system for facility managers to track their parks.",
-timeSpent: 12, starred: 0}]
-
+        [
+            {projectID: 1, 
+            projectName: "PiM", 
+            description: "PiM is the group project for CSC 4243 to create a project management system. Our goal is to create an intuitive software capable of competing with other project management systems.",
+            timeSpent: 54, 
+            starred: 1},
+            {projectID: 2, 
+            projectName: "Operation Spark", 
+            description: "Op Spark is a software bootcamp to create a personal portfolio.",
+            timeSpent: 32, 
+            starred: 1}, 
+            {projectID: 3, 
+            projectName: "Dispark", 
+            description: "An intuitive park management system for facility managers to track their parks.",
+            timeSpent: 12, 
+            starred: 0}]
     },
 
     initialize: function(){
@@ -56,23 +64,23 @@ var ModelProjects = Backbone.Model.extend({
         projects: [
             {
                 projectID: 10293,
-                name: 'Project 1',
+                name: 'PiM',
                 starred: 1,
-                description: 'My first project',
+                description: 'PiM is the group project for CSC 4243 to create a project management system. Our goal is to create an intuitive software capable of competing with other project management systems.',
                 groups: [18949]
             },
             {
                 projectID: 38893,
-                name: 'Serious Project',
+                name: 'Operation Spark',
                 starred: 1,
-                description: 'This is a serious project for serious people',
+                description: 'Op Spark is a software bootcamp to create a personal portfolio.',
                 groups: [18949, 31829]
             },
             {
                 projectID: 41882,
-                name: 'Fun Project',
+                name: 'Dispark',
                 starred: 0,
-                description: 'Just for fun lol',
+                description: 'An intuitive park management system for facility managers to track their parks.',
                 groups: [21943]
             }
         ],
@@ -121,14 +129,52 @@ var ModelProjects = Backbone.Model.extend({
         
     }
 });
+var ModelTaskPage = Backbone.Model.extend({
+    defaults: {
+        messages:[
+            {user: "User 1", comment: "Task started"},
+            {user: "User 2", comment: "..."},
+            {user: "User 1", comment: "..."},
+            {user: "User 2", comment: "..."},
+            {user: "User 2", comment: "..."},
+            {user: "User 1", comment: "Task finished"}
+        ],
+
+        users:[
+            {name: "Logan Lafauci", ID: "1"},
+            {name: "Zack Faulkner", ID: "2"},
+            {name: "Hayley Roberts", ID: "3"},
+            {name: "Olivia Cheung", ID: "4"},
+            {name: "Dean Compton", ID: "5"},
+            {name: "Vaughn Ohlerking ", ID: "6"}
+        ],
+
+        assigned:[
+            {name: "User 1", ID: "7"},
+            {name: "User 2", ID: "8"},
+            {name: "User 3", ID: "9"}
+        ]
+    },
+
+    initialize: function(){
+        
+    }
+});
 var ViewCreateProject = Backbone.View.extend({
     events: {
         //Events include: click, keyup, change, etc
-        'click #clickButton': 'clickButtonFunction'
+        'click #cancel': 'cancel',
+        'click #submit': 'submit',
     },
 
     initialize: function(){
 
+    },
+    cancel: function(){
+        window.location.href = '#projects';
+    },
+    submit: function(){
+        window.location.href = '#projects';
     },
 
     render: function(){
@@ -147,7 +193,8 @@ var ViewCreateProject = Backbone.View.extend({
 var ViewDashboard = Backbone.View.extend({
     events: {
         //Events include: click, keyup, change, etc
-        'click #clickButton': 'clickButtonFunction'
+        'click #clickButton': 'clickButtonFunction',
+        'click #taskModalOpen': 'taskModalOpen'
     },
 
     initialize: function(){
@@ -166,7 +213,6 @@ var ViewDashboard = Backbone.View.extend({
         this.delegateEvents();
         return this;
     },
-
 });
 var ViewExample = Backbone.View.extend({
     events: {
@@ -209,7 +255,9 @@ var ViewExample = Backbone.View.extend({
 var ViewKanban = Backbone.View.extend({
     events: {
         //Events include: click, keyup, change, etc
-        'click #clickButton': 'clickButtonFunction'
+        'click #clickButton': 'clickButtonFunction',
+        'click .task-button': 'showTaskModal',
+        'click #timer': 'timer'
     },
 
     initialize: function(){
@@ -228,6 +276,21 @@ var ViewKanban = Backbone.View.extend({
         this.delegateEvents();
         return this;
     },
+
+    showTaskModal: function(){
+        taskModal.open(this.model);
+    },
+    timer: function(){
+        //Quick function for clock in/out
+
+        var clockedIn = this.model.get('clockedIn');
+
+        if(clockedIn){
+            clockOutModal.open(this.model);
+        } else {
+            clockInModal.open(this.model);
+        }
+    }
 });
 var ViewLogin = Backbone.View.extend({
     events: {
@@ -486,7 +549,7 @@ var ViewProjects = Backbone.View.extend({
     },
     goToKanban: function(){
         if($(event.target)[0].nodeName !== 'BUTTON' && $(event.target)[0].nodeName !== 'SPAN'){
-            console.log('Go to kanban board');
+            window.location.href = '#kanban';
         }
     },
     editProject: function(){
@@ -494,6 +557,110 @@ var ViewProjects = Backbone.View.extend({
         var project = this.model.get('projects')[index];
         this.model.set('selectedProject', project);
         console.log('Edit project');
+    }
+});
+var ViewTaskPage = Backbone.View.extend({
+    events: {
+        'click #sendComment': 'updateComments',
+        'submit #comment-form': 'updateComments',
+        'click #openAssignModal': 'openAssignModal',
+        'keyup #assignUsers-selectUser' : 'enterAssigned',
+        'click #assignUserButton': 'updateAssigned',
+        'click #deleteUserButton': 'deleteUser',
+        'click #confirmUsers': 'confirmNewUsers',
+    },
+
+    initialize: function(){
+
+    },
+
+    render: function(){
+        this.$el.html(Handlebars.templates.taskPage(this.model.toJSON()));
+
+        //Can add functions to be run on rendering can go here
+
+        $.when(fade).done(function(){
+            $('#content').fadeIn();
+        })
+
+        this.delegateEvents();
+        return this;
+    },
+
+    updateComments: function(){
+        var cmt = $("#comment").val();
+        var li = '<li class="list-group-item">Logan: '+cmt+'</li>';
+        $("#commentLog").append(li);
+        var log = {user: "Logan", comment: cmt};
+        var messages = this.model.get("messages");
+        messages.push(log);
+        this.model.set("messages", messages);
+        $("#comment").val("");
+
+        return false;
+    },
+
+    updateAssigned: function(){
+        var newUser = $("#assignUsers-selectUser").val();
+        var users = this.model.get("users");
+        var addNewUser;
+        var index;
+        
+        for(let i =0; i < users.length; i++)
+        {
+            if(newUser == users[i].name)
+            {
+                addNewUser = users[i];
+                index = i;
+                break;
+            }
+        }
+
+        if(newUser != null){
+            var tableEntry = '<tr class="assignUserRow" data-index="'+index+'"><td>'+addNewUser.name+'</td><td><button type="button" class="btn" id="deleteUserButton"><span class="material-icons" style="color: red">delete</span></button></td></tr>';
+            $("#newAssignedUsers").append(tableEntry);
+        }
+        $("#assignUsers-selectUser").val("");
+    },
+
+    deleteUser: function(){
+        $(event.target).closest("tr").remove();
+    },
+
+    confirmNewUsers: function(){
+        var assigned = this.model.get("assigned");
+        var users = this.model.get("users");
+        var notAssigned = true;
+        $(".assignUserRow").each(function(){
+            for(let i = 0; i < assigned.length; i++)
+            {
+                if(assigned[i] == users[tmp])
+                {
+                    notAssigned=false;
+                }
+            }
+            
+            if(notAssigned)
+            {
+                var tmp = $(this).attr("data-index");
+                assigned.push(users[tmp]);
+            }
+        });
+        this.model.set("assigned", assigned);
+        $("#assignModal").modal("hide");
+        $(".modal-backdrop").remove();
+        this.render();
+    },
+
+    enterAssigned: function(e){
+        if(e.keyCode == 13){
+            this.updateAssigned();
+            return false;
+        }
+    },
+
+    openAssignModal: function(){
+        $("#assignModal").modal("show");
     }
 });
 var RouterCreateProject = Backbone.Router.extend({
@@ -608,6 +775,11 @@ var RouterKanban = Backbone.Router.extend({
         //Set all the defaults to the model
         kanbanViewPage.model.clear().set(kanbanViewPage.model.defaults);
 
+        var clockedIn = localStorage.getItem('clockedIn');
+        if(clockedIn){
+            kanbanViewPage.model.set('clockedIn', JSON.parse(clockedIn));
+        }
+
         $('#content').fadeOut(function(){
             fade.resolve();
             $('#content').html(kanbanViewPage.render().el);
@@ -700,6 +872,41 @@ $(document).ready(function(){
     Backbone.history.start();
 });
 
+var RouterTaskPage = Backbone.Router.extend({
+    routes: {
+        // These are urls that will trigger this example page to appear
+        "taskPage": 'showTaskPage'
+    },
+
+    showTaskPage: function(){
+        var fade = $.Deferred();
+
+        //Set all the defaults to the model
+         taskViewPage.model.clear().set(taskViewPage.model.defaults);
+
+         var clockedIn = localStorage.getItem('clockedIn');
+        if(clockedIn){
+            taskViewPage.model.set('clockedIn', JSON.parse(clockedIn));
+        }
+
+         $('#content').fadeOut(function(){
+             fade.resolve();
+             $('#content').html(taskViewPage.render().el);
+         })
+    }
+});
+
+var taskViewPage = null;
+var taskModelPage = null;
+var taskRouter = null;
+
+taskModelPage = new ModelTaskPage();
+taskViewPage = new ViewTaskPage({
+    model: taskModelPage,
+    tagName: 'div'
+});
+
+taskRouter = new RouterTaskPage();
 var clockInModal = {
     open: function(model){
         var promise = $.Deferred();
@@ -734,6 +941,7 @@ var clockInModal = {
                 });
 
 
+                localStorage.setItem('clockedIn', JSON.stringify(true));
                 model.set('clockedIn', true);
                 model.set('clockedInTasks', selectedTasks);
                 $('#clockInModal').modal('hide');
@@ -824,7 +1032,8 @@ var clockOutModal = {
                 });
 
                 if(valid){
-                    model.set('clockedOut', true);
+                    localStorage.setItem('clockedIn', JSON.stringify(false));
+                    model.set('clockedIn', false);
                     model.set('clockedOutTasks', endedTasks);
                     $('#clockOutModal').modal('hide');
                 }
@@ -846,4 +1055,111 @@ var clockOutModal = {
 
 function clockOutModalOpen() {
     return $('#clockOutModalDiv').length > 0;
+}
+function postDatabase(dir, data) {
+  // adds user
+  fetch(
+    "https://project-i-management-default-rtdb.firebaseio.com/" + dir + ".json",
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+}
+async function getDatabase(dir, modelDest) {
+  fetch(
+    "https://project-i-management-default-rtdb.firebaseio.com/" + dir + ".json"
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      // modelDest.set(dir, Object.values(data));
+      console.log(Object.values(data));
+      return Object.values(data);
+      // return Object.values(data).stringify;
+    });
+}
+function delFromDatabase(dir) {
+  fetch(
+    "https://project-i-management-default-rtdb.firebaseio.com/" + dir + ".json",
+    {
+      method: "DELETE",
+    }
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      // modelDest.set(dir, Object.values(data));
+      // console.log(Object.values(data));
+    });
+}
+function addUser(data) {
+  return postDatabase("Users", data);
+}
+
+function getUser(name) {
+  // returns a user. undecided what type
+  return getDatabase("User/" + name);
+}
+
+var taskModal = {
+    open: function(model){
+        var promise = $.Deferred();
+
+        if($('#taskModalDiv').length > 0){
+            promise.resolve();
+        } else {
+
+            var div = '<div id="taskModalDiv"></div>';
+            $('body').append(div);
+            
+            var users = [
+                "User 1",
+                "User 2"
+            ];
+            model.set("users", users);
+
+            $('#taskModalDiv').append(Handlebars.partials.taskmodal(model.toJSON()));
+
+            $('#taskModal').modal('show');
+
+            $('#taskModal').on('hidden.bs.modal', function(){
+                $('#taskModalDiv').remove();
+                promise.resolve();
+            });
+            
+
+            $(document).on("click", "#viewTaskPage", function(){
+                $('#taskModal').modal('hide');
+                window.location.href="#taskPage";
+            })
+
+            $(document).on("click", "#claimTask", function(){
+                var userClaim = '<h6>-User 3</h6>';
+                $("#userList").append(userClaim);
+                var currentUser = "User 3";
+                users.push(currentUser);
+                model.set("users", users);
+                $("#claimTask").css("display", "none");
+            })
+        }
+
+        return promise.promise();
+    },
+
+    close: function(){
+
+        $('#taskModal').modal('hide');
+        $('#taskModalDiv').remove();
+
+    }
+}
+
+function taskModalOpen() {
+    return $('#taskModalDiv').length > 0;
 }
