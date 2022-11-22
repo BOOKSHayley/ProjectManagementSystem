@@ -1,7 +1,7 @@
 var ViewTaskPage = Backbone.View.extend({
     events: {
         'click #sendComment': 'updateComments',
-        'keyup #comment': 'enterComments',
+        'submit #comment-form': 'updateComments',
         'click #openAssignModal': 'openAssignModal',
         'keyup #assignUsers-selectUser' : 'enterAssigned',
         'click #assignUserButton': 'updateAssigned',
@@ -35,6 +35,7 @@ var ViewTaskPage = Backbone.View.extend({
         messages.push(log);
         this.model.set("messages", messages);
         $("#comment").val("");
+        return false;
     },
 
     updateAssigned: function(){
@@ -89,15 +90,10 @@ var ViewTaskPage = Backbone.View.extend({
         this.render();
     },
 
-    enterComments: function(e){
-        if(e.keyCode == 13){
-            this.updateComments();
-        }
-    },
-
     enterAssigned: function(e){
         if(e.keyCode == 13){
             this.updateAssigned();
+            return false;
         }
     },
 
