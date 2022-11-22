@@ -38,7 +38,6 @@ var ViewTaskPage = Backbone.View.extend({
             this.model.set("messages", messages);
             $("#comment").val("");
         }
-        
         return false;
     },
 
