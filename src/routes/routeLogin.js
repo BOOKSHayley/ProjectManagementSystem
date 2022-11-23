@@ -7,11 +7,11 @@ var RouterLogin = Backbone.Router.extend({
     showLogin: function(){
         var fade = $.Deferred();
 
-        console.log('here');
-
         //Set all the defaults to the model
         loginViewPage.model.clear().set(loginViewPage.model.defaults);
 
+        localStorage.setItem('clockedIn', JSON.stringify(false));
+        
         $('#content').fadeOut(function(){
             fade.resolve();
             $('#content').html(loginViewPage.render().el);

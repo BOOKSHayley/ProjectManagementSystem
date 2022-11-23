@@ -8,6 +8,7 @@ var ViewTaskPage = Backbone.View.extend({
         'click #assignUserButton': 'updateAssigned',
         'click #deleteUserButton': 'deleteUser',
         'click #confirmUsers': 'confirmNewUsers',
+        'click #navTimer': 'navTimer'
     },
 
     initialize: function(){
@@ -102,5 +103,13 @@ var ViewTaskPage = Backbone.View.extend({
 
     openAssignModal: function(){
         $("#assignModal").modal("show");
+    },
+
+    navTimer: function(){
+        if(this.model.get('clockedIn')){
+            clockOutModal.open(this.model);
+        } else {
+            clockInModal.open(this.model);
+        }
     }
 });
