@@ -10,12 +10,11 @@
                 </div>
 
                 <div class="col-2 group-section" align="center">
-                    <div style="visibility: none"></div>
-                    <h4>Groups</h4>
-                    <div style="display: flex">
-                        <input type="text" placeholder="Search groups..." id="groupSearch" class="form-control">
+                    <div style="display: flex; margin-bottom: 10px; justify-content: space-around">
+                        <h4>Groups</h4>
                         <button type="button" class="btn btn-primary" id="addGroup" style="margin-left: 10px">New</button>
                     </div>
+                    <input type="text" placeholder="Search groups..." id="groupSearch" class="form-control">
                     <div align="left">
                         {{#each groups}}
                             <div class="group-part" data-name="{{name}}">
