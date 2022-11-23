@@ -17,31 +17,33 @@ async function fetchData(dir) {
 
 function postDatabase(dir, data) {
   // adds user
-  fetch(
-    "https://project-i-management-default-rtdb.firebaseio.com/" + dir + ".json",
-    {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  fetch(address + dir + ".json", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
+function patchDatabase(dir, data) {
+  fetch(address + dir + ".json", {
+    method: "PATCH",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 }
 
 function delFromDatabase(dir) {
   // needs work
-  fetch(
-    "https://project-i-management-default-rtdb.firebaseio.com/" + dir + ".json",
-    {
-      method: "DELETE",
-    }
-  )
+  fetch(address + dir + ".json", {
+    method: "DELETE",
+  })
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      // modelDest.set(dir, Object.values(data));
       // console.log(Object.values(data));
     });
 }
