@@ -414,7 +414,6 @@ var ViewKanban = Backbone.View.extend({
     },
 
     initialize: function(){
-
     },
 
     render: function(){
