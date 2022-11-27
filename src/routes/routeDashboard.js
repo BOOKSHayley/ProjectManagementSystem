@@ -7,7 +7,7 @@ var RouterDashboard = Backbone.Router.extend({
   showDashboard: function () {
     var fade = $.Deferred();
 
-    console.log("here");
+    // console.log("here");
 
     //Set all the defaults to the model
     dashboardViewPage.model.clear().set(dashboardViewPage.model.defaults);
