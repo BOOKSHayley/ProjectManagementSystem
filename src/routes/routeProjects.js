@@ -9,9 +9,11 @@ var RouterProjects = Backbone.Router.extend({
         //Set all the defaults to the model
         projectsViewPage.model.clear().set(projectsViewPage.model.defaults);
 
-        $('#content').fadeOut(function(){
-            fade.resolve();
-            $('#content').html(projectsViewPage.render().el);
+        projectsViewPage.getData().done(function(){
+            $('#content').fadeOut(function(){
+                fade.resolve();
+                $('#content').html(projectsViewPage.render().el);
+            })
         })
     }
 });

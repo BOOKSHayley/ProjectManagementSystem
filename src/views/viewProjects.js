@@ -236,5 +236,31 @@ var ViewProjects = Backbone.View.extend({
         var project = this.model.get('projects')[index];
         this.model.set('selectedProject', project);
         console.log('Edit project');
-    }
+    },
+
+    getData: function () {
+        var self = this;
+        var promise = $.Deferred();
+    
+        const res = fetchData("projects");
+        res.then((e) => {
+          const a = Object.values(e);
+          self.model.set("projects", a);
+          console.log(a);
+
+          const groups = fetchData("groups");
+          groups.then((e)=>{
+            self.model.set('groups', Object.values(e));
+
+            const users = fetchData("users");
+            users.then((e)=> {
+                self.model.set('users', Object.values(e));
+                promise.resolve();
+            });
+
+          });
+        });
+    
+        return promise.promise();
+      },
 });
