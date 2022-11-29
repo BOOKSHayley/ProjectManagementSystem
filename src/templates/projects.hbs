@@ -20,7 +20,7 @@
                             <div class="group-part" data-name="{{name}}">
                                 <h6 style="margin-top: 10px">
                                     {{name}} 
-                                    <span class="material-icons edit-group btn" data-index="{{@index}}">edit</span>
+                                    <span class="material-icons edit-group btn" data-groupid="{{groupID}}">edit</span>
                                 </h6>
                                 {{#each users}}
                                     {{#lt @index 3}}
@@ -45,7 +45,7 @@
                             <div class="col-12">
                                 <div class="project-row">
                                     <h4 class="project-name">{{name}}</h4>
-                                    <span class="btn project-star material-icons" data-index="{{@index}}">
+                                    <span class="btn project-star material-icons" data-projectname="{{name}}">
                                         {{#ifvalue starred equals= 1}}star{{else}}star_border{{/ifvalue}}
                                     </span>
                                 </div>
@@ -172,7 +172,7 @@
                                     </thead>
                                     <tbody class="selected-user-tbody" id="editgroup-selected-user-tbody">
                                         {{#each selectedGroup.users}}
-                                            <tr id="editGroupUserRow-{{userID}}" class="editgroup-user-row">
+                                            <tr id="editGroupUserRow-{{initials}}1" class="editgroup-user-row">
                                                 <td style="width: 90%">{{name}}</td>
                                                 <td><button type="button" class="btn edit-group-delete-user"><span class="material-icons" style="color: red">delete</span></button></td>
                                             </tr>

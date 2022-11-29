@@ -82,23 +82,25 @@ var ViewProjects = Backbone.View.extend({
 
     var users = this.model.get("users");
     var user = null;
-    var i;
-    for (i = 0; i < users.length; i++) {
-      if (users[i]["name"] == name) {
-        user = users[i];
-        break;
-      }
+    var userKey;
+    
+    for (const [key, value] of Object.entries(users)) {
+        if (value["name"] == name) {
+            user = value;
+            userKey = key;
+            break;
+        }
     }
 
     if (user) {
       var tr =
         '<tr id="createGroupUserRow-' +
-        i +
+        userKey +
         '" class="creategroup-user-row"><td style="width: 90%">' +
         user["name"] +
         '</td> <td><button type="button" class="btn create-group-delete-user"><span class="material-icons" style="color: red">delete</span></button></td></tr>';
 
-      if ($("#createGroupUserRow-" + i).length === 0) {
+      if ($("#createGroupUserRow-" + userKey).length === 0) {
         $("#creategroup-select-user-tbody").append(tr);
       }
 
@@ -110,70 +112,76 @@ var ViewProjects = Backbone.View.extend({
     $(e.currentTarget).closest("tr").remove();
   },
   confirmAddGroup: function () {
+    var self = this;
     var groups = this.model.get("groups");
     var users = this.model.get("users");
 
     var newGroup = {
-      groupID: Math.random() * 10000,
-      name: $("#createGroupName").val(),
-      users: [],
+        groupID: Math.floor(Math.random() * 10000),
+        name: $("#createGroupName").val(),
+        users: [],
     };
-
+  
     $(".creategroup-user-row").each(function () {
-      newGroup.users.push(users[$(this).attr("id").split("-")[1]]);
+        newGroup.users.push(users[$(this).attr("id").split("-")[1]]);
     });
 
     var valid = true;
 
     if (!newGroup.name) {
-      valid = false;
-      $("#createGroupName").addClass("is-invalid");
+        valid = false;
+        $("#createGroupName").addClass("is-invalid");
     }
 
     if (newGroup.users.length === 0) {
-      valid = false;
-      $("#createGroup-noUserError").css("display", "flex");
+        valid = false;
+        $("#createGroup-noUserError").css("display", "flex");
     }
 
     if (valid) {
-      groups.push(newGroup);
-      this.model.set("groups", groups);
-      $("#createGroupModal").modal("hide");
-      $(".modal-backdrop").remove();
-      this.render();
+        groups['g' + newGroup.groupID] = newGroup;
+        self.model.set("groups", groups);
+
+        patchDatabase('groups/g' + newGroup.groupID, newGroup);
+
+        $("#createGroupModal").modal("hide");
+        $(".modal-backdrop").remove();
+        self.render();
     }
+    
   },
 
   //Edit Group
   editGroupModal: function () {
-    var index = $(event.target).attr("data-index");
-    var group = this.model.get("groups")[index];
+    var groupID = $(event.target).attr("data-groupid");
+    var group = this.model.get("groups")['g' + groupID];
     this.model.set("selectedGroup", group);
     this.render();
     $("#editGroupModal").modal("show");
   },
   editGroupAddUser: function () {
     var name = $("#editGroup-selectUser").val();
-
     var users = this.model.get("users");
     var user = null;
-    var i;
-    for (i = 0; i < users.length; i++) {
-      if (users[i]["name"] == name) {
-        user = users[i];
-        break;
-      }
+    var userKey;
+
+    for (const [key, value] of Object.entries(users)) {
+        if (value["name"] == name) {
+            user = value;
+            userKey = key;
+            break;
+        }
     }
 
     if (user) {
       var tr =
         '<tr id="editGroupUserRow-' +
-        users[i]["userID"] +
+        userKey +
         '" class="editgroup-user-row"><td style="width: 90%">' +
         user["name"] +
         '</td> <td><button type="button" class="btn edit-group-delete-user"><span class="material-icons" style="color: red">delete</span></button></td></tr>';
 
-      if ($("#editGroupUserRow-" + users[i]["userID"]).length === 0) {
+      if ($("#editGroupUserRow-" + userKey).length === 0) {
         $("#editgroup-selected-user-tbody").append(tr);
       }
 
@@ -196,13 +204,7 @@ var ViewProjects = Backbone.View.extend({
     };
 
     $(".editgroup-user-row").each(function () {
-      var user;
-      for (var i = 0; i < users.length; i++) {
-        if (users[i]["userID"] == $(this).attr("id").split("-")[1]) {
-          user = users[i];
-          break;
-        }
-      }
+      var user = users[$(this).attr("id").split("-")[1]];
       updateGroup.users.push(user);
     });
 
@@ -219,16 +221,12 @@ var ViewProjects = Backbone.View.extend({
     }
 
     if (valid) {
-      var i;
-      for (i = 0; i < groups.length; i++) {
-        if (updateGroup.groupID == groups[i].groupID) {
-          break;
-        }
-      }
-
-      groups[i] = updateGroup;
+      groups['g' + updateGroup.groupID] = updateGroup;
 
       this.model.set("groups", groups);
+
+      patchDatabase('groups/g' + updateGroup.groupID, updateGroup);
+
       $("#editGroupModal").modal("hide");
       $(".modal-backdrop").remove();
       this.render();
@@ -237,16 +235,17 @@ var ViewProjects = Backbone.View.extend({
 
   //Projects functions
   starProject: function () {
-    var index = $(event.target).attr("data-index");
+    var projName = $(event.target).attr("data-projectname");
     var projects = this.model.get("projects");
-    var project = projects[index];
+    var project = projects[projName];
 
     var starred = (parseInt(project["starred"]) + 1) % 2;
     project["starred"] = starred;
 
-    projects[index] = project;
+    projects[projName] = project;
 
     this.model.set("projects", projects);
+    patchDatabase('projects/' + projName, project);
     this.render();
   },
   goToKanban: function(e){
