@@ -226,9 +226,10 @@ var ViewProjects = Backbone.View.extend({
         this.model.set('projects', projects);
         this.render();
     },
-    goToKanban: function(){
+    goToKanban: function(e){
         if($(event.target)[0].nodeName !== 'BUTTON' && $(event.target)[0].nodeName !== 'SPAN'){
-            window.location.href = '#kanban';
+            projectID = $(e.currentTarget).attr('data-project');
+            window.location.href = '#kanban/' + projectID;
         }
     },
     editProject: function(){

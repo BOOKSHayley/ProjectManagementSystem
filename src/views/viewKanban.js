@@ -23,7 +23,19 @@ var ViewKanban = Backbone.View.extend({
         return this;
     },
 
-    showTaskModal: function(){
+    showTaskModal: function(e){
+        var taskID = $(e.currentTarget).attr('data-taskid');
+        var tasks = this.model.get('project')['Tasks'];
+        var task = null;
+
+        for(const [key, value] of Object.entries(tasks)){
+            if(value['taskID'] == taskID){
+                task = value;
+                break;
+            }
+        }
+
+        this.model.set('currentTask', task);
         taskModal.open(this.model);
     },
     timer: function(){
@@ -36,5 +48,28 @@ var ViewKanban = Backbone.View.extend({
         } else {
             clockInModal.open(this.model);
         }
+    },
+
+    getData: function(projectID){
+        var self = this;
+
+        var promise = $.Deferred();
+
+        const db = fetchData("projects");
+        db.then((e)=> {
+            var projects = Object.values(e);
+            var project = null;
+            for(var i = 0; i < projects.length; i++){
+                if(projects[i]['projectID'] == projectID){
+                    project = projects[i];
+                    break;
+                }
+            }
+
+            self.model.set('project', project);
+            promise.resolve();
+        });
+
+        return promise.promise();
     }
 });
