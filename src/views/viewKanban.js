@@ -3,7 +3,6 @@ var ViewKanban = Backbone.View.extend({
         //Events include: click, keyup, change, etc
         'click #clickButton': 'clickButtonFunction',
         'click .task-button': 'showTaskModal',
-        'click #timer': 'timer',
         'click #navTimer': 'navTimer'
     },
 
@@ -37,17 +36,6 @@ var ViewKanban = Backbone.View.extend({
 
         this.model.set('currentTask', task);
         taskModal.open(this.model);
-    },
-    timer: function(){
-        //Quick function for clock in/out
-
-        var clockedIn = this.model.get('clockedIn');
-
-        if(clockedIn){
-            clockOutModal.open(this.model);
-        } else {
-            clockInModal.open(this.model);
-        }
     },
     navTimer: function(){
         if(this.model.get('clockedIn')){
