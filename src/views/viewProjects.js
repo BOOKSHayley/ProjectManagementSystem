@@ -249,18 +249,17 @@ var ViewProjects = Backbone.View.extend({
     this.model.set("projects", projects);
     this.render();
   },
-  goToKanban: function () {
-    if (
-      $(event.target)[0].nodeName !== "BUTTON" &&
-      $(event.target)[0].nodeName !== "SPAN"
-    ) {
-      window.location.href = "#kanban";
-    }
+  goToKanban: function(e){
+        if($(event.target)[0].nodeName !== 'BUTTON' && $(event.target)[0].nodeName !== 'SPAN'){
+            projectID = $(e.currentTarget).attr('data-project');
+            window.location.href = '#kanban/' + projectID;
+        }
   },
-  editProject: function () {
-    var index = $(event.target).attr("data-index");
-    var project = this.model.get("projects")[index];
-    this.model.set("selectedProject", project);
-    console.log("Edit project");
+  editProject: function(){
+      var index = $(event.target).attr('data-index');
+      var project = this.model.get('projects')[index];
+      this.model.set('selectedProject', project);
+      console.log('Edit project');
   },
+
 });

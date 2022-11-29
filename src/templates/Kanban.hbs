@@ -13,36 +13,21 @@
                         </div>
                         
                         <div class="p-2">
+                            
+                            <!-- Loop through each task, if status is Not started (0), then make the card-->
+                            {{#each project.Tasks}}
+                                {{#ifvalue status equals= 0}}
+                                    <div class = "p-1">
 
-
-                            {{!-- <div class="dash-card-holder">
-                                <a href="#task5" class="dash-card">
-                                    <h5>Task 5</h5>
-                                    <p class="col-12 description">3 hr.</p>
-                                    <div class="progress" style="height: 15px;">
-                                            <div class="progress-bar progress-bar-striped" style="width:20%">25%</div>
+                                        <div class="kanban-card-holder">
+                                            <button class="kanban-card task-button" data-taskid="{{taskID}}" style="background-color:#DDDDDD">
+                                                <h6 style="color:#333333;">{{name}}</h6> <!-- Reference the task name -->
+                                            </button>
+                                        </div>
                                     </div>
-                                </a>
-                            </div> --}}
-                            
-                            
-                            <div class = "p-1">
+                                {{/ifvalue}}
+                            {{/each}}
 
-                                <div class="kanban-card-holder">
-                                    <button class="kanban-card task-button" style="background-color:#DDDDDD">
-                                        <h6 style="color:#333333;">Task 5</h6>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class = "p-1">
-
-                                <div class="kanban-card-holder">
-                                    <button class="kanban-card task-button" style="background-color:#DDDDDD">
-                                        <h6 style="color:#333333;">Task 6</h6>
-                                    </button>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -51,33 +36,24 @@
                             <h4 style="color:#333333">In Progress</h4>
                         </div>
 
-                        <div class=
-                            "p-2">
-                            <div class = "p-1">
+                        <div class="p-2">
+                            {{#each project.Tasks}}
+                                {{#ifvalue status equals= 1}}
+                                    <div class = "p-1">
 
-                                <div class="kanban-card-holder">
-                                    <button class="kanban-card task-button" style="background-color:#FFEA8A">
-                                        <h6 style="color:#333333;">Task 3</h6>
-                                        <p style="color:#333333;">6 hr.</p>
-                                        <div class="progress" style="height: 15px;">
-                                            <div class="progress-bar progress-bar-striped" style ="width:50%">50%</div>
+                                        <div class="kanban-card-holder">
+                                            <button class="kanban-card task-button" data-taskid="{{taskID}}" style="background-color:#FFEA8A">
+                                                <h6 style="color:#333333;">{{name}}</h6>
+                                                <p style="color:#333333;">{{timeLogged}}</p>
+                                                <div class="progress" style="height: 15px;">
+                                                    <div class="progress-bar progress-bar-striped" style ="width:{{progress}}%">{{progress}}%</div>
+                                                </div>
+                                            </button>
                                         </div>
-                                    </button>
-                                </div>
-                            </div>
+                                    </div>
+                                {{/ifvalue}}
+                            {{/each}}
                             
-                            <div class = "p-1">
-
-                                <div class="kanban-card-holder">
-                                    <button class="kanban-card task-button" style="background-color:#FFEA8A">
-                                        <h6 style="color:#333333;">Task 4</h6>
-                                        <p style="color:#333333;">2 hr.</p>
-                                        <div class="progress" style="height: 15px;">
-                                            <div class="progress-bar progress-bar-striped" style="width:20%">20%</div>
-                                        </div>
-                                    </button>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -87,19 +63,23 @@
                         </div>
 
                         
-                        <div class=
-                            "p-2">
-                            <div class = "p-1">
-                                <div class="kanban-card-holder">
-                                    <button class="kanban-card task-button" style="background-color:#09B0EF">
-                                        <h6 style="color:#333333;">Task 2</h6>
-                                        <p style="color:#333333;">3 hr.</p>
-                                        <div class="progress" style="height: 15px;">
-                                            <div class="progress-bar progress-bar-striped" style="width:88%">88%</div>
+                        <div class="p-2">
+                            {{#each project.Tasks}}
+                                {{#ifvalue status equals= 2}}
+                                    <div class = "p-1">
+                                        <div class="kanban-card-holder">
+                                            <button class="kanban-card task-button" data-taskid="{{taskID}}" style="background-color:#09B0EF">
+                                                <h6 style="color:#333333;">{{name}}</h6>
+                                                <p style="color:#333333;">{{timeLogged}}</p>
+                                                <div class="progress" style="height: 15px;">
+                                                    <div class="progress-bar progress-bar-striped" style="width:{{progress}}%">{{progress}}%</div>
+                                                </div>
+                                            </button>
                                         </div>
-                                    </button>
-                                </div>
-                            </div>
+                                    </div>
+                                {{/ifvalue}}
+                            {{/each}}
+
                         </div>
                     </div>
 
@@ -108,16 +88,20 @@
                             <h4 style="color:#333333">Done!</h4>
                         </div>
                         
-                        <div class=
-                            "p-2">
-                            <div class = "p-1">
-                                <div class="kanban-card-holder">
-                                    <button class="kanban-card task-button" style="background-color:#B9FF8A">
-                                        <h6 style="color:#333333;">Task 1</h6>
-                                        <p style="color:#333333;">20 hr.</p>
-                                    </button>
-                                </div>
-                            </div>
+                        <div class="p-2">
+                            {{#each project.Tasks}}
+                                {{#ifvalue status equals= 3}}
+                                    <div class = "p-1">
+                                        <div class="kanban-card-holder">
+                                            <button class="kanban-card task-button" data-taskid="{{taskID}}" style="background-color:#B9FF8A">
+                                                <h6 style="color:#333333;">{{name}}</h6>
+                                                <p style="color:#333333;">{{timeLogged}}</p>
+                                            </button>
+                                        </div>
+                                    </div>
+                                {{/ifvalue}}
+                            {{/each}}
+
                         </div>
                     </div>
                 </div>
