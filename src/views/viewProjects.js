@@ -250,8 +250,8 @@ var ViewProjects = Backbone.View.extend({
   },
   goToKanban: function(e){
         if($(event.target)[0].nodeName !== 'BUTTON' && $(event.target)[0].nodeName !== 'SPAN'){
-            projectID = $(e.currentTarget).attr('data-project');
-            window.location.href = '#kanban/' + projectID;
+            projectName = $(e.currentTarget).attr('data-project');
+            window.location.href = '#kanban/' + projectName;
         }
   },
   editProject: function(){

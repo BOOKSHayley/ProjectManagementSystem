@@ -57,23 +57,14 @@ var ViewKanban = Backbone.View.extend({
         }
     },
     
-    getData: function(projectID){
+    getData: function(){
       var self = this;
 
       var promise = $.Deferred();
 
-      const db = fetchData("projects");
+      const db = fetchData("projects/" + self.model.get('projectName'));
       db.then((e)=> {
-          var projects = Object.values(e);
-          var project = null;
-          for(var i = 0; i < projects.length; i++){
-              if(projects[i]['projectID'] == projectID){
-                  project = projects[i];
-                  break;
-              }
-          }
-
-          self.model.set('project', project);
+          self.model.set('project', e);
           promise.resolve();
       });
 
