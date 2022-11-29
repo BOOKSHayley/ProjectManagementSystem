@@ -7,7 +7,6 @@ var RouterKanban = Backbone.Router.extend({
     showKanban: function(projectID){
         var fade = $.Deferred();
 
-        console.log('here');
 
         //Set all the defaults to the model
         kanbanViewPage.model.clear().set(kanbanViewPage.model.defaults);
