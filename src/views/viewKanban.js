@@ -3,11 +3,11 @@ var ViewKanban = Backbone.View.extend({
         //Events include: click, keyup, change, etc
         'click #clickButton': 'clickButtonFunction',
         'click .task-button': 'showTaskModal',
-        'click #timer': 'timer'
+        'click #timer': 'timer',
+        'click #navTimer': 'navTimer'
     },
 
     initialize: function(){
-
     },
 
     render: function(){
@@ -49,27 +49,34 @@ var ViewKanban = Backbone.View.extend({
             clockInModal.open(this.model);
         }
     },
-
+    navTimer: function(){
+        if(this.model.get('clockedIn')){
+            clockOutModal.open(this.model);
+        }else{
+            clockInModal.open(this.model);
+        }
+    },
+    
     getData: function(projectID){
-        var self = this;
+      var self = this;
 
-        var promise = $.Deferred();
+      var promise = $.Deferred();
 
-        const db = fetchData("projects");
-        db.then((e)=> {
-            var projects = Object.values(e);
-            var project = null;
-            for(var i = 0; i < projects.length; i++){
-                if(projects[i]['projectID'] == projectID){
-                    project = projects[i];
-                    break;
-                }
-            }
+      const db = fetchData("projects");
+      db.then((e)=> {
+          var projects = Object.values(e);
+          var project = null;
+          for(var i = 0; i < projects.length; i++){
+              if(projects[i]['projectID'] == projectID){
+                  project = projects[i];
+                  break;
+              }
+          }
 
-            self.model.set('project', project);
-            promise.resolve();
-        });
+          self.model.set('project', project);
+          promise.resolve();
+      });
 
-        return promise.promise();
-    }
+      return promise.promise();
+    },
 });
