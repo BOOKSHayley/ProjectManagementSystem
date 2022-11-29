@@ -12,10 +12,12 @@ var RouterLogin = Backbone.Router.extend({
 
         localStorage.setItem('clockedIn', JSON.stringify(false));
         
-        $('#content').fadeOut(function(){
-            fade.resolve();
-            $('#content').html(loginViewPage.render().el);
-        })
+        loginViewPage.getData().done(function () {
+            $("#content").fadeOut(function () {
+                fade.resolve();
+                $("#content").html(loginViewPage.render().el);
+            });
+        });
     }
 });
 

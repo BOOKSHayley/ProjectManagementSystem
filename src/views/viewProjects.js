@@ -27,7 +27,8 @@ var ViewProjects = Backbone.View.extend({
       self.model.set("projects", a[1]);
       self.model.set("groups", a[0]);
       self.model.set("users", a[2]);
-      console.log(a);
+      //            gets last user
+      console.log(Object.values(a[2])[Object.values(a[2]).length - 1]);
       promise.resolve();
     });
 
@@ -254,11 +255,10 @@ var ViewProjects = Backbone.View.extend({
             window.location.href = '#kanban/' + projectName;
         }
   },
-  editProject: function(){
-      var index = $(event.target).attr('data-index');
-      var project = this.model.get('projects')[index];
-      this.model.set('selectedProject', project);
-      console.log('Edit project');
+  editProject: function () {
+    var index = $(event.target).attr("data-index");
+    var project = this.model.get("projects")[index];
+    this.model.set("selectedProject", project);
+    console.log("Edit project");
   },
-
 });
