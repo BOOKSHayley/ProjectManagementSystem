@@ -9,7 +9,7 @@
                     <input type="text" class="form-control" id="projectSearch" placeholder="Search projects..." style="margin-left: 20px; width: 25%">
                 </div>
 
-                <div class="col-2 group-section" align="center">
+                <div class="col-3 group-section" align="center">
                     <div style="display: flex; margin-bottom: 10px; justify-content: space-around">
                         <h4>Groups</h4>
                         <button type="button" class="btn btn-primary" id="addGroup" style="margin-left: 10px">New</button>
@@ -39,9 +39,9 @@
                 </div>
                 
                 <!-- Projects -->
-                <div class="col-10 px-4">
+                <div class="col-9 px-3">
                     {{#each projects}}
-                        <div class="mb-4 project-section" data-project="{{projectID}}">
+                        <div class="mb-3 project-section" data-project="{{projectID}}">
                             <div class="col-12">
                                 <div class="project-row">
                                     <h4 class="project-name">{{name}}</h4>
