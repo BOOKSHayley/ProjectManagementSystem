@@ -55,15 +55,7 @@ var ViewKanban = Backbone.View.extend({
 
       const db = fetchData("projects/" + self.model.get('projectName'));
       db.then((e)=> {
-          var projects = Object.values(e);
-          var project = null;
-          for(var i = 0; i < projects.length; i++){
-              if(projects[i]['projectID'] == projectID){
-                  project = projects[i];
-                  break;
-              }
-          }
-
+          var project = e;
           self.model.set('project', project);
 
           var projectUsers = [];
