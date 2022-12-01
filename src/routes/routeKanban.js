@@ -1,23 +1,23 @@
 var RouterKanban = Backbone.Router.extend({
     routes: {
         // These are urls that will trigger this kanban page to appear
-        "kanban/:projectID": 'showKanban'
+        "kanban/:projectName": 'showKanban'
     },
 
-    showKanban: function(projectID){
+    showKanban: function(projectName){
         var fade = $.Deferred();
 
 
         //Set all the defaults to the model
         kanbanViewPage.model.clear().set(kanbanViewPage.model.defaults);
-        kanbanViewPage.model.set('projectID', projectID)
+        kanbanViewPage.model.set('projectName', projectName)
 
         var clockedIn = localStorage.getItem('clockedIn');
         if(clockedIn){
             kanbanViewPage.model.set('clockedIn', JSON.parse(clockedIn));
         }
 
-        kanbanViewPage.getData(projectID).done(function(){
+        kanbanViewPage.getData().done(function(){
             $('#content').fadeOut(function(){
                 fade.resolve();
                 $('#content').html(kanbanViewPage.render().el);

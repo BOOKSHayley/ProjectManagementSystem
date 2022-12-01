@@ -111,5 +111,33 @@ var ViewTaskPage = Backbone.View.extend({
         } else {
             clockInModal.open(this.model);
         }
+    },
+
+    getData: function(){
+        var self = this;
+        var promise = $.Deferred();
+
+        var projectName = self.model.get('projectName');
+        var taskID = self.model.get('taskID');
+
+        var db = fetchData('projects/' + projectName);
+        db.then((e)=>{
+            var tasks = e['Tasks'];
+            var task = null;
+
+            for(const [key, value] of Object.entries(tasks)){
+                if(value['taskID'] == taskID){
+                    task = value;
+                    break;
+                }
+            }
+
+            self.model.set('project', e);
+            self.model.set('task', task);
+            promise.resolve();
+        });
+
+
+        return promise.promise();
     }
 });
