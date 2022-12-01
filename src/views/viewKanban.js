@@ -6,7 +6,8 @@ var ViewKanban = Backbone.View.extend({
         'click #navTimer': 'navTimer',
         'click #testButton': 'showCreateTask',
         'click #assignUserButton' : 'updateAssigned',
-        "click .create-task-delete-user": "createTaskModalRemoveUser",
+        'click .create-task-delete-user': 'createTaskModalRemoveUser',
+        'click #createTask': 'createTask'
     },
 
     initialize: function(){
@@ -102,7 +103,7 @@ var ViewKanban = Backbone.View.extend({
           var tr =
             '<tr id="createTaskUserRow-' +
             i +
-            '" class="createtask-user-row"><td style="width: 90%">' +
+            '" class="createtask-user-row" data-userid = "'+user["userID"]+'"><td style="width: 90%">' +
             user["name"] +
             '</td> <td><button type="button" class="btn create-task-delete-user"><span class="material-icons" style="color: red">delete</span></button></td></tr>';
             
@@ -116,6 +117,46 @@ var ViewKanban = Backbone.View.extend({
         }
 
         return false;
+    },
+
+    createTask: function(){
+        var projName = this.model.get('projectName');
+        var project = this.model.get('project');
+        console.log(project);
+
+        var newTask = {
+            assignedusers : [],
+            commentLog :[],
+            description : $('#description').val(),
+            finishDate : $('#taskFinishDate').val(),
+            name : $('#taskName').val(),
+            problems : [],
+            progress: 0,
+            status: 0,
+            taskID: Object.values(project.Tasks).length+1,
+            timeLogged: "0h"
+        };
+
+        $(".createtask-user-row").each(function(){
+            var user = {
+                userID: $(this).attr("data-userid"),
+                name: $(this).text()
+            };
+            newTask.assignedusers.push(user);
+        });
+
+        if(newTask.name == ""){
+            $('#taskName').addClass("is-invalid");
+        }
+        else{
+            project.Tasks["task" + newTask.taskID] = newTask;
+            $("#createTaskModal").modal("hide");
+            $(".modal-backdrop").remove();
+            patchDatabase('projects/' + projName + "/Tasks/task" + newTask.taskID, newTask);
+            this.render();
+        }
+
+        
     },
 
     showCreateTask: function(){

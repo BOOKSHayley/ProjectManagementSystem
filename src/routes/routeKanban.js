@@ -11,6 +11,7 @@ var RouterKanban = Backbone.Router.extend({
         //Set all the defaults to the model
         kanbanViewPage.model.clear().set(kanbanViewPage.model.defaults);
         kanbanViewPage.model.set('projectName', projectName)
+        kanbanViewPage.model.set('currentUser', JSON.parse(localStorage.getItem("pimUserData")));
 
         var clockedIn = localStorage.getItem('clockedIn');
         if(clockedIn){
