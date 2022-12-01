@@ -29,12 +29,6 @@ var ViewDashboard = Backbone.View.extend({
 
     //Can add functions to be run on rendering can go here
 
-    patchDatabase("users/VO1", {
-      userID: 6,
-      name: "Vaughn Ohlerking",
-      initials: "VO",
-    });
-
     $.when(fade).done(function () {
       $("#content").fadeIn();
     });
