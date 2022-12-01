@@ -1,12 +1,15 @@
 {{> nav}}
     <div class="page-content-wrapper">
-        <div class="col-12 px-4">
-            <h1 class="mt-4">Create Project</h1> 
+        <h1 class="mt-4">Create Project</h1>    
+        <div class="create-proj-card col-12 px-4">
             <div class="form col-12 col-lg-6 col-md-4">
 
                 <div class="form-group">
                     <label for="projectName">Name</label>
                     <input type="text" class="form-control" id="projectName" placeholder="Enter name...">
+                    <div class="invalid-feedback">
+                        Please enter a name with no spaces
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -21,19 +24,28 @@
                         <select class="form-control" name="groupSelect" id="groupSelect">
                             <option selected disabled>Choose group...</option>
                             {{#each groups}}
-                                <option value="{{groupID}}">{{name}}</option>
+                                <option value="{{@index}}">{{name}}</option>
                             {{/each}}
                         </select>
 
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button">Add</button>
+                            <button class="btn btn-primary" type="button" id="addGroup">Add</button>
                         </div>
 
                     </div>
                 </div>
+
+                <table id="addGroupTable" class="table table-hover" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Group</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="addGroupTbody"></tbody>
+                </table>
+                <p id="groupError" style="color: red; display: none">Please select a group</p>
                  
-
-
                 <button class="btn btn-danger mt-4" type="button" id="cancel">Cancel</button>
 
                 <button class="btn btn-submit mt-4" type="button" id="submit">Submit</button>
