@@ -1,3 +1,5 @@
+
+
 var ViewCreateProject = Backbone.View.extend({
     events: {
         //Events include: click, keyup, change, etc
@@ -12,7 +14,15 @@ var ViewCreateProject = Backbone.View.extend({
         window.location.href = '#projects';
     },
     submit: function(){
-        window.location.href = '#projects';
+        var newProject = {
+            Tasks: [], 
+            description: "", 
+            groups: [], 
+            name: "", 
+            projectID: 0, 
+            starred: 0, 
+            timeSpent: 0
+        }
     },
 
     render: function(){
@@ -27,4 +37,18 @@ var ViewCreateProject = Backbone.View.extend({
         this.delegateEvents();
         return this;
     },
+
+    getData: function(){
+        var self = this; 
+        var promise = $.Deferred(); 
+        const res = fetchData("groups"); 
+        res.then((e)=> {
+            self.model.set("groups", Object.values(e));
+            promise.resolve(); 
+        })
+
+        return promise.promise();
+
+       
+    }
 });
