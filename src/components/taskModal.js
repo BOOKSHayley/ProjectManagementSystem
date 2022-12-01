@@ -8,12 +8,6 @@ var taskModal = {
 
             var div = '<div id="taskModalDiv"></div>';
             $('body').append(div);
-            
-            var users = [
-                "User 1",
-                "User 2"
-            ];
-            model.set("users", users);
 
             $('#taskModalDiv').append(Handlebars.partials.taskmodal(model.toJSON()));
 
@@ -21,6 +15,7 @@ var taskModal = {
 
             $('#taskModal').on('hidden.bs.modal', function(){
                 $('#taskModalDiv').remove();
+                $(document).off('click', '#claimTask');
                 promise.resolve();
             });
             
@@ -31,12 +26,16 @@ var taskModal = {
             })
 
             $(document).on("click", "#claimTask", function(){
-                //var currentUser = ;
-                //var userClaim = '<h6>-'++'</h6>';
+                var currentUser = model.get("currentUser");
+                var projName = model.get('projectName');
+                var currentTask = model.get('currentTask');
+
+                var assignedUsers = currentTask.assignedUsers;
+                var userClaim = '<h6>-'+currentUser.name+'</h6>';
                 $("#userList").append(userClaim);
-                var currentUser = "User 3";
-                users.push(currentUser);
-                model.set("users", users);
+
+                assignedUsers.push({name:currentUser.name, userID:currentUser.userID});
+                patchDatabase('projects/' + projName + "/Tasks/task" + currentTask.taskID, currentTask);
                 $("#claimTask").css("display", "none");
             })
         }
@@ -45,7 +44,7 @@ var taskModal = {
     },
 
     close: function(){
-
+        $(document).off('click', '#claimTask');
         $('#taskModal').modal('hide');
         $('#taskModalDiv').remove();
 
