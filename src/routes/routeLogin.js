@@ -11,6 +11,7 @@ var RouterLogin = Backbone.Router.extend({
         loginViewPage.model.clear().set(loginViewPage.model.defaults);
 
         localStorage.setItem('clockedIn', JSON.stringify(false));
+        localStorage.removeItem('pimUserData');
         
         loginViewPage.getData().done(function () {
             $("#content").fadeOut(function () {
