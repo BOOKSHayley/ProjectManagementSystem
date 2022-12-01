@@ -26,13 +26,17 @@ function postDatabase(dir, data) {
   });
 }
 function patchDatabase(dir, data) {
+  var promise = $.Deferred();
   fetch(address + dir + ".json", {
     method: "PATCH",
     body: JSON.stringify(data),
     headers: {
       "Content-Type": "application/json",
     },
+  }).then(function(){
+    promise.resolve();
   });
+  return promise.promise();
 }
 
 function delFromDatabase(dir) {
