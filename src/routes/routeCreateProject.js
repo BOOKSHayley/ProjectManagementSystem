@@ -13,10 +13,13 @@ var RouterCreateProject = Backbone.Router.extend({
        // Set all the defaults to the model
         createProjectViewPage.model.clear().set(createProjectViewPage.model.defaults);
 
-        $('#content').fadeOut(function(){
-            fade.resolve();
-            $('#content').html(createProjectViewPage.render().el);
+        createProjectViewPage.getData().done(function(){
+            $('#content').fadeOut(function(){
+                fade.resolve();
+                $('#content').html(createProjectViewPage.render().el);
+            })
         })
+        
     }
 });
 var createProjectViewPage = null;
