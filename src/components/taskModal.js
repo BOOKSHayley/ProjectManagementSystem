@@ -22,7 +22,7 @@ var taskModal = {
 
             $(document).on("click", "#viewTaskPage", function(){
                 $('#taskModal').modal('hide');
-                window.location.href="#taskPage";
+                window.location.href="#taskPage/"+model.get('projectName')+"/"+model.get('currentTask').taskID;
             })
 
             $(document).on("click", "#claimTask", function(){
