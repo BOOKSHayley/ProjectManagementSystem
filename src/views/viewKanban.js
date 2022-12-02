@@ -65,9 +65,11 @@ var ViewKanban = Backbone.View.extend({
             const group = fetchData("groups/g" + project.groups[i]);
             group.then((e)=>{
                 projectUsers = projectUsers.concat(e.users);
-                projectUsers.filter((item,index)=>{
-                    return (projectUsers.indexOf(item) == index)
-                 })
+                projectUsers = projectUsers.filter((value, index, self)=>
+                    index === self.findIndex((t) => (
+                        t.name === value.name && t.UserID === value.UserID
+                    ))
+                )
 
                 j++;
                 if(j >= project.groups.length-1) {
