@@ -9,38 +9,12 @@ this["Handlebars"]["templates"]["createProject"] = Handlebars.template({"1":func
     };
 
   return "                                <option value=\""
-    + alias4(((helper = (helper = lookupProperty(helpers,"reasonID") || (depth0 != null ? lookupProperty(depth0,"reasonID") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"reasonID","hash":{},"data":data,"loc":{"start":{"line":29,"column":47},"end":{"line":29,"column":59}}}) : helper)))
+    + alias4(((helper = (helper = lookupProperty(helpers,"groupID") || (depth0 != null ? lookupProperty(depth0,"groupID") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"groupID","hash":{},"data":data,"loc":{"start":{"line":24,"column":47},"end":{"line":24,"column":58}}}) : helper)))
     + "\">"
-    + alias4(((helper = (helper = lookupProperty(helpers,"reason") || (depth0 != null ? lookupProperty(depth0,"reason") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"reason","hash":{},"data":data,"loc":{"start":{"line":29,"column":61},"end":{"line":29,"column":71}}}) : helper)))
-    + "</option>\r\n";
-},"3":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
-          return parent[propertyName];
-        }
-        return undefined
-    };
-
-  return "                                <option value=\""
-    + alias4(((helper = (helper = lookupProperty(helpers,"groupID") || (depth0 != null ? lookupProperty(depth0,"groupID") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"groupID","hash":{},"data":data,"loc":{"start":{"line":47,"column":47},"end":{"line":47,"column":58}}}) : helper)))
-    + "\">"
-    + alias4(((helper = (helper = lookupProperty(helpers,"group") || (depth0 != null ? lookupProperty(depth0,"group") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"group","hash":{},"data":data,"loc":{"start":{"line":47,"column":60},"end":{"line":47,"column":69}}}) : helper)))
-    + "</option>\r\n";
-},"5":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
-          return parent[propertyName];
-        }
-        return undefined
-    };
-
-  return "                                <option value=\""
-    + alias4(((helper = (helper = lookupProperty(helpers,"aspectID") || (depth0 != null ? lookupProperty(depth0,"aspectID") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"aspectID","hash":{},"data":data,"loc":{"start":{"line":65,"column":47},"end":{"line":65,"column":59}}}) : helper)))
-    + "\">"
-    + alias4(((helper = (helper = lookupProperty(helpers,"aspect") || (depth0 != null ? lookupProperty(depth0,"aspect") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"aspect","hash":{},"data":data,"loc":{"start":{"line":65,"column":61},"end":{"line":65,"column":71}}}) : helper)))
+    + alias4(((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":24,"column":60},"end":{"line":24,"column":68}}}) : helper)))
     + "</option>\r\n";
 },"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
+    var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
         }
@@ -48,13 +22,9 @@ this["Handlebars"]["templates"]["createProject"] = Handlebars.template({"1":func
     };
 
   return ((stack1 = container.invokePartial(lookupProperty(partials,"nav"),depth0,{"name":"nav","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "    <div class=\"page-content-wrapper\">\r\n        <div class=\"col-12 px-4\">\r\n            <h1 class=\"mt-4\">Create Project</h1> \r\n            <div class=\"form col-12 col-lg-6 col-md-4\">\r\n\r\n                <div class=\"form-group\">\r\n                    <label for=\"projectName\">Name</label>\r\n                    <input type=\"text\" class=\"form-control\" id=\"projectName\" placeholder=\"Enter name...\">\r\n                </div>\r\n\r\n                <div class=\"form-group\">\r\n                    <label for=\"projectDescription\">Description</label>\r\n                    <textarea class=\"form-control\" id=\"projectDescription\" rows=\"3\"></textarea>\r\n                </div>\r\n\r\n                <div class=\"form-group\">\r\n                    <label for=\"projectName\">Email address</label>\r\n                    <input type=\"text\" class=\"form-control\" id=\"projectName\" placeholder=\"Enter name...\">\r\n                </div>\r\n\r\n                <div class=\"form-group\">\r\n                    <label>Members</label>\r\n                    <div class=\"input-group col-12 col-md-4 mx-0 px-0\">\r\n                        \r\n                        <select class=\"form-control\" name=\"memberSelect\" id=\"memberSelect\">\r\n                            <option selected disabled>Choose member...</option>\r\n"
-    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"member") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":28,"column":28},"end":{"line":30,"column":37}}})) != null ? stack1 : "")
-    + "                        </select>\r\n\r\n                        <div class=\"input-group-append\">\r\n                            <button class=\"btn btn-outline-secondary\" type=\"button\">Add</button>\r\n                        </div>\r\n\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"form-group\">\r\n                    <label>Groups</label>\r\n                    <div class=\"input-group col-12 col-md-4 mx-0 px-0\">\r\n                        \r\n                        <select class=\"form-control\" name=\"groupSelect\" id=\"groupSelect\">\r\n                            <option selected disabled>Choose group...</option>\r\n"
-    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"group") : depth0),{"name":"each","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":46,"column":28},"end":{"line":48,"column":37}}})) != null ? stack1 : "")
-    + "                        </select>\r\n\r\n                        <div class=\"input-group-append\">\r\n                            <button class=\"btn btn-outline-secondary\" type=\"button\">Add</button>\r\n                        </div>\r\n\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"form-group\">\r\n                    <label>Aspects</label>\r\n                    <div class=\"input-group col-12 col-md-4 mx-0 px-0\">\r\n                        \r\n                        <select class=\"form-control\" name=\"aspectSelect\" id=\"aspectSelect\">\r\n                            <option selected disabled>Choose aspect...</option>\r\n"
-    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"aspect") : depth0),{"name":"each","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":64,"column":28},"end":{"line":66,"column":37}}})) != null ? stack1 : "")
-    + "                        </select>\r\n\r\n                        <div class=\"input-group-append\">\r\n                            <button class=\"btn btn-outline-secondary\" type=\"button\">Add</button>\r\n                        </div>\r\n\r\n                    </div>\r\n                </div>\r\n\r\n                    \r\n\r\n\r\n                <button class=\"btn btn-danger mt-4\" type=\"button\" id=\"cancel\">Cancel</button>\r\n\r\n                <button class=\"btn btn-submit mt-4\" type=\"button\" id=\"submit\">Submit</button>\r\n\r\n                \r\n            \r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n                     \r\n                     \r\n";
+    + "    <div class=\"page-content-wrapper\">\r\n        <div class=\"col-12 px-4\">\r\n            <h1 class=\"mt-4\">Create Project</h1> \r\n            <div class=\"form col-12 col-lg-6 col-md-4\">\r\n\r\n                <div class=\"form-group\">\r\n                    <label for=\"projectName\">Name</label>\r\n                    <input type=\"text\" class=\"form-control\" id=\"projectName\" placeholder=\"Enter name...\">\r\n                </div>\r\n\r\n                <div class=\"form-group\">\r\n                    <label for=\"projectDescription\">Description</label>\r\n                    <textarea class=\"form-control\" id=\"projectDescription\" rows=\"3\"></textarea>\r\n                </div>\r\n\r\n                <div class=\"form-group\">\r\n                    <label>Groups</label>\r\n                    <div class=\"input-group col-12 col-md-4 mx-0 px-0\">\r\n                        \r\n                        <select class=\"form-control\" name=\"groupSelect\" id=\"groupSelect\">\r\n                            <option selected disabled>Choose group...</option>\r\n"
+    + ((stack1 = lookupProperty(helpers,"each").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"groups") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":23,"column":28},"end":{"line":25,"column":37}}})) != null ? stack1 : "")
+    + "                        </select>\r\n\r\n                        <div class=\"input-group-append\">\r\n                            <button class=\"btn btn-outline-secondary\" type=\"button\">Add</button>\r\n                        </div>\r\n\r\n                    </div>\r\n                </div>\r\n                 \r\n\r\n\r\n                <button class=\"btn btn-danger mt-4\" type=\"button\" id=\"cancel\">Cancel</button>\r\n\r\n                <button class=\"btn btn-submit mt-4\" type=\"button\" id=\"submit\">Submit</button>\r\n\r\n                \r\n            \r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n                     \r\n                     \r\n";
 },"usePartial":true,"useData":true});
 this["Handlebars"]["templates"]["dashboard"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {

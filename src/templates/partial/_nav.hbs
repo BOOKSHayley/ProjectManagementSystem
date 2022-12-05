@@ -26,10 +26,10 @@
           <img class="profile-pic" src="../../img/male_user_image_1.png">
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">My Board</a>
-          <a class="dropdown-item" href="#">My Teams</a>
+          <a class="dropdown-item" onclick="localStorage.removeItem("pimUserData")" href="#">Logout</a>
+          {{!-- <a class="dropdown-item" href="#">My Teams</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Profile</a>
+          <a class="dropdown-item" href="#">Profile</a> --}}
         </div>
       </li>
     </ul>

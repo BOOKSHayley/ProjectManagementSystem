@@ -6,7 +6,7 @@ var ViewTaskPage = Backbone.View.extend({
         'submit #addUserForm': 'updateAssigned',
         'change #addUser': 'updateAssigned',
         'click #assignUserButton': 'updateAssigned',
-        'click #deleteUserButton': 'deleteUser',
+        'click .deleteUserButton': 'deleteUser',
         'click #confirmUsers': 'confirmNewUsers',
         'click #navTimer': 'navTimer'
     },
@@ -29,55 +29,50 @@ var ViewTaskPage = Backbone.View.extend({
     },
 
     updateComments: function(){
+        var task = this.model.get("task");
+        var cmtLog = this.model.get("task").commentLog;
         var cmt = $("#comment").val();
+        var currentUser = this.model.get("currentUser");
+        var projName = this.model.get("projectName");
         if(cmt != ""){
-            var li = '<li class="list-group-item">Logan: '+cmt+'</li>';
+            var li = '<li class="list-group-item">' +currentUser.name+ ': ' +cmt+ '</li>';
             $("#commentLog").append(li);
-            var log = {user: "Logan", comment: cmt};
-            var messages = this.model.get("messages");
-            messages.push(log);
-            this.model.set("messages", messages);
+            var log = {user: currentUser.name, comment: cmt};
+            cmtLog.push(log);
+            patchDatabase('projects/' + projName + "/Tasks/task" + task.taskID, task);
             $("#comment").val("");
         }
         return false;
     },
 
     updateAssigned: function(){
-        var newUser = $("#assignUsers-selectUser").val();
-        var users = this.model.get("users");
-        var assigned = this.model.get("assigned");
-        var alreadyAssigned = false;
-        var addNewUser;
-        var index;
+        var name = $("#assignUsers-selectUser").val();
+        var users = this.model.get("projectUsers");
+        var user = null;
+        var i;
 
-        if(newUser != ''){
-            for(let i = 0; i < users.length; i++)
-            {
-                if(newUser == users[i].name)
-                {
-                    addNewUser = users[i];
-                    index = i;
-                    break;
-                }
-            }
-
-            for(let i = 0; i < assigned.length; i++){
-                if(addNewUser.userID == assigned[i].userID){
-                    alreadyAssigned = true;
-                }
-            }
-
-            if(addNewUser && $('.assignUserRow[data-user ="'+addNewUser.userID+'"]').length === 0 && !alreadyAssigned){
-                var tableEntry = '<tr class="assignUserRow" data-index="' + index +'" data-user="'+addNewUser.userID+'"><td>'+addNewUser.name+'</td><td><button type="button" class="btn" id="deleteUserButton"><span class="material-icons" style="color: red">delete</span></button></td></tr>';
-                $("#newAssignedUsers").append(tableEntry);
-                $("#assignUsers-selectUser").val("");
-            } else if(alreadyAssigned){
-                $('#assignUserError').css('display', 'block');
-                window.setTimeout(function(){
-                    $('#assignUserError').css('display', 'none');
-                }, 2000);
-            }
-
+        for (i = 0; i < users.length; i++) {
+          if (users[i]["name"] == name) {
+            user = users[i];
+            break;
+          }
+        }
+        
+        if (user) {
+          var tr =
+            '<tr id="assignUserRow-' +
+            i +
+            '" class="assign-user-row" data-userid = "'+user["userID"]+'"><td style="width: 90%">' +
+            user["name"] +
+            '</td> <td><button type="button" class="btn deleteUserButton"><span class="material-icons" style="color: red">delete</span></button></td></tr>';
+            
+          if ($("#assignUserRow-" + i).length === 0) {
+            
+            $("#assign-select-user-tbody").append(tr);
+          }
+    
+          //Clear the input
+          $("#assignUsers-selectUser").val("");
         }
 
         return false;
@@ -88,14 +83,32 @@ var ViewTaskPage = Backbone.View.extend({
     },
 
     confirmNewUsers: function(){
-        var assigned = this.model.get("assigned");
-        var users = this.model.get("users");
-        var notAssigned = true;
-        $(".assignUserRow").each(function(){
-            var tmp = $(this).attr("data-index");
-            assigned.push(users[tmp]);
+        var assigned = this.model.get("task").assignedUsers;
+        var users = this.model.get("projectUsers");
+        var newAssigned = [];
+        $(".assign-user-row").each(function(){
+            var tmp = $(this).attr("data-userid");
+            for(var i = 0; i < users.length; i++){
+                if(users[i].userID == tmp){
+                    newAssigned.push({name: users[i].name, userID: users[i].userID});
+                }
+            }
         });
-        this.model.set("assigned", assigned);
+
+        newAssigned = assigned.concat(newAssigned);
+        newAssigned = newAssigned.filter((value, index, self)=>
+            index === self.findIndex((t) => (
+                t.name === value.name && t.UserID === value.UserID
+            ))
+        )
+
+        var task = this.model.get("task");
+        var projName = this.model.get("projectName");
+        task.assignedUsers = newAssigned;
+        patchDatabase('projects/' + projName + "/Tasks/task" + task.taskID, task);
+        this.model.set("task", task);
+
+        
         $("#assignModal").modal("hide");
         $(".modal-backdrop").remove();
         this.render();
@@ -122,7 +135,8 @@ var ViewTaskPage = Backbone.View.extend({
 
         var db = fetchData('projects/' + projectName);
         db.then((e)=>{
-            var tasks = e['Tasks'];
+            var project = e;
+            var tasks = project['Tasks'];
             var task = null;
 
             for(const [key, value] of Object.entries(tasks)){
@@ -131,10 +145,28 @@ var ViewTaskPage = Backbone.View.extend({
                     break;
                 }
             }
-
-            self.model.set('project', e);
+            self.model.set('project', project);
             self.model.set('task', task);
-            promise.resolve();
+
+            var projectUsers = [];
+            var j = 0;
+            for(var i = 0; i < project.groups.length; i++){
+            const group = fetchData("groups/g" + project.groups[i]);
+            group.then((e)=>{
+                projectUsers = projectUsers.concat(e.users);
+                projectUsers = projectUsers.filter((value, index, self)=>
+                    index === self.findIndex((t) => (
+                        t.name === value.name && t.UserID === value.UserID
+                    ))
+                )
+
+                j++;
+                if(j >= project.groups.length-1) {
+                    self.model.set('projectUsers', projectUsers);
+                    promise.resolve();
+                }
+            })
+            }
         });
 
 

@@ -63,6 +63,7 @@ var ViewLogin = Backbone.View.extend({
             if(v.username == attempt.un && v.pw == attempt.pw) {
 
                 loggedIn = true;
+                localStorage.setItem('pimUserData', JSON.stringify(v));
                 window.location.href = '#dashboard';
             }
         });
@@ -72,7 +73,7 @@ var ViewLogin = Backbone.View.extend({
             $('#loginPw').addClass('is-invalid');
         }
 
-        console.log(checks[checks.length - 1]);
+        //console.log(checks[checks.length - 1]);
 
         
     }

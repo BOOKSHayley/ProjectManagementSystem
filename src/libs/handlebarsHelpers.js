@@ -21,3 +21,11 @@ Handlebars.registerHelper('currentTimeFormat', function(format) {
 Handlebars.registerHelper('timeFormat', function(time, format) {
     return moment(time).format(format);
 });
+
+Handlebars.registerHelper('ifInObj', function(elem, list, objKey, options) {
+    var elt = list.find(e => e[objKey] == elem);
+    if(elt) {
+      return options.fn(this);
+    }
+    return options.inverse(this);
+  });

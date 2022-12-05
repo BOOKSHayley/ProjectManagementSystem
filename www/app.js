@@ -69,9 +69,68 @@ var ModelLogin = Backbone.Model.extend({
 });
 var ModelProjects = Backbone.Model.extend({
     defaults: {
-        projects: [],
-        groups: [],
-        users: []
+        projects: [
+            {
+                projectID: 10293,
+                name: 'PiM',
+                starred: 1,
+                description: 'PiM is the group project for CSC 4243 to create a project management system. Our goal is to create an intuitive software capable of competing with other project management systems.',
+                groups: [18949]
+            },
+            {
+                projectID: 38893,
+                name: 'Operation Spark',
+                starred: 1,
+                description: 'Op Spark is a software bootcamp to create a personal portfolio.',
+                groups: [18949, 31829]
+            },
+            {
+                projectID: 41882,
+                name: 'Dispark',
+                starred: 0,
+                description: 'An intuitive park management system for facility managers to track their parks.',
+                groups: [21943]
+            }
+        ],
+        groups: [
+            {
+                groupID: 18949,
+                name: 'My first group',
+                users: [
+                    {userID: 1, name: 'Hayley Roberts', initials: 'HR'},
+                    {userID: 2, name: 'Logan Lafauci', initials: 'LL'},
+                    {userID: 3, name: 'Zack Faulkner', initials: 'ZF'},
+                    {userID: 5, name: 'Olivia Cheung', initials: 'OC'},
+                    {userID: 6, name: 'Vaughn Ohlerking', initials: 'VO'},
+                ]
+            },
+            {
+                groupID: 31829,
+                name: 'Work group',
+                users: [
+                    {userID: 3, name: 'Zack Faulkner', initials: 'ZF'},
+                    {userID: 5, name: 'Olivia Cheung', initials: 'OC'},
+                    {userID: 6, name: 'Vaughn Ohlerking', initials: 'VO'},
+                    {userID: 4, name: 'Dean Compton', initials: 'DC'}
+                ]
+            },
+            {
+                groupID: 21943,
+                name: 'Fun group',
+                users: [
+                    {userID: 1, name: 'Hayley Roberts', initials: 'HR'},
+                    {userID: 5, name: 'Olivia Cheung', initials: 'OC'},
+                ]
+            }
+        ],
+        users: [
+            {userID:1, name: 'Hayley Roberts', initials: 'HR'},
+            {userID:2, name: 'Logan Lafauci', initials: 'LL'},
+            {userID:3, name: 'Zack Faulkner', initials: 'ZF'},
+            {userID:4, name: 'Dean Compton', initials: 'DC'},
+            {userID:5, name: 'Olivia Cheung', initials: 'OC'},
+            {userID:6, name: 'Vaughn Ohlerking', initials: 'VO'},
+        ]
     },
 
     initialize: function(){
@@ -80,13 +139,181 @@ var ModelProjects = Backbone.Model.extend({
 });
 var ModelTaskPage = Backbone.Model.extend({
     defaults: {
-        
+        messages:[
+            {user: "User 1", comment: "Task started"},
+            {user: "User 2", comment: "..."},
+            {user: "User 1", comment: "..."},
+            {user: "User 2", comment: "..."},
+            {user: "User 2", comment: "..."},
+            {user: "User 1", comment: "Task finished"}
+        ],
+
+        users:[
+            {name: "Logan Lafauci", userID: "1"},
+            {name: "Zack Faulkner", userID: "2"},
+            {name: "Hayley Roberts", userID: "3"},
+            {name: "Olivia Cheung", userID: "4"},
+            {name: "Dean Compton", userID: "5"},
+            {name: "Vaughn Ohlerking ", userID: "6"}
+        ],
+
+        assigned:[
+            {name: "User 1", userID: "7"},
+            {name: "User 2", userID: "8"},
+            {name: "User 3", userID: "9"}
+        ],
+
+        tasks:[
+            {
+                name: "Task 1",
+                status: 3,
+                progress: 100,
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                assignedUsers: [
+                    {name: "User 1", userID: 7},
+                    {name: "User 2", userID: 8},
+                    {name: "User 3", userID: 9}
+                ],
+                timeLogged: "10h",
+                finishDate: "11/18/2022",
+                problems: [
+                    "Problem 1",
+                    "Problem 2",
+                    "Problem 3",
+                    "Problem 4",
+                    "Problem 5"
+                ],
+                commentLog: [
+                    {user: "User 1", comment: "Task started"},
+                    {user: "User 2", comment: "..."},
+                    {user: "User 1", comment: "..."},
+                    {user: "User 2", comment: "..."},
+                    {user: "User 2", comment: "..."},
+                    {user: "User 1", comment: "Task finished"}
+                ]
+            },
+            {
+                name: "Task 2",
+                status: 2,
+                progress: 85,
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                assignedUsers: [
+                    {name: "User 1", userID: 7},
+                    {name: "User 2", userID: 8},
+                    {name: "User 3", userID: 9}
+                ],
+                timeLogged: "6h",
+                finishDate: "12/7/2022",
+                problems: [
+                    "Problem 1",
+                    "Problem 2",
+                    "Problem 3",
+                    "Problem 4",
+                    "Problem 5"
+                ],
+                commentLog: [
+                    {user: "User 1", comment: "Task started"},
+                    {user: "User 2", comment: "..."},
+                    {user: "User 1", comment: "..."},
+                    {user: "User 2", comment: "..."},
+                    {user: "User 2", comment: "..."},
+                    {user: "User 1", comment: "Task finished"}
+                ]
+            },
+            {
+                name: "Task 3",
+                status: 1,
+                progress: 50,
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                assignedUsers: [
+                    {name: "User 1", userID: 7},
+                    {name: "User 2", userID: 8},
+                    {name: "User 3", userID: 9}
+                ],
+                timeLogged: "3h",
+                finishDate: "12/7/2022",
+                problems: [
+                    "Problem 1",
+                    "Problem 2",
+                    "Problem 3",
+                    "Problem 4",
+                    "Problem 5"
+                ],
+                commentLog: [
+                    {user: "User 1", comment: "Task started"},
+                    {user: "User 2", comment: "..."},
+                    {user: "User 1", comment: "..."},
+                    {user: "User 2", comment: "..."},
+                    {user: "User 2", comment: "..."},
+                    {user: "User 1", comment: "Task finished"}
+                ]
+            },
+            {
+                name: "Task 4",
+                status: 1,
+                progress: 25,
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                assignedUsers: [
+                    {name: "User 1", userID: 7},
+                    {name: "User 2", userID: 8},
+                    {name: "User 3", userID: 9}
+                ],
+                timeLogged: "4h",
+                finishDate: "12/7/2022",
+                problems: [
+                    "Problem 1",
+                    "Problem 2",
+                    "Problem 3",
+                    "Problem 4",
+                    "Problem 5"
+                ],
+                commentLog: [
+                    {user: "User 1", comment: "Task started"},
+                    {user: "User 2", comment: "..."},
+                    {user: "User 1", comment: "..."},
+                    {user: "User 2", comment: "..."},
+                    {user: "User 2", comment: "..."},
+                    {user: "User 1", comment: "Task finished"}
+                ]
+            },
+            {
+                name: "Task 5",
+                status: 0,
+                progress: 0,
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                assignedUsers: [
+                    {name: "User 1", userID: 7},
+                ],
+                timeLogged: "0h",
+                finishDate: "12/7/2022",
+                problems: [
+                ],
+                commentLog: [
+                ]
+            },
+            {
+                name: "Task 6",
+                status: 0,
+                progress: 0,
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                assignedUsers: [
+                ],
+                timeLogged: "0h",
+                finishDate: "12/7/2022",
+                problems: [
+                ],
+                commentLog: [
+                ]
+            },
+        ]
     },
 
     initialize: function(){
         
     }
 });
+
+
 var ViewCreateProject = Backbone.View.extend({
     events: {
         //Events include: click, keyup, change, etc
@@ -101,7 +328,15 @@ var ViewCreateProject = Backbone.View.extend({
         window.location.href = '#projects';
     },
     submit: function(){
-        window.location.href = '#projects';
+        var newProject = {
+            Tasks: [], 
+            description: "", 
+            groups: [], 
+            name: "", 
+            projectID: 0, 
+            starred: 0, 
+            timeSpent: 0
+        }
     },
 
     render: function(){
@@ -116,53 +351,45 @@ var ViewCreateProject = Backbone.View.extend({
         this.delegateEvents();
         return this;
     },
+
+    getData: function(){
+        var self = this; 
+        var promise = $.Deferred(); 
+        const res = fetchData("groups"); 
+        res.then((e)=> {
+            self.model.set("groups", Object.values(e));
+            promise.resolve(); 
+        })
+
+        return promise.promise();
+
+       
+    }
 });
 var ViewDashboard = Backbone.View.extend({
-  events: {
-    //Events include: click, keyup, change, etc
-    "click #clickButton": "clickButtonFunction",
-    "click #taskModalOpen": "taskModalOpen",
-  },
+    events: {
+        //Events include: click, keyup, change, etc
+        'click #clickButton': 'clickButtonFunction',
+        'click #taskModalOpen': 'taskModalOpen'
+    },
 
-  initialize: function () {},
+    initialize: function(){
 
-  getData: function () {
-    var self = this;
-    var promise = $.Deferred();
+    },
 
-    const res = fetchData("projects");
-    res.then((e) => {
-      const a = Object.values(e);
-      self.model.set("starredProjects", a);
-      console.log(a);
-      promise.resolve();
-    });
+    render: function(){
+        this.$el.html(Handlebars.templates.dashboard(this.model.toJSON()));
 
-    return promise.promise();
-  },
+        //Can add functions to be run on rendering can go here
 
-  render: function () {
-    var self = this;
+        $.when(fade).done(function(){
+            $('#content').fadeIn();
+        })
 
-    this.$el.html(Handlebars.templates.dashboard(this.model.toJSON()));
-
-    //Can add functions to be run on rendering can go here
-
-    patchDatabase("users/VO1", {
-      userID: 6,
-      name: "Vaughn Ohlerking",
-      initials: "VO",
-    });
-
-    $.when(fade).done(function () {
-      $("#content").fadeIn();
-    });
-
-    this.delegateEvents();
-    return this;
-  },
+        this.delegateEvents();
+        return this;
+    },
 });
-
 var ViewExample = Backbone.View.extend({
     events: {
         //Events include: click, keyup, change, etc
@@ -206,10 +433,8 @@ var ViewKanban = Backbone.View.extend({
         //Events include: click, keyup, change, etc
         'click #clickButton': 'clickButtonFunction',
         'click .task-button': 'showTaskModal',
-        'click #navTimer': 'navTimer',
-        'click #testButton': 'showCreateTask',
-        'click #assignUserButton' : 'updateAssigned',
-        "click .create-task-delete-user": "createTaskModalRemoveUser",
+        'click #timer': 'timer',
+        'click #navTimer': 'navTimer'
     },
 
     initialize: function(){
@@ -228,20 +453,19 @@ var ViewKanban = Backbone.View.extend({
         return this;
     },
 
-    showTaskModal: function(e){
-        var taskID = $(e.currentTarget).attr('data-taskid');
-        var tasks = this.model.get('project')['Tasks'];
-        var task = null;
-
-        for(const [key, value] of Object.entries(tasks)){
-            if(value['taskID'] == taskID){
-                task = value;
-                break;
-            }
-        }
-
-        this.model.set('currentTask', task);
+    showTaskModal: function(){
         taskModal.open(this.model);
+    },
+    timer: function(){
+        //Quick function for clock in/out
+
+        var clockedIn = this.model.get('clockedIn');
+
+        if(clockedIn){
+            clockOutModal.open(this.model);
+        } else {
+            clockInModal.open(this.model);
+        }
     },
     navTimer: function(){
         if(this.model.get('clockedIn')){
@@ -249,118 +473,17 @@ var ViewKanban = Backbone.View.extend({
         }else{
             clockInModal.open(this.model);
         }
-    },
-    
-    getData: function(){
-      var self = this;
-
-      var promise = $.Deferred();
-
-      const db = fetchData("projects/" + self.model.get('projectName'));
-      db.then((e)=> {
-          var project = e;
-          self.model.set('project', project);
-
-          var projectUsers = [];
-          var j = 0;
-          for(var i = 0; i < project.groups.length; i++){
-            const group = fetchData("groups/g" + project.groups[i]);
-            group.then((e)=>{
-                projectUsers = projectUsers.concat(e.users);
-                projectUsers.filter((item,index)=>{
-                    return (projectUsers.indexOf(item) == index)
-                 })
-
-                j++;
-                if(j >= project.groups.length-1) {
-                    self.model.set('projectUsers', projectUsers);
-                    promise.resolve();
-                }
-            })
-          }
-      });
-
-      return promise.promise();
-    },
-
-    createTaskModalRemoveUser: function (e) {
-        $(e.currentTarget).closest("tr").remove();
-    },
-
-    updateAssigned: function(){
-        var name = $("#assignUsers-selectUser").val();
-
-        var users = this.model.get("projectUsers");
-        var user = null;
-        var i;
-
-        for (i = 0; i < users.length; i++) {
-          if (users[i]["name"] == name) {
-            user = users[i];
-            break;
-          }
-        }
-        
-        if (user) {
-          var tr =
-            '<tr id="createTaskUserRow-' +
-            i +
-            '" class="createtask-user-row"><td style="width: 90%">' +
-            user["name"] +
-            '</td> <td><button type="button" class="btn create-task-delete-user"><span class="material-icons" style="color: red">delete</span></button></td></tr>';
-            
-          if ($("#createTaskUserRow-" + i).length === 0) {
-            
-            $("#createtask-select-user-tbody").append(tr);
-          }
-    
-          //Clear the input
-          $("#assignUsers-selectUser").val("");
-        }
-
-        return false;
-    },
-
-    showCreateTask: function(){
-        $("#createTaskModal").modal("show");
-    },
+    }
 });
 var ViewLogin = Backbone.View.extend({
     events: {
         //Events include: click, keyup, change, etc
-        'click .try-login': 'tryLogin',
-        'click .is-invalid': 'clearErrorInput'
+        'click .try-login': 'tryLogin'
     },
 
     initialize: function(){
 
     },
-
-    clearErrorInput: function (e) {
-        $(e.target).removeClass('is-invalid');
-    },
-
-    getData: function () {
-        var self = this;
-        var promise = $.Deferred();
-    
-        const res = fetchData("");
-        res.then((e) => {
-          const a = Object.values(e);
-          self.model.set("users", a[2]);
-          //console.log(a);
-
-          //localStorage.setItem("groups", JSON.stringify(a[0]));
-          //localStorage.setItem("projects", JSON.stringify(a[1]));
-          //localStorage.setItem("users", JSON.stringify(a[2]));
-
-          promise.resolve();
-        });
-
-
-    
-        return promise.promise();
-      },
 
     render: function(){
         this.$el.html(Handlebars.templates.login(this.model.toJSON()));
@@ -376,299 +499,249 @@ var ViewLogin = Backbone.View.extend({
     },
 
     tryLogin: function(){
-        var self = this;
-
-        attempt = {
-            un: $('#loginUsername').val(),
-            pw: $('#loginPw').val()
-        }
-
-        var checks = self.model.get("users");
-        var loggedIn = false;
-
-        $.each(checks, function (k, v) {
-            if(v.username == attempt.un && v.pw == attempt.pw) {
-
-                loggedIn = true;
-                window.location.href = '#dashboard';
-            }
-        });
-
-        if(loggedIn == false) {
-            $('#loginUsername').addClass('is-invalid');
-            $('#loginPw').addClass('is-invalid');
-        }
-
-        console.log(checks[checks.length - 1]);
-
-        
+        window.location.href = '#dashboard';
     }
 });
 var ViewProjects = Backbone.View.extend({
-  events: {
-    "click #addGroup": "addGroupModal",
-    "click #createGroupAddSelectedUser": "createGroupAddSelectedUser",
-    "click .create-group-delete-user": "createGroupModalRemoveUser",
-    "click #confirmCreateGroup": "confirmAddGroup",
-    "click .edit-group": "editGroupModal",
-    "click #editGroupAddSelectedUser": "editGroupAddUser",
-    "click .edit-group-delete-user": "editGroupDeleteUser",
-    "click #confirmEditGroup": "confirmEditGroup",
-    "click .project-star": "starProject",
-    "click .project-section": "goToKanban",
-    "click .edit-project": "editProject",
-    "keyup #groupSearch": "groupSearch",
-    "keyup #projectSearch": "projectSearch",
-  },
+    events: {
+        'click #addGroup': 'addGroupModal',
+        'click #createGroupAddSelectedUser': 'createGroupAddSelectedUser',
+        'click .create-group-delete-user': 'createGroupModalRemoveUser',
+        'click #confirmCreateGroup': 'confirmAddGroup',
+        'click .edit-group': 'editGroupModal',
+        'click #editGroupAddSelectedUser': 'editGroupAddUser',
+        'click .edit-group-delete-user': 'editGroupDeleteUser',
+        'click #confirmEditGroup': 'confirmEditGroup',
+        'click .project-star': 'starProject',
+        'click .project-section': 'goToKanban',
+        'click .edit-project': 'editProject',
+        'keyup #groupSearch': 'groupSearch',
+        'keyup #projectSearch': 'projectSearch'
+    },
 
-  initialize: function () {},
+    initialize: function(){
 
-  getProjData: function () {
-    var self = this;
-    var promise = $.Deferred();
+    },
 
-    const res = fetchData("");
-    res.then((e) => {
-      const a = Object.values(e);
-      self.model.set("projects", a[1]);
-      self.model.set("groups", a[0]);
-      self.model.set("users", a[2]);
-      //            gets last user
-      console.log(Object.values(a[2])[Object.values(a[2]).length - 1]);
-      promise.resolve();
-    });
+    render: function(){
+        this.$el.html(Handlebars.templates.projects(this.model.toJSON()));
 
-    return promise.promise();
-  },
+        //Can add functions to be run on rendering can go here
 
-  render: function () {
-    this.$el.html(Handlebars.templates.projects(this.model.toJSON()));
+        $.when(fade).done(function(){
+            $('#content').fadeIn();
+        })
 
-    //Can add functions to be run on rendering can go here
+        this.delegateEvents();
+        return this;
+    },
 
-    $.when(fade).done(function () {
-      $("#content").fadeIn();
-    });
+    groupSearch: function(){
+        var searchKey = $("#groupSearch").val().toLowerCase();
 
-    this.delegateEvents();
-    return this;
-  },
+        $('.group-part').each(function(){
+            if($(this).attr('data-name').toLowerCase().includes(searchKey)){
+                $(this).css('display', 'initial');
+            } else {
+                $(this).css('display', 'none');
+            }
+        });
+    },
+    projectSearch: function(){
+        var searchKey = $('#projectSearch').val().toLowerCase();
 
-  groupSearch: function () {
-    var searchKey = $("#groupSearch").val().toLowerCase();
+        $('.project-section').each(function(){
+            var projName = $(this).find('.project-name').text().toLowerCase();
+            var projDesc = $(this).find('.project-desc').text().toLowerCase();
 
-    $(".group-part").each(function () {
-      if ($(this).attr("data-name").toLowerCase().includes(searchKey)) {
-        $(this).css("display", "initial");
-      } else {
-        $(this).css("display", "none");
-      }
-    });
-  },
-  projectSearch: function () {
-    var searchKey = $("#projectSearch").val().toLowerCase();
+            if(projName.includes(searchKey) || projDesc.includes(searchKey)){
+                $(this).css('display', 'inherit');
+            } else {
+                $(this).css('display', 'none');
+            }
+        });
+    },
 
-    $(".project-section").each(function () {
-      var projName = $(this).find(".project-name").text().toLowerCase();
-      var projDesc = $(this).find(".project-desc").text().toLowerCase();
+    //Add Group
+    addGroupModal: function(){
+        $('#createGroupModal').modal('show');
+    },
+    createGroupAddSelectedUser: function(){
+        var name = $('#createGroup-selectUser').val();
 
-      if (projName.includes(searchKey) || projDesc.includes(searchKey)) {
-        $(this).css("display", "inherit");
-      } else {
-        $(this).css("display", "none");
-      }
-    });
-  },
-
-  //Add Group
-  addGroupModal: function () {
-    $("#createGroupModal").modal("show");
-  },
-  createGroupAddSelectedUser: function () {
-    var name = $("#createGroup-selectUser").val();
-
-    var users = this.model.get("users");
-    var user = null;
-    var userKey;
-    
-    for (const [key, value] of Object.entries(users)) {
-        if (value["name"] == name) {
-            user = value;
-            userKey = key;
-            break;
+        var users = this.model.get('users');
+        var user = null;
+        var i;
+        for(i = 0; i < users.length; i++){
+            if(users[i]['name'] == name){
+                user = users[i];
+                break;
+            }
         }
-    }
 
-    if (user) {
-      var tr =
-        '<tr id="createGroupUserRow-' +
-        userKey +
-        '" class="creategroup-user-row"><td style="width: 90%">' +
-        user["name"] +
-        '</td> <td><button type="button" class="btn create-group-delete-user"><span class="material-icons" style="color: red">delete</span></button></td></tr>';
+        if(user){
+            var tr = '<tr id="createGroupUserRow-' + i + '" class="creategroup-user-row"><td style="width: 90%">' + user['name'] + 
+            '</td> <td><button type="button" class="btn create-group-delete-user"><span class="material-icons" style="color: red">delete</span></button></td></tr>';
 
-      if ($("#createGroupUserRow-" + userKey).length === 0) {
-        $("#creategroup-select-user-tbody").append(tr);
-      }
+            if($("#createGroupUserRow-" + i).length === 0){
+                $('#creategroup-select-user-tbody').append(tr);    
+            }
 
-      //Clear the input
-      $("#createGroup-selectUser").val("");
-    }
-  },
-  createGroupModalRemoveUser: function (e) {
-    $(e.currentTarget).closest("tr").remove();
-  },
-  confirmAddGroup: function () {
-    var self = this;
-    var groups = this.model.get("groups");
-    var users = this.model.get("users");
-
-    var newGroup = {
-        groupID: Math.floor(Math.random() * 10000),
-        name: $("#createGroupName").val(),
-        users: [],
-    };
-  
-    $(".creategroup-user-row").each(function () {
-        newGroup.users.push(users[$(this).attr("id").split("-")[1]]);
-    });
-
-    var valid = true;
-
-    if (!newGroup.name) {
-        valid = false;
-        $("#createGroupName").addClass("is-invalid");
-    }
-
-    if (newGroup.users.length === 0) {
-        valid = false;
-        $("#createGroup-noUserError").css("display", "flex");
-    }
-
-    if (valid) {
-        groups['g' + newGroup.groupID] = newGroup;
-        self.model.set("groups", groups);
-
-        patchDatabase('groups/g' + newGroup.groupID, newGroup);
-
-        $("#createGroupModal").modal("hide");
-        $(".modal-backdrop").remove();
-        self.render();
-    }
-    
-  },
-
-  //Edit Group
-  editGroupModal: function () {
-    var groupID = $(event.target).attr("data-groupid");
-    var group = this.model.get("groups")['g' + groupID];
-    this.model.set("selectedGroup", group);
-    this.render();
-    $("#editGroupModal").modal("show");
-  },
-  editGroupAddUser: function () {
-    var name = $("#editGroup-selectUser").val();
-    var users = this.model.get("users");
-    var user = null;
-    var userKey;
-
-    for (const [key, value] of Object.entries(users)) {
-        if (value["name"] == name) {
-            user = value;
-            userKey = key;
-            break;
+            //Clear the input
+            $('#createGroup-selectUser').val('');
         }
-    }
+    },
+    createGroupModalRemoveUser: function(e){
+        $(e.currentTarget).closest('tr').remove();
+    },
+    confirmAddGroup: function(){
+        var groups = this.model.get('groups');
+        var users = this.model.get('users');
 
-    if (user) {
-      var tr =
-        '<tr id="editGroupUserRow-' +
-        userKey +
-        '" class="editgroup-user-row"><td style="width: 90%">' +
-        user["name"] +
-        '</td> <td><button type="button" class="btn edit-group-delete-user"><span class="material-icons" style="color: red">delete</span></button></td></tr>';
+        var newGroup = {
+            groupID: Math.random() * 10000,
+            name: $('#createGroupName').val(),
+            users: []
+        };
 
-      if ($("#editGroupUserRow-" + userKey).length === 0) {
-        $("#editgroup-selected-user-tbody").append(tr);
-      }
+        $('.creategroup-user-row').each(function(){
+            newGroup.users.push(users[$(this).attr('id').split('-')[1]]);
+        });
 
-      //Clear the input
-      $("#editGroup-selectUser").val("");
-    }
-  },
-  editGroupDeleteUser: function (e) {
-    $(e.currentTarget).closest("tr").remove();
-  },
-  confirmEditGroup: function () {
-    var selectedGroup = this.model.get("selectedGroup");
-    var groups = this.model.get("groups");
-    var users = this.model.get("users");
+        var valid = true;
 
-    var updateGroup = {
-      groupID: selectedGroup["groupID"],
-      name: $("#editGroupName").val(),
-      users: [],
-    };
+        if(!newGroup.name){
+            valid = false;
+            $('#createGroupName').addClass('is-invalid');
+        }
 
-    $(".editgroup-user-row").each(function () {
-      var user = users[$(this).attr("id").split("-")[1]];
-      updateGroup.users.push(user);
-    });
+        if(newGroup.users.length === 0){
+            valid = false;
+            $('#createGroup-noUserError').css('display', 'flex');
+        }
 
-    var valid = true;
+        if(valid){
+            groups.push(newGroup);
+            this.model.set('groups', groups);
+            $('#createGroupModal').modal('hide');
+            $('.modal-backdrop').remove();
+            this.render();
+        }
+    },
 
-    if (!updateGroup.name) {
-      valid = false;
-      $("#editGroupName").addClass("is-invalid");
-    }
+    //Edit Group
+    editGroupModal: function(){
+        var index = $(event.target).attr('data-index');
+        var group = this.model.get('groups')[index];
+        this.model.set('selectedGroup', group);
+        this.render();
+        $('#editGroupModal').modal('show');
+    },
+    editGroupAddUser: function(){
+        var name = $('#editGroup-selectUser').val();
 
-    if (updateGroup.users.length === 0) {
-      valid = false;
-      $("#editGroup-noUserError").css("display", "flex");
-    }
+        var users = this.model.get('users');
+        var user = null;
+        var i;
+        for(i = 0; i < users.length; i++){
+            if(users[i]['name'] == name){
+                user = users[i];
+                break;
+            }
+        }
 
-    if (valid) {
-      groups['g' + updateGroup.groupID] = updateGroup;
+        if(user){
+            var tr = '<tr id="editGroupUserRow-' + users[i]['userID'] + '" class="editgroup-user-row"><td style="width: 90%">' + user['name'] + 
+            '</td> <td><button type="button" class="btn edit-group-delete-user"><span class="material-icons" style="color: red">delete</span></button></td></tr>';
 
-      this.model.set("groups", groups);
+            if($("#editGroupUserRow-" + users[i]['userID']).length === 0){
+                $('#editgroup-selected-user-tbody').append(tr);    
+            }
 
-      patchDatabase('groups/g' + updateGroup.groupID, updateGroup);
+            //Clear the input
+            $('#editGroup-selectUser').val('');
+        }
+    },
+    editGroupDeleteUser: function(e){
+        $(e.currentTarget).closest('tr').remove();
+    },
+    confirmEditGroup: function(){
+        var selectedGroup = this.model.get('selectedGroup');
+        var groups = this.model.get('groups');
+        var users = this.model.get('users');
 
-      $("#editGroupModal").modal("hide");
-      $(".modal-backdrop").remove();
-      this.render();
-    }
-  },
+        var updateGroup = {
+            groupID: selectedGroup['groupID'],
+            name: $('#editGroupName').val(),
+            users: []
+        };
 
-  //Projects functions
-  starProject: function () {
-    var projName = $(event.target).attr("data-projectname");
-    var projects = this.model.get("projects");
-    var project = projects[projName];
+        $('.editgroup-user-row').each(function(){
+            var user;
+            for(var i = 0; i < users.length; i++){
+                if(users[i]['userID'] == $(this).attr('id').split('-')[1]){
+                    user = users[i];
+                    break;
+                }
+            }
+            updateGroup.users.push(user);
+        });
 
-    var starred = (parseInt(project["starred"]) + 1) % 2;
-    project["starred"] = starred;
+        var valid = true;
 
-    projects[projName] = project;
+        if(!updateGroup.name){
+            valid = false;
+            $('#editGroupName').addClass('is-invalid');
+        }
 
-    this.model.set("projects", projects);
-    patchDatabase('projects/' + projName, project);
-    this.render();
-  },
-  goToKanban: function(e){
+        if(updateGroup.users.length === 0){
+            valid = false;
+            $('#editGroup-noUserError').css('display', 'flex');
+        }
+
+        if(valid){
+            var i;
+            for(i = 0; i < groups.length; i++){
+                if(updateGroup.groupID == groups[i].groupID){    
+                    break;
+                }
+            }
+
+            groups[i] = updateGroup;
+
+            this.model.set('groups', groups);
+            $('#editGroupModal').modal('hide');
+            $('.modal-backdrop').remove();
+            this.render();
+        }
+    },
+
+    //Projects functions
+    starProject: function(){
+        var index = $(event.target).attr('data-index');
+        var projects = this.model.get('projects');
+        var project = projects[index];
+
+        var starred = (parseInt(project['starred']) + 1) % 2;
+        project['starred'] = starred;
+
+        projects[index] = project;
+
+        this.model.set('projects', projects);
+        this.render();
+    },
+    goToKanban: function(){
         if($(event.target)[0].nodeName !== 'BUTTON' && $(event.target)[0].nodeName !== 'SPAN'){
-            projectName = $(e.currentTarget).attr('data-project');
-            window.location.href = '#kanban/' + projectName;
+            window.location.href = '#kanban';
         }
-  },
-  editProject: function () {
-    var index = $(event.target).attr("data-index");
-    var project = this.model.get("projects")[index];
-    this.model.set("selectedProject", project);
-    console.log("Edit project");
-  },
+    },
+    editProject: function(){
+        var index = $(event.target).attr('data-index');
+        var project = this.model.get('projects')[index];
+        this.model.set('selectedProject', project);
+        console.log('Edit project');
+    }
 });
-
 var ViewTaskPage = Backbone.View.extend({
     events: {
         'click #sendComment': 'updateComments',
@@ -679,7 +752,6 @@ var ViewTaskPage = Backbone.View.extend({
         'click #assignUserButton': 'updateAssigned',
         'click #deleteUserButton': 'deleteUser',
         'click #confirmUsers': 'confirmNewUsers',
-        'click #navTimer': 'navTimer'
     },
 
     initialize: function(){
@@ -774,42 +846,6 @@ var ViewTaskPage = Backbone.View.extend({
 
     openAssignModal: function(){
         $("#assignModal").modal("show");
-    },
-
-    navTimer: function(){
-        if(this.model.get('clockedIn')){
-            clockOutModal.open(this.model);
-        } else {
-            clockInModal.open(this.model);
-        }
-    },
-
-    getData: function(){
-        var self = this;
-        var promise = $.Deferred();
-
-        var projectName = self.model.get('projectName');
-        var taskID = self.model.get('taskID');
-
-        var db = fetchData('projects/' + projectName);
-        db.then((e)=>{
-            var tasks = e['Tasks'];
-            var task = null;
-
-            for(const [key, value] of Object.entries(tasks)){
-                if(value['taskID'] == taskID){
-                    task = value;
-                    break;
-                }
-            }
-
-            self.model.set('project', e);
-            self.model.set('task', task);
-            promise.resolve();
-        });
-
-
-        return promise.promise();
     }
 });
 var RouterCreateProject = Backbone.Router.extend({
@@ -827,10 +863,13 @@ var RouterCreateProject = Backbone.Router.extend({
        // Set all the defaults to the model
         createProjectViewPage.model.clear().set(createProjectViewPage.model.defaults);
 
-        $('#content').fadeOut(function(){
-            fade.resolve();
-            $('#content').html(createProjectViewPage.render().el);
+        createProjectViewPage.getData().done(function(){
+            $('#content').fadeOut(function(){
+                fade.resolve();
+                $('#content').html(createProjectViewPage.render().el);
+            })
         })
+        
     }
 });
 var createProjectViewPage = null;
@@ -845,26 +884,24 @@ createProjectViewPage = new ViewCreateProject({
 
 createProjectRouter = new RouterCreateProject();
 var RouterDashboard = Backbone.Router.extend({
-  routes: {
-    // These are urls that will trigger this dashboard page to appear
-    dashboard: "showDashboard",
-  },
+    routes: {
+        // These are urls that will trigger this dashboard page to appear
+        "dashboard": 'showDashboard'
+    },
 
-  showDashboard: function () {
-    var fade = $.Deferred();
+    showDashboard: function(){
+        var fade = $.Deferred();
 
-    // console.log("here");
+        console.log('here');
 
-    //Set all the defaults to the model
-    dashboardViewPage.model.clear().set(dashboardViewPage.model.defaults);
+        //Set all the defaults to the model
+        dashboardViewPage.model.clear().set(dashboardViewPage.model.defaults);
 
-    dashboardViewPage.getData().done(function () {
-      $("#content").fadeOut(function () {
-        fade.resolve();
-        $("#content").html(dashboardViewPage.render().el);
-      });
-    });
-  },
+        $('#content').fadeOut(function(){
+            fade.resolve();
+            $('#content').html(dashboardViewPage.render().el);
+        })
+    }
 });
 
 var dashboardViewPage = null;
@@ -873,12 +910,11 @@ var dashboardRouter = null;
 
 dashboardModelPage = new ModelDashboard();
 dashboardViewPage = new ViewDashboard({
-  model: dashboardModelPage,
-  tagName: "div",
+    model: dashboardModelPage,
+    tagName: 'div'
 });
 
 dashboardRouter = new RouterDashboard();
-
 var RouterExample = Backbone.Router.extend({
     routes: {
         // These are urls that will trigger this example page to appear
@@ -916,29 +952,26 @@ exampleRouter = new RouterExample();
 var RouterKanban = Backbone.Router.extend({
     routes: {
         // These are urls that will trigger this kanban page to appear
-        "kanban/:projectName": 'showKanban'
+        "kanban": 'showKanban'
     },
 
-    showKanban: function(projectName){
+    showKanban: function(){
         var fade = $.Deferred();
 
+        console.log('here');
 
         //Set all the defaults to the model
         kanbanViewPage.model.clear().set(kanbanViewPage.model.defaults);
-        kanbanViewPage.model.set('projectName', projectName)
 
         var clockedIn = localStorage.getItem('clockedIn');
         if(clockedIn){
             kanbanViewPage.model.set('clockedIn', JSON.parse(clockedIn));
         }
 
-        kanbanViewPage.getData().done(function(){
-            $('#content').fadeOut(function(){
-                fade.resolve();
-                $('#content').html(kanbanViewPage.render().el);
-            })
+        $('#content').fadeOut(function(){
+            fade.resolve();
+            $('#content').html(kanbanViewPage.render().el);
         })
-        
     }
 });
 
@@ -962,17 +995,15 @@ var RouterLogin = Backbone.Router.extend({
     showLogin: function(){
         var fade = $.Deferred();
 
+        console.log('here');
+
         //Set all the defaults to the model
         loginViewPage.model.clear().set(loginViewPage.model.defaults);
 
-        localStorage.setItem('clockedIn', JSON.stringify(false));
-        
-        loginViewPage.getData().done(function () {
-            $("#content").fadeOut(function () {
-                fade.resolve();
-                $("#content").html(loginViewPage.render().el);
-            });
-        });
+        $('#content').fadeOut(function(){
+            fade.resolve();
+            $('#content').html(loginViewPage.render().el);
+        })
     }
 });
 
@@ -988,23 +1019,21 @@ loginViewPage = new ViewLogin({
 
 loginRouter = new RouterLogin();
 var RouterProjects = Backbone.Router.extend({
-  routes: {
-    projects: "showProjects",
-  },
+    routes: {
+        "projects": 'showProjects'
+    },
 
-  showProjects: function () {
-    var fade = $.Deferred();
+    showProjects: function(){
+        var fade = $.Deferred();
+        
+        //Set all the defaults to the model
+        projectsViewPage.model.clear().set(projectsViewPage.model.defaults);
 
-    //Set all the defaults to the model
-    projectsViewPage.model.clear().set(projectsViewPage.model.defaults);
-
-    projectsViewPage.getProjData().done(function () {
-      $("#content").fadeOut(function () {
-        fade.resolve();
-        $("#content").html(projectsViewPage.render().el);
-      });
-    });
-  },
+        $('#content').fadeOut(function(){
+            fade.resolve();
+            $('#content').html(projectsViewPage.render().el);
+        })
+    }
 });
 
 var projectsViewPage = null;
@@ -1013,12 +1042,11 @@ var projectsRouter = null;
 
 projectsModelPage = new ModelProjects();
 projectsViewPage = new ViewProjects({
-  model: projectsModelPage,
-  tagName: "div",
+    model: projectsModelPage,
+    tagName: 'div'
 });
 
 projectsRouter = new RouterProjects();
-
 var AppRouter = Backbone.Router.extend({
     routes: {},
 });
@@ -1035,28 +1063,24 @@ $(document).ready(function(){
 var RouterTaskPage = Backbone.Router.extend({
     routes: {
         // These are urls that will trigger this example page to appear
-        "taskPage/:projectName/:taskID": 'showTaskPage'
+        "taskPage": 'showTaskPage'
     },
 
-    showTaskPage: function(projectName, taskID){
+    showTaskPage: function(){
         var fade = $.Deferred();
 
         //Set all the defaults to the model
          taskViewPage.model.clear().set(taskViewPage.model.defaults);
-         taskViewPage.model.set('projectName', projectName);
-         taskViewPage.model.set('taskID', taskID);
 
          var clockedIn = localStorage.getItem('clockedIn');
         if(clockedIn){
             taskViewPage.model.set('clockedIn', JSON.parse(clockedIn));
         }
-        
-        taskViewPage.getData().done(function(){
-            $('#content').fadeOut(function(){
-                fade.resolve();
-                $('#content').html(taskViewPage.render().el);
-            })
-        });
+
+         $('#content').fadeOut(function(){
+             fade.resolve();
+             $('#content').html(taskViewPage.render().el);
+         })
     }
 });
 
@@ -1239,33 +1263,31 @@ async function fetchData(dir) {
 
 function postDatabase(dir, data) {
   // adds user
-  fetch(address + dir + ".json", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-}
-function patchDatabase(dir, data) {
-  fetch(address + dir + ".json", {
-    method: "PATCH",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  fetch(
+    "https://project-i-management-default-rtdb.firebaseio.com/" + dir + ".json",
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 }
 
 function delFromDatabase(dir) {
   // needs work
-  fetch(address + dir + ".json", {
-    method: "DELETE",
-  })
+  fetch(
+    "https://project-i-management-default-rtdb.firebaseio.com/" + dir + ".json",
+    {
+      method: "DELETE",
+    }
+  )
     .then((response) => {
       return response.json();
     })
     .then((data) => {
+      // modelDest.set(dir, Object.values(data));
       // console.log(Object.values(data));
     });
 }
