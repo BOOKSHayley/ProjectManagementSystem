@@ -1,18 +1,15 @@
 {{> projectnav}}
 <div class="page-content-wrapper-fluid">
     <div class="container-fluid">
-        <div style="display:flex">
-            <div class="col-6">
-                <h2 class="dash-header">Kanban Board</h2>
-            </div>
-            <div class="col-6">
-                <button type="button" class="btn btn-primary" id="testButton" style="float: right">Create Task</button>
-            </div>
-        </div>
-        <div class="container-fluid" >
-            <div class=
-                "mb-2 border border-dark border-2 rounded-3" style="background-color: #ffffff">
-                <div style="display:flex">
+        <div class="container-fluid backdrop-dash">
+            <div class="dash-container col-12 col-md-10" style="align-items: center">
+
+                <h2 class="dash-header p-2">Kanban Board</h2>
+
+                <button type="button" class="btn btn-primary" id="testButton" style="float: right; height:fit-content">Create Task</button>
+
+                <div style="display:flex; width: 100%">
+
                     <div class="col-3">
                         
                         <div class="p-1 d-flex justify-content-center">
@@ -27,7 +24,7 @@
                                     <div class = "p-1">
 
                                         <div class="kanban-card-holder">
-                                            <button class="kanban-card task-button" data-taskid="{{taskID}}" style="background-color:#DDDDDD">
+                                            <button class="kanban-card task-button bg-not-started" data-taskid="{{taskID}}">
                                                 <h6 style="color:#333333;">{{name}}</h6> <!-- Reference the task name -->
                                             </button>
                                         </div>
@@ -49,7 +46,7 @@
                                     <div class = "p-1">
 
                                         <div class="kanban-card-holder">
-                                            <button class="kanban-card task-button" data-taskid="{{taskID}}" style="background-color:#FFEA8A">
+                                            <button class="kanban-card task-button bg-in-progress" data-taskid="{{taskID}}">
                                                 <h6 style="color:#333333;">{{name}}</h6>
                                                 <p style="color:#333333;">{{timeLogged}}</p>
                                                 <div class="progress" style="height: 15px;">
@@ -75,7 +72,7 @@
                                 {{#ifvalue status equals= 2}}
                                     <div class = "p-1">
                                         <div class="kanban-card-holder">
-                                            <button class="kanban-card task-button" data-taskid="{{taskID}}" style="background-color:#09B0EF">
+                                            <button class="kanban-card task-button bg-testing" data-taskid="{{taskID}}">
                                                 <h6 style="color:#333333;">{{name}}</h6>
                                                 <p style="color:#333333;">{{timeLogged}}</p>
                                                 <div class="progress" style="height: 15px;">
@@ -100,7 +97,7 @@
                                 {{#ifvalue status equals= 3}}
                                     <div class = "p-1">
                                         <div class="kanban-card-holder">
-                                            <button class="kanban-card task-button" data-taskid="{{taskID}}" style="background-color:#B9FF8A">
+                                            <button class="kanban-card task-button bg-done" data-taskid="{{taskID}}">
                                                 <h6 style="color:#333333;">{{name}}</h6>
                                                 <p style="color:#333333;">{{timeLogged}}</p>
                                             </button>
