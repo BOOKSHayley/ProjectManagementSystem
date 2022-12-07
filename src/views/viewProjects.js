@@ -27,8 +27,7 @@ var ViewProjects = Backbone.View.extend({
       self.model.set("projects", a[1]);
       self.model.set("groups", a[0]);
       self.model.set("users", a[2]);
-      //            gets last user
-      console.log(Object.values(a[2])[Object.values(a[2]).length - 1]);
+
       promise.resolve();
     });
 
@@ -143,11 +142,11 @@ var ViewProjects = Backbone.View.extend({
         groups['g' + newGroup.groupID] = newGroup;
         self.model.set("groups", groups);
 
-        patchDatabase('groups/g' + newGroup.groupID, newGroup);
-
-        $("#createGroupModal").modal("hide");
-        $(".modal-backdrop").remove();
-        self.render();
+        patchDatabase('groups/g' + newGroup.groupID, newGroup).done(function(){
+          $("#createGroupModal").modal("hide");
+          $(".modal-backdrop").remove();
+          self.refreshPage();
+        })
     }
     
   },
@@ -194,6 +193,7 @@ var ViewProjects = Backbone.View.extend({
     $(e.currentTarget).closest("tr").remove();
   },
   confirmEditGroup: function () {
+    var self = this;
     var selectedGroup = this.model.get("selectedGroup");
     var groups = this.model.get("groups");
     var users = this.model.get("users");
@@ -224,13 +224,15 @@ var ViewProjects = Backbone.View.extend({
     if (valid) {
       groups['g' + updateGroup.groupID] = updateGroup;
 
+      console.log(updateGroup);
+
       this.model.set("groups", groups);
 
-      patchDatabase('groups/g' + updateGroup.groupID, updateGroup);
-
-      $("#editGroupModal").modal("hide");
-      $(".modal-backdrop").remove();
-      this.render();
+      patchDatabase('groups/g' + updateGroup.groupID, updateGroup).done(function(){
+        $("#editGroupModal").modal("hide");
+        $(".modal-backdrop").remove();
+        self.refreshPage();
+      })
     }
   },
 
@@ -259,6 +261,12 @@ var ViewProjects = Backbone.View.extend({
     var index = $(event.target).attr("data-index");
     var project = this.model.get("projects")[index];
     this.model.set("selectedProject", project);
-    console.log("Edit project");
   },
+
+  refreshPage: function(){
+    var self = this;
+    self.getProjData().done(function(){
+      self.render();
+    })
+  }
 });

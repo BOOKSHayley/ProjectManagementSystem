@@ -27,10 +27,15 @@
                     <h6>-{{name}}</h6>
                   {{/each}}
                 </div>
-                {{#ifInObj currentUser.userID currentTask.assignedUsers 'userID'}}
+                {{#if currentTask.assignedUsers}}
+                  {{#ifInObj currentUser.userID currentTask.assignedUsers 'userID'}}
+                  {{else}}
+                    <button type="button" class="btn btn-dark" style="width: 145px;" id="claimTask">Claim Task</button>
+                  {{/ifInObj}}
                 {{else}}
-                  <button type="button" class="btn btn-dark" style="width: 145px;" id="claimTask">Claim Task</button>
-                {{/ifInObj}}
+                    <button type="button" class="btn btn-dark" style="width: 145px;" id="claimTask">Claim Task</button>
+                {{/if}}
+                
                 <h6 style="margin: 10px 0px 0px 0px">Projected finish date:</h6>
                 <h5>{{currentTask.finishDate}}</h5>
               </div>
