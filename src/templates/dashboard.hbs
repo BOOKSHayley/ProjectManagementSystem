@@ -33,7 +33,7 @@
 
             {{#each starredProjects}}
                 <div class="dash-card-holder">
-                    <a href="#kanban" class="dash-card project-card">
+                    <a href="#kanban/{{name}}" class="dash-card project-card">
                         <h5>{{name}}</h5>
                         {{#ifvalue starred equals=1}}
                             <span class="material-icons favorite">
