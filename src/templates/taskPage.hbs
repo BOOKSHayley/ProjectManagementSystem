@@ -4,7 +4,18 @@
         
         <div style="display: flex; align-items: center;">
                     <h1>{{task.name}}</h1>
-                    <h5 class="px-2"><span class="badge bg-warning">Inprogress</span></h5>
+                    <h5 class="px-2">
+                        {{#ifvalue task.status equals= 0}}
+                            <span class="badge bg-secondary task-status-badge">Not Started</span>
+                        {{else ifvalue task.status equals= 1}}
+                            <span class="badge bg-warning task-status-badge">Inprogress</span>
+                        {{else ifvalue task.status equals= 2}}
+                            <span class="badge bg-primary task-status-badge">Testing</span>
+                        {{else ifvalue task.status equals= 3}}
+                            <span class="badge bg-success task-status-badge">Done</span>
+                        {{/ifvalue}}
+                        
+                    </h5>
         </div>
 
         <div style="display: flex; align-items: center; max-width : 50%">
@@ -141,4 +152,5 @@
             </div>
         </div>
     </div>
+
 </div>

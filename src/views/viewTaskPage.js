@@ -8,7 +8,8 @@ var ViewTaskPage = Backbone.View.extend({
         'click #assignUserButton': 'updateAssigned',
         'click .deleteUserButton': 'deleteUser',
         'click #confirmUsers': 'confirmNewUsers',
-        'click #navTimer': 'navTimer'
+        'click #navTimer': 'navTimer',
+        'click .task-status-badge': 'changeStatus'
     },
 
     initialize: function(){
@@ -26,6 +27,18 @@ var ViewTaskPage = Backbone.View.extend({
 
         this.delegateEvents();
         return this;
+    },
+
+    changeStatus: function(){
+        var self = this;
+        var task = self.model.get('task');
+        var projName = self.model.get('projectName');
+
+        task.status = (task.status + 1) % 4;
+
+        self.model.set('task', task);
+        self.render();
+        patchDatabase('projects/' + projName + "/Tasks/task" + task.taskID, task);
     },
 
     updateComments: function(){
