@@ -6,13 +6,13 @@
                     <h1>{{task.name}}</h1>
                     <h5 class="px-2">
                         {{#ifvalue task.status equals= 0}}
-                            <span class="badge bg-secondary task-status-badge">Not Started</span>
+                            <span class="badge btn bg-secondary task-status-badge">Not Started</span>
                         {{else ifvalue task.status equals= 1}}
-                            <span class="badge bg-warning task-status-badge">Inprogress</span>
+                            <span class="badge btn bg-warning task-status-badge">Inprogress</span>
                         {{else ifvalue task.status equals= 2}}
-                            <span class="badge bg-primary task-status-badge">Testing</span>
+                            <span class="badge btn bg-primary task-status-badge">Testing</span>
                         {{else ifvalue task.status equals= 3}}
-                            <span class="badge bg-success task-status-badge">Done</span>
+                            <span class="badge btn bg-success task-status-badge">Done</span>
                         {{/ifvalue}}
                         
                     </h5>
