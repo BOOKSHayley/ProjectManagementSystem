@@ -4,7 +4,7 @@ var ViewKanban = Backbone.View.extend({
         'click #clickButton': 'clickButtonFunction',
         'click .task-button': 'showTaskModal',
         'click #navTimer': 'navTimer',
-        'click #testButton': 'showCreateTask',
+        'click .create-task': 'showCreateTask',
         'click #assignUserButton' : 'updateAssigned',
         'click .create-task-delete-user': 'createTaskModalRemoveUser',
         'click #createTask': 'createTask'
@@ -124,7 +124,10 @@ var ViewKanban = Backbone.View.extend({
     createTask: function(){
         var projName = this.model.get('projectName');
         var project = this.model.get('project');
-        console.log(project);
+
+        if(!project.Tasks){
+            project.Tasks = {};
+        }
 
         var newTask = {
             assignedusers : [],

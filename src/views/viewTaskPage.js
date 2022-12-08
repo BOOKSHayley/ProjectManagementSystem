@@ -34,13 +34,22 @@ var ViewTaskPage = Backbone.View.extend({
         var cmt = $("#comment").val();
         var currentUser = this.model.get("currentUser");
         var projName = this.model.get("projectName");
+
+        if(!cmtLog){
+            cmtLog = [];
+        }
+
         if(cmt != ""){
             var li = '<li class="list-group-item">' +currentUser.name+ ': ' +cmt+ '</li>';
             $("#commentLog").append(li);
             var log = {user: currentUser.name, comment: cmt};
             cmtLog.push(log);
+            task.commentLog = cmtLog;
+
             patchDatabase('projects/' + projName + "/Tasks/task" + task.taskID, task);
             $("#comment").val("");
+
+            this.model.set('task', task);
         }
         return false;
     },
@@ -85,6 +94,11 @@ var ViewTaskPage = Backbone.View.extend({
     confirmNewUsers: function(){
         var assigned = this.model.get("task").assignedUsers;
         var users = this.model.get("projectUsers");
+
+        if(!assigned){
+            assigned = [];
+        }
+
         var newAssigned = [];
         $(".assign-user-row").each(function(){
             var tmp = $(this).attr("data-userid");

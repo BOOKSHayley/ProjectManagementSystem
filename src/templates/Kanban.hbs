@@ -6,8 +6,9 @@
 
                 <h2 class="dash-header p-2">Kanban Board</h2>
 
-                <button type="button" class="btn btn-primary" id="testButton" style="float: right; height:fit-content">Create Task</button>
+                <button type="button" class="btn btn-primary create-task" style="float: right; height:fit-content">Create Task</button>
 
+                {{#if project.Tasks}}
                 <div style="display:flex; width: 100%">
 
                     <div class="col-3">
@@ -109,6 +110,11 @@
                         </div>
                     </div>
                 </div>
+                {{else}}
+                    <div style="display:flex; width: 100%; justify-content: center">
+                        <h4>No Tasks Yet!</h4>
+                    </div>
+                {{/if}}
             </div>
         </div>
     </div>
